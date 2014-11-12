@@ -48,7 +48,7 @@ module.exports = function(app){
 
     app.post('/admin/category/doupdate',auth.userRequire,category.update);
 
-    app.post('/admin/category/list',auth.userRequire,category.list);
+    app.get('/admin/category/list',auth.userRequire,category.list);
 
 //UEditor
 

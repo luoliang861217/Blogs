@@ -4,7 +4,7 @@
 
 
 var settings = require('../settings');
-var usermodel = require('../models/user');
+var usermodel = require('../model/user');
 var User = usermodel.User;
 
 //自定义变量

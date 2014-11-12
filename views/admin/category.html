@@ -41,7 +41,7 @@
                                             <a href="" title="浏览 <%= item.name %>"><i class="i-exlink"></i></a>
                                         </td>
                                         <td>
-                                            <a href="#"><%= item.parent %></a>
+                                            <a href="#"><%= item.parent.length > 0 ? item.parent[0].name : '无' %></a>
                                         </td>
                                         <td><%= item.slug %></td>
                                         <td><a href="/admin/category_delete?id=<%= item.id %>" target="_self">删除</a> | <a href="/admin/category_update?id=<%= item.id %>">修改</a></td>

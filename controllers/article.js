@@ -4,9 +4,9 @@
 
 var settings = require('../settings');
 
-var categorymodel = require('../models/category');
+var categorymodel = require('../model/category');
 var Category = categorymodel.Category;
-var articlemodel = require('../models/article');
+var articlemodel = require('../model/article');
 var Article = articlemodel.Article;
 
 
