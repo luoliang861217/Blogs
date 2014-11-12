@@ -2,12 +2,8 @@
  * Created by Administrator on 2014/11/12.
  */
 
-//var db = require('../common/db');
-//var mongoose = db.mongoose;
-//var Schema = db.Schema;
 
-
-var Category = require('../model/category');
+var User = require('../model/user');
 
 module.exports = function(){
 
@@ -17,15 +13,13 @@ module.exports = function(){
      * @param callback  回调函数
      */
     this.add = function(param,callback){
-        var category = new Category({
-            name : param.name,
-            slug : param.slug,
-            description : param.description
+        var user = new User({
+            username : param.username,
+            password : param.password,
+            email : param.email,
+            avatar : 'img/avatar.jpg'
         });
-        if( param.parent && param.parent != ''){
-            category.parent = param.parent;
-        }
-        category.save(callback);
+        user.save(callback);
     };
 
     /**
@@ -34,7 +28,7 @@ module.exports = function(){
      * @param callback  回调函数
      */
     this.findByIdAndRemove = function(id,callback){
-        Category.findByIdAndRemove(id,callback);
+        User.findByIdAndRemove(id,callback);
     };
 
     /**
@@ -47,13 +41,10 @@ module.exports = function(){
             if(err){
                 callback(err);
             }
-            result.name = param.name;
-            result.slug = param.slug;
-            result.description = param.description;
-            result.updateTime = Date.now;
-            if(param.parent && param.parent != ''){
-                result.parent = param.parent;
-            }
+            result.username = param.username;
+            result.password = param.password;
+            result.email = param.email;
+            result.UpdateTime = Date.now;
             result.save(callback);
         });
     };
@@ -65,8 +56,14 @@ module.exports = function(){
      */
     this.getById = function(id,callback){
 
-        Category.findOne({ _id : id },callback);
+        User.findOne({ _id : id },callback);
     };
+
+    this.getByuserName = function(username,callback) {
+
+        User.findOne({ username: username }, callback);
+    };
+
     /**
      * 分类列表
      * @param param     查询条件
@@ -81,16 +78,13 @@ module.exports = function(){
             qurey['_id'] = param.id;
         }
         if(param.name){
-            qurey['name'] = param.name;
+            qurey['username'] = param.username;
         }
         if(param.slug){
-            qurey['slug'] = param.slug;
-        }
-        if(param.description){
-            qurey['description'] = param.description;
+            qurey['email'] = param.email;
         }
 
-        Category.find(qurey).skip(skip).limit(pageSize).populate('parent').exec(callback);
+        User.find(qurey).skip(skip).limit(pageSize).exec(callback);
     };
 
 }

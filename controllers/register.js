@@ -4,8 +4,7 @@
 
 
 var settings = require('../settings');
-var usermodel = require('../model/user');
-var User = usermodel.User;
+var userRepository = require('../Repository/userRepository');
 
 //自定义变量
 var blogtitle = settings.blogtitle;
@@ -35,39 +34,34 @@ exports.showregister = function(req,res){
  * @returns {*}
  */
 exports.doregister = function(req,res){
-//    console.log('username:' + req.body.username +
-//        'password:' +  req.body.password +
-//        'password_repeat' + req.body.password_repeat +
-//        'email' + req.body.email);
-
-    var username = req.body.username;
-    var password = req.body.password;
-    var password_repeat = req.body.password_repeat;
-    var email = req.body.email;
-
-    if(!username || username === ''){
+    var repository = new userRepository();
+    var param = {
+        username : req.body.username,
+        password : req.body.password,
+        email : req.body.email
+    };
+    if(!param.username || param.username === ''){
         req.flash('error','用户名不能为空！');
         return res.redirect('/admin/register');
     }
-    if(!password || password === ''){
+    if(!param.password || param.password === ''){
         req.flash('error','密码不能为空！');
         return res.redirect('/admin/register');
     }
-    if(password != password_repeat){
+    if( param.password != req.body.password_repeat){
         req.flash('error','密码不一致！');
         return res.redirect('/admin/register');
     }
-    if(!email || email === ''){
+    if(!param.email || param.email === ''){
         req.flash('error','邮箱不能为空！');
         return res.redirect('/admin/register');
     }
-    if(!email.isEmail()){
+    if(!param.email.isEmail()){
         req.flash('error','邮箱不正确！');
         return res.redirect('/admin/register');
     }
-
-    password = password.encryption();
-    User.findOne({username:username},function(err,user){
+    param.password = param.password.encryption();
+    repository.getByuserName(param.username,function(err,user){
         if(err){
             req.flash('error',err);
             return res.redirect('/admin/register');
@@ -76,13 +70,7 @@ exports.doregister = function(req,res){
             req.flash('error','用户已经存在！');
             return res.redirect('/admin/register');
         }
-        var newUser = new User({
-            username : username,
-            password : password,
-            email : email,
-            avatar : 'img/avatar.jpg'
-        });
-        newUser.save(function(err,user){
+        repository.add(param,function(err,user){
             if (err) {
                 req.flash('error', err);
                 return res.redirect('/admin/register');

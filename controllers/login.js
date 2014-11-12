@@ -4,8 +4,7 @@
 
 
 var settings = require('../settings');
-var usermodel = require('../model/user');
-var User = usermodel.User;
+var userRepository = require('../Repository/userRepository');
 
 //自定义变量
 var blogtitle = settings.blogtitle;
@@ -35,17 +34,20 @@ exports.showlogin = function(req,res){
  * @param next
  */
 exports.dologin = function(req,res){
-    var username = req.body.username;
-    var password = req.body.password;
-    if( !username && username === ''){
+    var repository = new userRepository();
+    var param = {
+        username : req.body.username,
+        password : req.body.password
+    };
+    if( !param.username && param.username === ''){
         req.flash('error','用户名不能为空！');
         return res.redirect('/admin/login');
     }
-    if( !password && password === ''){
+    if( !param.password && param.password === ''){
         req.flash('error','密码不能为空！');
         return res.redirect('/admin/login');
     }
-    User.findOne({username:username},function(err,user){
+    repository.getByuserName(param.username,function(err,user){
         if(err){
             req.flash('error',err);
             return res.redirect('/admin/login');
@@ -54,11 +56,20 @@ exports.dologin = function(req,res){
             req.flash('error','用户不存在！');
             return res.redirect('/admin/login');
         }
-        req.session.user = user;
-        req.flash('success', '登陆成功!');
-        res.redirect('/admin/index');
-    });
+        else{
+            var password = param.password.encryption();;
+            if(user.password ===  password){
+                req.session.user = user;
+                req.flash('success', '登陆成功!');
+                res.redirect('/admin/index');
+            }
+            else{
+                req.flash('error','密码不准确！');
+                return res.redirect('/admin/login');
+            }
 
+        }
+    });
 };
 
 /**
