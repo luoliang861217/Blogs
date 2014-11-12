@@ -1,4 +1,5 @@
 /**
+ * 用户伪仓储，之后会增加类似仓储接口的设计，达到按照接口编程
  * Created by Administrator on 2014/11/12.
  */
 
@@ -65,7 +66,7 @@ module.exports = function(){
     };
 
     /**
-     * 分类列表
+     * 用户列表
      * @param param     查询条件
      * @param pageIndex 页码
      * @param pageSize  页大小
