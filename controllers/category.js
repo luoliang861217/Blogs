@@ -13,7 +13,11 @@ var querystring = require('querystring');
 var title = ' - '+ settings.blogtitle;
 
 
-//后台分类首页
+/**
+ * 后台分类首页
+ * @param req
+ * @param res
+ */
 exports.index = function(req,res){
     var repository = new categoryRepository();
     var param = {};
@@ -33,7 +37,11 @@ exports.index = function(req,res){
 
 };
 
-//后台显示分类添加页面
+/**
+ * 后台显示分类添加页面
+ * @param req
+ * @param res
+ */
 exports.showadd = function(req,res){
     var repository = new categoryRepository();
     var param = {};
@@ -53,7 +61,12 @@ exports.showadd = function(req,res){
     });
 };
 
-//后台分类添加
+/**
+ * 后台分类添加逻辑
+ * @param req
+ * @param res
+ * @returns {*}
+ */
 exports.add = function(req,res){
     var repository = new categoryRepository();
     var param = {
@@ -82,7 +95,11 @@ exports.add = function(req,res){
     });
 };
 
-//后台分类删除
+/**
+ * 后台分类删除逻辑
+ * @param req
+ * @param res
+ */
 exports.delete = function(req,res){
     var paramStr = url.parse(req.url).query;
     var param = querystring.parse(paramStr);
@@ -99,7 +116,11 @@ exports.delete = function(req,res){
 
 };
 
-//后台显示分类更改页面
+/**
+ * 后台显示分类更改页面
+ * @param req
+ * @param res
+ */
 exports.showupdate = function(req,res){
     var paramStr = url.parse(req.url).query;
     var param = querystring.parse(paramStr);
@@ -128,7 +149,12 @@ exports.showupdate = function(req,res){
     });
 };
 
-//后台分类更新
+/**
+ * 后台分类更新逻辑
+ * @param req
+ * @param res
+ * @returns {*}
+ */
 exports.update = function(req,res){
     var repository = new categoryRepository();
     var param = {
@@ -154,7 +180,11 @@ exports.update = function(req,res){
     });
 };
 
-//后台分类列表
+/**
+ * 后台分类列表
+ * @param req
+ * @param res
+ */
 exports.list = function(req,res){
     var repository = new categoryRepository();
     var param = {};
