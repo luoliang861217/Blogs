@@ -1,0 +1,1142 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/custom.css" />
+
+    <!--
+    <meta name="description" content="我比较喜欢未雨绸缪，平时用 Gentoo 时有个习惯，Portage 添加了 FEATURES=&quot;buildpkg&quot;这个功能是在安装包的时候，顺便把编译好的二进制包存到 /usr/portage..." />
+    <meta name="keywords" content="gentoo" />
+    <meta name="generator" content="Typecho 1.0/14.10.10" />
+    <meta name="template" content="SugarAndSpice" />
+    <link rel="pingback" href="http://blog.sloger.info/action/xmlrpc" />
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://blog.sloger.info/action/xmlrpc?rsd" />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://blog.sloger.info/action/xmlrpc?wlw" />
+    -->
+    <script type="text/javascript">
+    (function () {
+        window.TypechoComment = {
+            dom: function (id) {
+                return document.getElementById(id);
+            },
+
+            create: function (tag, attr) {
+                var el = document.createElement(tag);
+
+                for (var key in attr) {
+                    el.setAttribute(key, attr[key]);
+                }
+
+                return el;
+            },
+
+            reply: function (cid, coid) {
+                var comment = this.dom(cid), parent = comment.parentNode,
+                response = this.dom('respond-post-543'), input = this.dom('comment-parent'),
+                form = 'form' == response.tagName ? response : response.getElementsByTagName('form')[0],
+                textarea = response.getElementsByTagName('textarea')[0];
+
+                if (null == input) {
+                    input = this.create('input', {
+                        'type': 'hidden',
+                        'name': 'parent',
+                        'id': 'comment-parent'
+                    });
+
+                    form.appendChild(input);
+                }
+
+                input.setAttribute('value', coid);
+
+                if (null == this.dom('comment-form-place-holder')) {
+                    var holder = this.create('div', {
+                        'id': 'comment-form-place-holder'
+                    });
+
+                    response.parentNode.insertBefore(holder, response);
+                }
+
+                comment.appendChild(response);
+                this.dom('cancel-comment-reply-link').style.display = '';
+
+                if (null != textarea && 'text' == textarea.name) {
+                    textarea.focus();
+                }
+
+                return false;
+            },
+
+            cancelReply: function () {
+                var response = this.dom('respond-post-543'),
+            holder = this.dom('comment-form-place-holder'), input = this.dom('comment-parent');
+
+                if (null != input) {
+                    input.parentNode.removeChild(input);
+                }
+
+                if (null == holder) {
+                    return true;
+                }
+
+                this.dom('cancel-comment-reply-link').style.display = 'none';
+                holder.parentNode.insertBefore(response, holder);
+                return false;
+            }
+        };
+    })();
+    </script>
+    <script type="text/javascript">
+    (function () {
+        var event = document.addEventListener ? {
+            add: 'addEventListener',
+            focus: 'focus',
+            load: 'DOMContentLoaded'
+        } : {
+            add: 'attachEvent',
+            focus: 'onfocus',
+            load: 'onload'
+        };
+
+        document[event.add](event.load, function () {
+            var r = document.getElementById('respond-post-543');
+
+            if (null != r) {
+                var forms = r.getElementsByTagName('form');
+                if (forms.length > 0) {
+                    var f = forms[0], textarea = f.getElementsByTagName('textarea')[0], added = false;
+
+                    if (null != textarea && 'text' == textarea.name) {
+                        textarea[event.add](event.focus, function () {
+                            if (!added) {
+                                var input = document.createElement('input');
+                                input.type = 'hidden';
+                                input.name = '_';
+                                input.value = (function () {
+                                    var _Mnhz = //'sA4'
+'995' + '70'//'2'
++ //'4'
+'fab' + //'RdU'
+'b' + ''///*'l'*/'l'
++ //'i'
+'0' + //'YZe'
+'YZe' + //'dHa'
+'48' + 'fc4'//'LfW'
++ /* 'ln'//'ln' */'' + //'1e'
+'118' + //'C'
+'f01' + '174'//'1S'
++ //'S0N'
+'e30' + //'M'
+'4d9' + //'eT7'
+'5' + //'x7X'
+'x7X' + 'f'//'z4'
+, _7dCSseq = [[10, 13], [31, 34]];
+
+                                    for (var i = 0; i < _7dCSseq.length; i++) {
+                                        _Mnhz = _Mnhz.substring(0, _7dCSseq[i][0]) + _Mnhz.substring(_7dCSseq[i][1]);
+                                    }
+
+                                    return _Mnhz;
+                                })();
+
+                                f.appendChild(input);
+                                added = true;
+                            }
+                        });
+                    }
+                }
+            }
+        });
+    })();
+    </script>
+</head>
+<body>
+    <div class="wrap">
+
+        <header class="site-header">
+
+            <div class="site-branding">
+            <h1 class="site-title">
+                <a href="index.html">Sloger' Blog</a>
+            </h1>
+            <h2 class="site-description">This is my personal blog to record my life and my thoughts</h2></div>
+
+            <div class="site-navbar"><div class="ribbon-left"></div>
+                <ul class="navbar-nav">
+                    <li class="current">
+                    <a href="/index" target="_blank">首页</a>
+                    </li>
+                    <li class="has-children">
+                    <a href="#">分类</a>
+                    <ul class="children"><li class="category-level-0 category-parent"><a href="http://blog.sloger.info/category/typecho/">typecho</a></li><li class="category-level-0 category-parent"><a href="http://blog.sloger.info/category/linux/">Linux</a></li><li class="category-level-0 category-parent"><a href="http://blog.sloger.info/category/programing/">Programing</a></li><li class="category-level-0 category-parent"><a href="http://blog.sloger.info/category/web/">Web</a></li><li class="category-level-0 category-parent"><a href="http://blog.sloger.info/category/default/">无聊吐槽</a></li></ul>          </li>
+                                        <li >
+                    <a href="/guestbook" target="_blank" title="留言">
+                        留言            </a>
+                    </li>
+                            <li >
+                    <a href="/about" target="_blank" title="关于">
+                        关于            </a>
+                    </li>
+                            </ul>        
+                <div class="ribbon-right"></div>
+            </div>
+
+	    </header>
+
+        <div class="site-main">
+            <div class="site-content">
+                <article class="post">
+    <header class="header">
+      <h1 class="title">
+        <a href="http://blog.sloger.info/linux/reinstall-gentoo-rapidly.html">快速重装 Gentoo</a>
+      </h1>
+      <ul class="meta">
+        <li>
+          <span>October 14, 2014</span>
+        </li>
+      </ul>
+    </header>
+    <div class="body markdown-body">
+    <p>我比较喜欢未雨绸缪，平时用 Gentoo 时有个习惯，Portage 添加了 <code>FEATURES="buildpkg"</code></p>
+
+<p>这个功能是在安装包的时候，顺便把编译好的二进制包存到 <code>/usr/portage/packages</code> 下，以作重装使用。</p>
+
+<p>所以重装时，就可以用这些二进制包来重装，以避免重复编译浪费时间。</p>
+
+<h2>备份 portage 配置文件</h2>
+
+<p>包括 <code>/etc/portage/</code> 目录，<code>/var/lib/portage/{world, world_sets}</code> 等文件，可以用 git 同步到 Github 或者 Bitbucket。</p>
+
+<h2>制作二进制包</h2>
+
+<p>因为 <code>/usr/portage/packages</code> 下可能存在一个软件的多个版本，而我们只需要最新版本，所以可以使用 <code>eclean packages</code> 清楚旧版本的包，只保留最新版本。</p>
+
+<p>而之前没有注意备份二进制包的话，可以使用 <code>quickpkg</code> 创建二进制包。</p>
+
+<p><img src="http://slogerinfo.qiniudn.com/2014/10/1875231623.png" alt="quickpkg.png" /></p>
+
+<ul>
+<li><code>--include-config</code> 表示连同软件的配置文件一同打包，而安装了之后无需再次配置。</li>
+<li><code>equery -qC l '*' -F'$cp'</code> 用来列出当前系统中所有已安装的包。</li>
+</ul>
+
+<!--more-->
+
+<p>当然有时会出现有的包有二进制包，而有的没有，这时也不值得全部重新打包，可以用 <code>equery -qC l '*' -b -F'$cp'</code> 找出缺失二进制包的包</p>
+
+<p>这个过程时间有点长，我 600 个包用了 1 个小时，后来安装这 600 个包用了 2 个小时。但是我编译这 600 个包用了 11 个小时，相比之下，这点时间不算什么的。</p>
+
+<p>所有二进制包都做好之后，就备份 <code>/usr/portage/packages</code> 目录，可以做成 <code>squashfs</code> 文件或者达成 <code>tar</code> 包</p>
+
+<h2>安装二进制包</h2>
+
+<p>在解压完 stage3 和 portage snapshot 并 chroot 之后，就把上一步做好的 <code>squashfs</code> 文件挂载到 <code>/usr/portage/packages</code> 目录上或者直接将 <code>squashfs</code> 文件或 <code>tar</code> 包解压到 <code>/usr/portage/packages</code> 下。</p>
+
+<p>然后恢复 portage 配置文件。</p>
+
+<p>然后用 <code>emerge -auvDN --usepkg world --exclude gentoo-sources</code> 安装前面备份的二进制包及其配置文件。</p>
+
+<p>另建立一个终端安装内核 <code>emerge -O1 --usepkg  gentoo-sources</code></p>
+
+<p>在之后就是编译内核、模块，安装 grub 等等了。</p>
+
+<p>整个过程只用了 3 个小时便完成了</p>
+    </div>
+        <footer class="footer">
+      <div>
+          <span>标签:</span>
+        <a href="http://blog.sloger.info/tag/gentoo/">gentoo</a>      </div>
+      <div>
+          <span>分类:</span>
+        <a href="http://blog.sloger.info/category/linux/">Linux</a>      </div>
+    </footer>
+      </article>
+                <div id="comments">
+                    <div class="comments widget">
+                        <h3>
+                            <span>29 <em>replies</em> </span>
+                        </h3>
+                        <ol class="comment-list">
+                            <li itemscope itemtype="http://schema.org/UserComments" id="comment-394" class="comment-body comment-parent comment-odd">
+                                <div class="comment-author" itemprop="creator" itemscope itemtype="http://schema.org/Person">
+                                    <span itemprop="image">
+                                        <img class="avatar" src="http://www.gravatar.com/avatar/5ac10c6d716acbd61cefa84c15f063bb?s=32&amp;r=G&amp;d="
+                                            alt="轮子" width="32" height="32" /></span> <cite class="fn" itemprop="name"><a href="http://www.eurusd.cn"
+                                                rel="external nofollow">轮子</a></cite>
+                                </div>
+                                <div class="comment-meta">
+                                    <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1#comment-394">
+                                        <time itemprop="commentTime" datetime="2014-05-05T14:14:47+00:00">2014/05/05, 14:14:47</time>
+                                    </a>
+                                </div>
+                                <div class="comment-content" itemprop="commentText">
+                                    <p>
+                                        神速啊</p>
+                                </div>
+                                <div class="comment-reply">
+                                    <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1?replyTo=394#respond-post-435"
+                                        rel="nofollow" onclick="return TypechoComment.reply('comment-394', 394);">回复</a>
+                                </div>
+                                <div class="comment-children" itemprop="discusses">
+                                    <ol class="comment-list">
+                                        <li itemscope itemtype="http://schema.org/UserComments" id="comment-395" class="comment-body comment-child comment-level-odd comment-odd comment-by-author">
+                                            <div class="comment-author" itemprop="creator" itemscope itemtype="http://schema.org/Person">
+                                                <span itemprop="image">
+                                                    <img class="avatar" src="http://www.gravatar.com/avatar/2c3e89142bb960c847e5e213bde13f5f?s=32&amp;r=G&amp;d="
+                                                        alt="阿狸小喵" width="32" height="32" /></span> <cite class="fn" itemprop="name"><a href="http://blog.sloger.info"
+                                                            rel="external nofollow">阿狸小喵</a></cite>
+                                            </div>
+                                            <div class="comment-meta">
+                                                <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1#comment-395">
+                                                    <time itemprop="commentTime" datetime="2014-05-05T14:15:54+00:00">2014/05/05, 14:15:54</time>
+                                                </a>
+                                            </div>
+                                            <div class="comment-content" itemprop="commentText">
+                                                <p>
+                                                    你才是神速啊！</p>
+                                            </div>
+                                            <div class="comment-reply">
+                                                <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1?replyTo=395#respond-post-435"
+                                                    rel="nofollow" onclick="return TypechoComment.reply('comment-395', 395);">回复</a>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </li>
+                            <li itemscope itemtype="http://schema.org/UserComments" id="comment-396" class="comment-body comment-parent comment-even">
+                                <div class="comment-author" itemprop="creator" itemscope itemtype="http://schema.org/Person">
+                                    <span itemprop="image">
+                                        <img class="avatar" src="http://www.gravatar.com/avatar/5ac10c6d716acbd61cefa84c15f063bb?s=32&amp;r=G&amp;d="
+                                            alt="轮子" width="32" height="32" /></span> <cite class="fn" itemprop="name"><a href="http://www.eurusd.cn"
+                                                rel="external nofollow">轮子</a></cite>
+                                </div>
+                                <div class="comment-meta">
+                                    <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1#comment-396">
+                                        <time itemprop="commentTime" datetime="2014-05-05T14:18:20+00:00">2014/05/05, 14:18:20</time>
+                                    </a>
+                                </div>
+                                <div class="comment-content" itemprop="commentText">
+                                    <p>
+                                        插件下载 给个链接 谢了</p>
+                                </div>
+                                <div class="comment-reply">
+                                    <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1?replyTo=396#respond-post-435"
+                                        rel="nofollow" onclick="return TypechoComment.reply('comment-396', 396);">回复</a>
+                                </div>
+                                <div class="comment-children" itemprop="discusses">
+                                    <ol class="comment-list">
+                                        <li itemscope itemtype="http://schema.org/UserComments" id="comment-398" class="comment-body comment-child comment-level-odd comment-odd comment-by-author">
+                                            <div class="comment-author" itemprop="creator" itemscope itemtype="http://schema.org/Person">
+                                                <span itemprop="image">
+                                                    <img class="avatar" src="http://www.gravatar.com/avatar/2c3e89142bb960c847e5e213bde13f5f?s=32&amp;r=G&amp;d="
+                                                        alt="阿狸小喵" width="32" height="32" /></span> <cite class="fn" itemprop="name"><a href="http://blog.sloger.info"
+                                                            rel="external nofollow">阿狸小喵</a></cite>
+                                            </div>
+                                            <div class="comment-meta">
+                                                <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1#comment-398">
+                                                    <time itemprop="commentTime" datetime="2014-05-05T14:27:30+00:00">2014/05/05, 14:27:30</time>
+                                                </a>
+                                            </div>
+                                            <div class="comment-content" itemprop="commentText">
+                                                <p>
+                                                    从我的友情链接里找到 Hanny 的，然后点进去，找吧。</p>
+                                            </div>
+                                            <div class="comment-reply">
+                                                <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1?replyTo=398#respond-post-435"
+                                                    rel="nofollow" onclick="return TypechoComment.reply('comment-398', 398);">回复</a>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </li>
+                            <li itemscope itemtype="http://schema.org/UserComments" id="comment-397" class="comment-body comment-parent comment-odd">
+                                <div class="comment-author" itemprop="creator" itemscope itemtype="http://schema.org/Person">
+                                    <span itemprop="image">
+                                        <img class="avatar" src="http://www.gravatar.com/avatar/5ac10c6d716acbd61cefa84c15f063bb?s=32&amp;r=G&amp;d="
+                                            alt="轮子" width="32" height="32" /></span> <cite class="fn" itemprop="name"><a href="http://www.eurusd.cn"
+                                                rel="external nofollow">轮子</a></cite>
+                                </div>
+                                <div class="comment-meta">
+                                    <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1#comment-397">
+                                        <time itemprop="commentTime" datetime="2014-05-05T14:25:59+00:00">2014/05/05, 14:25:59</time>
+                                    </a>
+                                </div>
+                                <div class="comment-content" itemprop="commentText">
+                                    <p>
+                                        你写文章的时候 都用了什么代码 文章内容写的有主有次，一眼明了。</p>
+                                </div>
+                                <div class="comment-reply">
+                                    <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1?replyTo=397#respond-post-435"
+                                        rel="nofollow" onclick="return TypechoComment.reply('comment-397', 397);">回复</a>
+                                </div>
+                                <div class="comment-children" itemprop="discusses">
+                                    <ol class="comment-list">
+                                        <li itemscope itemtype="http://schema.org/UserComments" id="comment-399" class="comment-body comment-child comment-level-odd comment-odd comment-by-author">
+                                            <div class="comment-author" itemprop="creator" itemscope itemtype="http://schema.org/Person">
+                                                <span itemprop="image">
+                                                    <img class="avatar" src="http://www.gravatar.com/avatar/2c3e89142bb960c847e5e213bde13f5f?s=32&amp;r=G&amp;d="
+                                                        alt="阿狸小喵" width="32" height="32" /></span> <cite class="fn" itemprop="name"><a href="http://blog.sloger.info"
+                                                            rel="external nofollow">阿狸小喵</a></cite>
+                                            </div>
+                                            <div class="comment-meta">
+                                                <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1#comment-399">
+                                                    <time itemprop="commentTime" datetime="2014-05-05T14:29:13+00:00">2014/05/05, 14:29:13</time>
+                                                </a>
+                                            </div>
+                                            <div class="comment-content" itemprop="commentText">
+                                                <p>
+                                                    竟然有人说我文章内容有主有次，一眼明了，我从小到大作文一直都很差的ˇ﹏ˇ。Typecho 默认支持 markdown，请百度 markdown 语法。</p>
+                                            </div>
+                                            <div class="comment-reply">
+                                                <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1?replyTo=399#respond-post-435"
+                                                    rel="nofollow" onclick="return TypechoComment.reply('comment-399', 399);">回复</a>
+                                            </div>
+                                            <div class="comment-children" itemprop="discusses">
+                                                <ol class="comment-list">
+                                                    <li itemscope itemtype="http://schema.org/UserComments" id="comment-400" class="comment-body comment-child comment-level-even comment-odd">
+                                                        <div class="comment-author" itemprop="creator" itemscope itemtype="http://schema.org/Person">
+                                                            <span itemprop="image">
+                                                                <img class="avatar" src="http://www.gravatar.com/avatar/5ac10c6d716acbd61cefa84c15f063bb?s=32&amp;r=G&amp;d="
+                                                                    alt="轮子" width="32" height="32" /></span> <cite class="fn" itemprop="name"><a href="http://www.eurusd.cn"
+                                                                        rel="external nofollow">轮子</a></cite>
+                                                        </div>
+                                                        <div class="comment-meta">
+                                                            <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1#comment-400">
+                                                                <time itemprop="commentTime" datetime="2014-05-05T14:36:49+00:00">2014/05/05, 14:36:49</time>
+                                                            </a>
+                                                        </div>
+                                                        <div class="comment-content" itemprop="commentText">
+                                                            <p>
+                                                                学不过来 接受慢 不知道从哪学 我晕 恨自己够菜。</p>
+                                                        </div>
+                                                        <div class="comment-reply">
+                                                            <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1?replyTo=400#respond-post-435"
+                                                                rel="nofollow" onclick="return TypechoComment.reply('comment-400', 400);">回复</a>
+                                                        </div>
+                                                        <div class="comment-children" itemprop="discusses">
+                                                            <ol class="comment-list">
+                                                                <li itemscope itemtype="http://schema.org/UserComments" id="comment-401" class="comment-body comment-child comment-level-odd comment-odd comment-by-author">
+                                                                    <div class="comment-author" itemprop="creator" itemscope itemtype="http://schema.org/Person">
+                                                                        <span itemprop="image">
+                                                                            <img class="avatar" src="http://www.gravatar.com/avatar/2c3e89142bb960c847e5e213bde13f5f?s=32&amp;r=G&amp;d="
+                                                                                alt="阿狸小喵" width="32" height="32" /></span> <cite class="fn" itemprop="name"><a href="http://blog.sloger.info"
+                                                                                    rel="external nofollow">阿狸小喵</a></cite>
+                                                                    </div>
+                                                                    <div class="comment-meta">
+                                                                        <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1#comment-401">
+                                                                            <time itemprop="commentTime" datetime="2014-05-05T14:41:12+00:00">2014/05/05, 14:41:12</time>
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="comment-content" itemprop="commentText">
+                                                                        <p>
+                                                                            对照着教程写几段练习一下，不需要背语法，只需要记得有这个，用的时候忘记了语法在临时搜索语法就是了，Typecho 也有预览，写的对不对预览就能看到。</p>
+                                                                    </div>
+                                                                    <div class="comment-reply">
+                                                                        <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1?replyTo=401#respond-post-435"
+                                                                            rel="nofollow" onclick="return TypechoComment.reply('comment-401', 401);">回复</a>
+                                                                    </div>
+                                                                </li>
+                                                            </ol>
+                                                        </div>
+                                                    </li>
+                                                </ol>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </li>
+                            <li itemscope itemtype="http://schema.org/UserComments" id="comment-402" class="comment-body comment-parent comment-even">
+                                <div class="comment-author" itemprop="creator" itemscope itemtype="http://schema.org/Person">
+                                    <span itemprop="image">
+                                        <img class="avatar" src="http://www.gravatar.com/avatar/5ac10c6d716acbd61cefa84c15f063bb?s=32&amp;r=G&amp;d="
+                                            alt="轮子" width="32" height="32" /></span> <cite class="fn" itemprop="name"><a href="http://www.eurusd.cn"
+                                                rel="external nofollow">轮子</a></cite>
+                                </div>
+                                <div class="comment-meta">
+                                    <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1#comment-402">
+                                        <time itemprop="commentTime" datetime="2014-05-05T14:49:35+00:00">2014/05/05, 14:49:35</time>
+                                    </a>
+                                </div>
+                                <div class="comment-content" itemprop="commentText">
+                                    <p>
+                                        修改 Action.php 中 action 方法，修改 header 和 foreach</p>
+                                    <p>
+                                        有两个foreach ？？</p>
+                                </div>
+                                <div class="comment-reply">
+                                    <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1?replyTo=402#respond-post-435"
+                                        rel="nofollow" onclick="return TypechoComment.reply('comment-402', 402);">回复</a>
+                                </div>
+                                <div class="comment-children" itemprop="discusses">
+                                    <ol class="comment-list">
+                                        <li itemscope itemtype="http://schema.org/UserComments" id="comment-403" class="comment-body comment-child comment-level-odd comment-odd comment-by-author">
+                                            <div class="comment-author" itemprop="creator" itemscope itemtype="http://schema.org/Person">
+                                                <span itemprop="image">
+                                                    <img class="avatar" src="http://www.gravatar.com/avatar/2c3e89142bb960c847e5e213bde13f5f?s=32&amp;r=G&amp;d="
+                                                        alt="阿狸小喵" width="32" height="32" /></span> <cite class="fn" itemprop="name"><a href="http://blog.sloger.info"
+                                                            rel="external nofollow">阿狸小喵</a></cite>
+                                            </div>
+                                            <div class="comment-meta">
+                                                <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1#comment-403">
+                                                    <time itemprop="commentTime" datetime="2014-05-05T14:51:39+00:00">2014/05/05, 14:51:39</time>
+                                                </a>
+                                            </div>
+                                            <div class="comment-content" itemprop="commentText">
+                                                <p>
+                                                    把这两个之间的内容删掉，替换成上面的代码。</p>
+                                            </div>
+                                            <div class="comment-reply">
+                                                <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1?replyTo=403#respond-post-435"
+                                                    rel="nofollow" onclick="return TypechoComment.reply('comment-403', 403);">回复</a>
+                                            </div>
+                                            <div class="comment-children" itemprop="discusses">
+                                                <ol class="comment-list">
+                                                    <li itemscope itemtype="http://schema.org/UserComments" id="comment-404" class="comment-body comment-child comment-level-even comment-odd">
+                                                        <div class="comment-author" itemprop="creator" itemscope itemtype="http://schema.org/Person">
+                                                            <span itemprop="image">
+                                                                <img class="avatar" src="http://www.gravatar.com/avatar/5ac10c6d716acbd61cefa84c15f063bb?s=32&amp;r=G&amp;d="
+                                                                    alt="轮子" width="32" height="32" /></span> <cite class="fn" itemprop="name"><a href="http://www.eurusd.cn"
+                                                                        rel="external nofollow">轮子</a></cite>
+                                                        </div>
+                                                        <div class="comment-meta">
+                                                            <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1#comment-404">
+                                                                <time itemprop="commentTime" datetime="2014-05-05T15:10:14+00:00">2014/05/05, 15:10:14</time>
+                                                            </a>
+                                                        </div>
+                                                        <div class="comment-content" itemprop="commentText">
+                                                            <p>
+                                                                搞不定呢。 ：（</p>
+                                                        </div>
+                                                        <div class="comment-reply">
+                                                            <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1?replyTo=404#respond-post-435"
+                                                                rel="nofollow" onclick="return TypechoComment.reply('comment-404', 404);">回复</a>
+                                                        </div>
+                                                        <div class="comment-children" itemprop="discusses">
+                                                            <ol class="comment-list">
+                                                                <li itemscope itemtype="http://schema.org/UserComments" id="comment-405" class="comment-body comment-child comment-level-odd comment-odd comment-by-author">
+                                                                    <div class="comment-author" itemprop="creator" itemscope itemtype="http://schema.org/Person">
+                                                                        <span itemprop="image">
+                                                                            <img class="avatar" src="http://www.gravatar.com/avatar/2c3e89142bb960c847e5e213bde13f5f?s=32&amp;r=G&amp;d="
+                                                                                alt="阿狸小喵" width="32" height="32" /></span> <cite class="fn" itemprop="name"><a href="http://blog.sloger.info"
+                                                                                    rel="external nofollow">阿狸小喵</a></cite>
+                                                                    </div>
+                                                                    <div class="comment-meta">
+                                                                        <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1#comment-405">
+                                                                            <time itemprop="commentTime" datetime="2014-05-05T15:14:32+00:00">2014/05/05, 15:14:32</time>
+                                                                        </a>
+                                                                    </div>
+                                                                    <div class="comment-content" itemprop="commentText">
+                                                                        <p>
+                                                                            说明下详细情况，哪里搞不定？</p>
+                                                                    </div>
+                                                                    <div class="comment-reply">
+                                                                        <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1?replyTo=405#respond-post-435"
+                                                                            rel="nofollow" onclick="return TypechoComment.reply('comment-405', 405);">回复</a>
+                                                                    </div>
+                                                                    <div class="comment-children" itemprop="discusses">
+                                                                        <ol class="comment-list">
+                                                                            <li itemscope itemtype="http://schema.org/UserComments" id="comment-406" class="comment-body comment-child comment-level-even comment-odd">
+                                                                                <div class="comment-author" itemprop="creator" itemscope itemtype="http://schema.org/Person">
+                                                                                    <span itemprop="image">
+                                                                                        <img class="avatar" src="http://www.gravatar.com/avatar/5ac10c6d716acbd61cefa84c15f063bb?s=32&amp;r=G&amp;d="
+                                                                                            alt="轮子" width="32" height="32" /></span> <cite class="fn" itemprop="name"><a href="http://www.eurusd.cn"
+                                                                                                rel="external nofollow">轮子</a></cite>
+                                                                                </div>
+                                                                                <div class="comment-meta">
+                                                                                    <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1#comment-406">
+                                                                                        <time itemprop="commentTime" datetime="2014-05-05T15:16:01+00:00">2014/05/05, 15:16:01</time>
+                                                                                    </a>
+                                                                                </div>
+                                                                                <div class="comment-content" itemprop="commentText">
+                                                                                    <p>
+                                                                                        修改 Action.php 中 action 方法，修改 header 和 foreach<br>
+                                                                                        问题 还是出在这里！</p>
+                                                                                </div>
+                                                                                <div class="comment-reply">
+                                                                                    <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1?replyTo=406#respond-post-435"
+                                                                                        rel="nofollow" onclick="return TypechoComment.reply('comment-406', 406);">回复</a>
+                                                                                </div>
+                                                                                <div class="comment-children" itemprop="discusses">
+                                                                                    <ol class="comment-list">
+                                                                                        <li itemscope itemtype="http://schema.org/UserComments" id="comment-407" class="comment-body comment-child comment-level-odd comment-odd comment-by-author">
+                                                                                            <div class="comment-author" itemprop="creator" itemscope itemtype="http://schema.org/Person">
+                                                                                                <span itemprop="image">
+                                                                                                    <img class="avatar" src="http://www.gravatar.com/avatar/2c3e89142bb960c847e5e213bde13f5f?s=32&amp;r=G&amp;d="
+                                                                                                        alt="阿狸小喵" width="32" height="32" /></span> <cite class="fn" itemprop="name"><a href="http://blog.sloger.info"
+                                                                                                            rel="external nofollow">阿狸小喵</a></cite>
+                                                                                            </div>
+                                                                                            <div class="comment-meta">
+                                                                                                <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1#comment-407">
+                                                                                                    <time itemprop="commentTime" datetime="2014-05-05T15:20:59+00:00">2014/05/05, 15:20:59</time>
+                                                                                                </a>
+                                                                                            </div>
+                                                                                            <div class="comment-content" itemprop="commentText">
+                                                                                                <p>
+                                                                                                    直接下载我的吧 http://blog.sloger.info/usr/plugins/Sitemap.tar.xz 下好了说一声，我删掉。</p>
+                                                                                            </div>
+                                                                                            <div class="comment-reply">
+                                                                                                <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1?replyTo=407#respond-post-435"
+                                                                                                    rel="nofollow" onclick="return TypechoComment.reply('comment-407', 407);">回复</a>
+                                                                                            </div>
+                                                                                            <div class="comment-children" itemprop="discusses">
+                                                                                                <ol class="comment-list">
+                                                                                                    <li itemscope itemtype="http://schema.org/UserComments" id="comment-409" class="comment-body comment-child comment-level-even comment-odd">
+                                                                                                        <div class="comment-author" itemprop="creator" itemscope itemtype="http://schema.org/Person">
+                                                                                                            <span itemprop="image">
+                                                                                                                <img class="avatar" src="http://www.gravatar.com/avatar/5ac10c6d716acbd61cefa84c15f063bb?s=32&amp;r=G&amp;d="
+                                                                                                                    alt="轮子" width="32" height="32" /></span> <cite class="fn" itemprop="name"><a href="http://www.eurusd.cn"
+                                                                                                                        rel="external nofollow">轮子</a></cite>
+                                                                                                        </div>
+                                                                                                        <div class="comment-meta">
+                                                                                                            <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1#comment-409">
+                                                                                                                <time itemprop="commentTime" datetime="2014-05-05T15:28:49+00:00">2014/05/05, 15:28:49</time>
+                                                                                                            </a>
+                                                                                                        </div>
+                                                                                                        <div class="comment-content" itemprop="commentText">
+                                                                                                            <p>
+                                                                                                                下载了 删除吧</p>
+                                                                                                        </div>
+                                                                                                        <div class="comment-reply">
+                                                                                                            <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1?replyTo=409#respond-post-435"
+                                                                                                                rel="nofollow" onclick="return TypechoComment.reply('comment-409', 409);">回复</a>
+                                                                                                        </div>
+                                                                                                        <div class="comment-children" itemprop="discusses">
+                                                                                                            <ol class="comment-list">
+                                                                                                                <li itemscope itemtype="http://schema.org/UserComments" id="comment-410" class="comment-body comment-child comment-level-odd comment-odd">
+                                                                                                                    <div class="comment-author" itemprop="creator" itemscope itemtype="http://schema.org/Person">
+                                                                                                                        <span itemprop="image">
+                                                                                                                            <img class="avatar" src="http://www.gravatar.com/avatar/5ac10c6d716acbd61cefa84c15f063bb?s=32&amp;r=G&amp;d="
+                                                                                                                                alt="轮子" width="32" height="32" /></span> <cite class="fn" itemprop="name"><a href="http://www.eurusd.cn"
+                                                                                                                                    rel="external nofollow">轮子</a></cite>
+                                                                                                                    </div>
+                                                                                                                    <div class="comment-meta">
+                                                                                                                        <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1#comment-410">
+                                                                                                                            <time itemprop="commentTime" datetime="2014-05-05T15:31:12+00:00">2014/05/05, 15:31:12</time>
+                                                                                                                        </a>
+                                                                                                                    </div>
+                                                                                                                    <div class="comment-content" itemprop="commentText">
+                                                                                                                        <p>
+                                                                                                                            .tar.xz 后面的括展名 是什么意思 ？ 如何打开？</p>
+                                                                                                                    </div>
+                                                                                                                    <div class="comment-reply">
+                                                                                                                        <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1?replyTo=410#respond-post-435"
+                                                                                                                            rel="nofollow" onclick="return TypechoComment.reply('comment-410', 410);">回复</a>
+                                                                                                                    </div>
+                                                                                                                    <div class="comment-children" itemprop="discusses">
+                                                                                                                        <ol class="comment-list">
+                                                                                                                            <li itemscope itemtype="http://schema.org/UserComments" id="comment-411" class="comment-body comment-child comment-level-even comment-odd comment-by-author">
+                                                                                                                                <div class="comment-author" itemprop="creator" itemscope itemtype="http://schema.org/Person">
+                                                                                                                                    <span itemprop="image">
+                                                                                                                                        <img class="avatar" src="http://www.gravatar.com/avatar/2c3e89142bb960c847e5e213bde13f5f?s=32&amp;r=G&amp;d="
+                                                                                                                                            alt="阿狸小喵" width="32" height="32" /></span> <cite class="fn" itemprop="name"><a href="http://blog.sloger.info"
+                                                                                                                                                rel="external nofollow">阿狸小喵</a></cite>
+                                                                                                                                </div>
+                                                                                                                                <div class="comment-meta">
+                                                                                                                                    <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1#comment-411">
+                                                                                                                                        <time itemprop="commentTime" datetime="2014-05-05T15:33:02+00:00">2014/05/05, 15:33:02</time>
+                                                                                                                                    </a>
+                                                                                                                                </div>
+                                                                                                                                <div class="comment-content" itemprop="commentText">
+                                                                                                                                    <p>
+                                                                                                                                        任何解压软件都能解。</p>
+                                                                                                                                </div>
+                                                                                                                                <div class="comment-reply">
+                                                                                                                                    <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1?replyTo=411#respond-post-435"
+                                                                                                                                        rel="nofollow" onclick="return TypechoComment.reply('comment-411', 411);">回复</a>
+                                                                                                                                </div>
+                                                                                                                                <div class="comment-children" itemprop="discusses">
+                                                                                                                                    <ol class="comment-list">
+                                                                                                                                        <li itemscope itemtype="http://schema.org/UserComments" id="comment-412" class="comment-body comment-child comment-level-odd comment-odd">
+                                                                                                                                            <div class="comment-author" itemprop="creator" itemscope itemtype="http://schema.org/Person">
+                                                                                                                                                <span itemprop="image">
+                                                                                                                                                    <img class="avatar" src="http://www.gravatar.com/avatar/5ac10c6d716acbd61cefa84c15f063bb?s=32&amp;r=G&amp;d="
+                                                                                                                                                        alt="轮子" width="32" height="32" /></span> <cite class="fn" itemprop="name"><a href="http://www.eurusd.cn"
+                                                                                                                                                            rel="external nofollow">轮子</a></cite>
+                                                                                                                                            </div>
+                                                                                                                                            <div class="comment-meta">
+                                                                                                                                                <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1#comment-412">
+                                                                                                                                                    <time itemprop="commentTime" datetime="2014-05-05T15:39:00+00:00">2014/05/05, 15:39:00</time>
+                                                                                                                                                </a>
+                                                                                                                                            </div>
+                                                                                                                                            <div class="comment-content" itemprop="commentText">
+                                                                                                                                                <p>
+                                                                                                                                                    .tar.xz 解不了 你不是win系统吧？》</p>
+                                                                                                                                            </div>
+                                                                                                                                            <div class="comment-reply">
+                                                                                                                                                <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1?replyTo=412#respond-post-435"
+                                                                                                                                                    rel="nofollow" onclick="return TypechoComment.reply('comment-412', 412);">回复</a>
+                                                                                                                                            </div>
+                                                                                                                                            <div class="comment-children" itemprop="discusses">
+                                                                                                                                                <ol class="comment-list">
+                                                                                                                                                    <li itemscope itemtype="http://schema.org/UserComments" id="comment-413" class="comment-body comment-child comment-level-even comment-odd comment-by-author">
+                                                                                                                                                        <div class="comment-author" itemprop="creator" itemscope itemtype="http://schema.org/Person">
+                                                                                                                                                            <span itemprop="image">
+                                                                                                                                                                <img class="avatar" src="http://www.gravatar.com/avatar/2c3e89142bb960c847e5e213bde13f5f?s=32&amp;r=G&amp;d="
+                                                                                                                                                                    alt="阿狸小喵" width="32" height="32" /></span> <cite class="fn" itemprop="name"><a href="http://blog.sloger.info"
+                                                                                                                                                                        rel="external nofollow">阿狸小喵</a></cite>
+                                                                                                                                                        </div>
+                                                                                                                                                        <div class="comment-meta">
+                                                                                                                                                            <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1#comment-413">
+                                                                                                                                                                <time itemprop="commentTime" datetime="2014-05-05T16:32:26+00:00">2014/05/05, 16:32:26</time>
+                                                                                                                                                            </a>
+                                                                                                                                                        </div>
+                                                                                                                                                        <div class="comment-content" itemprop="commentText">
+                                                                                                                                                            <p>
+                                                                                                                                                                不好意思，在打球。我的确实不是win，你的网站搭建在win上？而且我在win上可以解压.tar.xz的啊。</p>
+                                                                                                                                                        </div>
+                                                                                                                                                        <div class="comment-reply">
+                                                                                                                                                            <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1?replyTo=413#respond-post-435"
+                                                                                                                                                                rel="nofollow" onclick="return TypechoComment.reply('comment-413', 413);">回复</a>
+                                                                                                                                                        </div>
+                                                                                                                                                    </li>
+                                                                                                                                                </ol>
+                                                                                                                                            </div>
+                                                                                                                                        </li>
+                                                                                                                                    </ol>
+                                                                                                                                </div>
+                                                                                                                            </li>
+                                                                                                                        </ol>
+                                                                                                                    </div>
+                                                                                                                </li>
+                                                                                                            </ol>
+                                                                                                        </div>
+                                                                                                    </li>
+                                                                                                    <li itemscope itemtype="http://schema.org/UserComments" id="comment-414" class="comment-body comment-child comment-level-even comment-even">
+                                                                                                        <div class="comment-author" itemprop="creator" itemscope itemtype="http://schema.org/Person">
+                                                                                                            <span itemprop="image">
+                                                                                                                <img class="avatar" src="http://www.gravatar.com/avatar/5ac10c6d716acbd61cefa84c15f063bb?s=32&amp;r=G&amp;d="
+                                                                                                                    alt="轮子" width="32" height="32" /></span> <cite class="fn" itemprop="name"><a href="http://www.eurusd.cn"
+                                                                                                                        rel="external nofollow">轮子</a></cite>
+                                                                                                        </div>
+                                                                                                        <div class="comment-meta">
+                                                                                                            <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1#comment-414">
+                                                                                                                <time itemprop="commentTime" datetime="2014-05-05T18:42:48+00:00">2014/05/05, 18:42:48</time>
+                                                                                                            </a>
+                                                                                                        </div>
+                                                                                                        <div class="comment-content" itemprop="commentText">
+                                                                                                            <p>
+                                                                                                                解压不成功啊，帮忙啊？</p>
+                                                                                                        </div>
+                                                                                                        <div class="comment-reply">
+                                                                                                            <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1?replyTo=414#respond-post-435"
+                                                                                                                rel="nofollow" onclick="return TypechoComment.reply('comment-414', 414);">回复</a>
+                                                                                                        </div>
+                                                                                                        <div class="comment-children" itemprop="discusses">
+                                                                                                            <ol class="comment-list">
+                                                                                                                <li itemscope itemtype="http://schema.org/UserComments" id="comment-415" class="comment-body comment-child comment-level-odd comment-odd comment-by-author">
+                                                                                                                    <div class="comment-author" itemprop="creator" itemscope itemtype="http://schema.org/Person">
+                                                                                                                        <span itemprop="image">
+                                                                                                                            <img class="avatar" src="http://www.gravatar.com/avatar/2c3e89142bb960c847e5e213bde13f5f?s=32&amp;r=G&amp;d="
+                                                                                                                                alt="阿狸小喵" width="32" height="32" /></span> <cite class="fn" itemprop="name"><a href="http://blog.sloger.info"
+                                                                                                                                    rel="external nofollow">阿狸小喵</a></cite>
+                                                                                                                    </div>
+                                                                                                                    <div class="comment-meta">
+                                                                                                                        <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1#comment-415">
+                                                                                                                            <time itemprop="commentTime" datetime="2014-05-05T19:02:14+00:00">2014/05/05, 19:02:14</time>
+                                                                                                                        </a>
+                                                                                                                    </div>
+                                                                                                                    <div class="comment-content" itemprop="commentText">
+                                                                                                                        <p>
+                                                                                                                            http://blog.sloger.info/usr/plugins/Sitemap.zip</p>
+                                                                                                                    </div>
+                                                                                                                    <div class="comment-reply">
+                                                                                                                        <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1?replyTo=415#respond-post-435"
+                                                                                                                            rel="nofollow" onclick="return TypechoComment.reply('comment-415', 415);">回复</a>
+                                                                                                                    </div>
+                                                                                                                    <div class="comment-children" itemprop="discusses">
+                                                                                                                        <ol class="comment-list">
+                                                                                                                            <li itemscope itemtype="http://schema.org/UserComments" id="comment-416" class="comment-body comment-child comment-level-even comment-odd">
+                                                                                                                                <div class="comment-author" itemprop="creator" itemscope itemtype="http://schema.org/Person">
+                                                                                                                                    <span itemprop="image">
+                                                                                                                                        <img class="avatar" src="http://www.gravatar.com/avatar/5ac10c6d716acbd61cefa84c15f063bb?s=32&amp;r=G&amp;d="
+                                                                                                                                            alt="轮子" width="32" height="32" /></span> <cite class="fn" itemprop="name"><a href="http://www.eurusd.cn"
+                                                                                                                                                rel="external nofollow">轮子</a></cite>
+                                                                                                                                </div>
+                                                                                                                                <div class="comment-meta">
+                                                                                                                                    <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1#comment-416">
+                                                                                                                                        <time itemprop="commentTime" datetime="2014-05-05T19:09:33+00:00">2014/05/05, 19:09:33</time>
+                                                                                                                                    </a>
+                                                                                                                                </div>
+                                                                                                                                <div class="comment-content" itemprop="commentText">
+                                                                                                                                    <p>
+                                                                                                                                        空文件 我晕 不是吧</p>
+                                                                                                                                </div>
+                                                                                                                                <div class="comment-reply">
+                                                                                                                                    <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1?replyTo=416#respond-post-435"
+                                                                                                                                        rel="nofollow" onclick="return TypechoComment.reply('comment-416', 416);">回复</a>
+                                                                                                                                </div>
+                                                                                                                                <div class="comment-children" itemprop="discusses">
+                                                                                                                                    <ol class="comment-list">
+                                                                                                                                        <li itemscope itemtype="http://schema.org/UserComments" id="comment-417" class="comment-body comment-child comment-level-odd comment-odd comment-by-author">
+                                                                                                                                            <div class="comment-author" itemprop="creator" itemscope itemtype="http://schema.org/Person">
+                                                                                                                                                <span itemprop="image">
+                                                                                                                                                    <img class="avatar" src="http://www.gravatar.com/avatar/2c3e89142bb960c847e5e213bde13f5f?s=32&amp;r=G&amp;d="
+                                                                                                                                                        alt="阿狸小喵" width="32" height="32" /></span> <cite class="fn" itemprop="name"><a href="http://blog.sloger.info"
+                                                                                                                                                            rel="external nofollow">阿狸小喵</a></cite>
+                                                                                                                                            </div>
+                                                                                                                                            <div class="comment-meta">
+                                                                                                                                                <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1#comment-417">
+                                                                                                                                                    <time itemprop="commentTime" datetime="2014-05-05T19:11:24+00:00">2014/05/05, 19:11:24</time>
+                                                                                                                                                </a>
+                                                                                                                                            </div>
+                                                                                                                                            <div class="comment-content" itemprop="commentText">
+                                                                                                                                                <p>
+                                                                                                                                                    重下试试，刚才没有递归添加归档，只是添加了目录。</p>
+                                                                                                                                            </div>
+                                                                                                                                            <div class="comment-reply">
+                                                                                                                                                <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1?replyTo=417#respond-post-435"
+                                                                                                                                                    rel="nofollow" onclick="return TypechoComment.reply('comment-417', 417);">回复</a>
+                                                                                                                                            </div>
+                                                                                                                                            <div class="comment-children" itemprop="discusses">
+                                                                                                                                                <ol class="comment-list">
+                                                                                                                                                    <li itemscope itemtype="http://schema.org/UserComments" id="comment-418" class="comment-body comment-child comment-level-even comment-odd">
+                                                                                                                                                        <div class="comment-author" itemprop="creator" itemscope itemtype="http://schema.org/Person">
+                                                                                                                                                            <span itemprop="image">
+                                                                                                                                                                <img class="avatar" src="http://www.gravatar.com/avatar/5ac10c6d716acbd61cefa84c15f063bb?s=32&amp;r=G&amp;d="
+                                                                                                                                                                    alt="轮子" width="32" height="32" /></span> <cite class="fn" itemprop="name"><a href="http://www.eurusd.cn"
+                                                                                                                                                                        rel="external nofollow">轮子</a></cite>
+                                                                                                                                                        </div>
+                                                                                                                                                        <div class="comment-meta">
+                                                                                                                                                            <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1#comment-418">
+                                                                                                                                                                <time itemprop="commentTime" datetime="2014-05-05T19:33:31+00:00">2014/05/05, 19:33:31</time>
+                                                                                                                                                            </a>
+                                                                                                                                                        </div>
+                                                                                                                                                        <div class="comment-content" itemprop="commentText">
+                                                                                                                                                            <p>
+                                                                                                                                                                三个文件，有了</p>
+                                                                                                                                                        </div>
+                                                                                                                                                        <div class="comment-reply">
+                                                                                                                                                            <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1?replyTo=418#respond-post-435"
+                                                                                                                                                                rel="nofollow" onclick="return TypechoComment.reply('comment-418', 418);">回复</a>
+                                                                                                                                                        </div>
+                                                                                                                                                        <div class="comment-children" itemprop="discusses">
+                                                                                                                                                            <ol class="comment-list">
+                                                                                                                                                                <li itemscope itemtype="http://schema.org/UserComments" id="comment-419" class="comment-body comment-child comment-level-odd comment-odd comment-by-author">
+                                                                                                                                                                    <div class="comment-author" itemprop="creator" itemscope itemtype="http://schema.org/Person">
+                                                                                                                                                                        <span itemprop="image">
+                                                                                                                                                                            <img class="avatar" src="http://www.gravatar.com/avatar/2c3e89142bb960c847e5e213bde13f5f?s=32&amp;r=G&amp;d="
+                                                                                                                                                                                alt="阿狸小喵" width="32" height="32" /></span> <cite class="fn" itemprop="name"><a href="http://blog.sloger.info"
+                                                                                                                                                                                    rel="external nofollow">阿狸小喵</a></cite>
+                                                                                                                                                                    </div>
+                                                                                                                                                                    <div class="comment-meta">
+                                                                                                                                                                        <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1#comment-419">
+                                                                                                                                                                            <time itemprop="commentTime" datetime="2014-05-05T21:16:57+00:00">2014/05/05, 21:16:57</time>
+                                                                                                                                                                        </a>
+                                                                                                                                                                    </div>
+                                                                                                                                                                    <div class="comment-content" itemprop="commentText">
+                                                                                                                                                                        <p>
+                                                                                                                                                                            卧槽，你的网站怎么了？</p>
+                                                                                                                                                                    </div>
+                                                                                                                                                                    <div class="comment-reply">
+                                                                                                                                                                        <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1?replyTo=419#respond-post-435"
+                                                                                                                                                                            rel="nofollow" onclick="return TypechoComment.reply('comment-419', 419);">回复</a>
+                                                                                                                                                                    </div>
+                                                                                                                                                                    <div class="comment-children" itemprop="discusses">
+                                                                                                                                                                        <ol class="comment-list">
+                                                                                                                                                                            <li itemscope itemtype="http://schema.org/UserComments" id="comment-420" class="comment-body comment-child comment-level-even comment-odd">
+                                                                                                                                                                                <div class="comment-author" itemprop="creator" itemscope itemtype="http://schema.org/Person">
+                                                                                                                                                                                    <span itemprop="image">
+                                                                                                                                                                                        <img class="avatar" src="http://www.gravatar.com/avatar/5ac10c6d716acbd61cefa84c15f063bb?s=32&amp;r=G&amp;d="
+                                                                                                                                                                                            alt="轮子" width="32" height="32" /></span> <cite class="fn" itemprop="name"><a href="http://www.eurusd.cn"
+                                                                                                                                                                                                rel="external nofollow">轮子</a></cite>
+                                                                                                                                                                                </div>
+                                                                                                                                                                                <div class="comment-meta">
+                                                                                                                                                                                    <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1#comment-420">
+                                                                                                                                                                                        <time itemprop="commentTime" datetime="2014-05-05T21:43:43+00:00">2014/05/05, 21:43:43</time>
+                                                                                                                                                                                    </a>
+                                                                                                                                                                                </div>
+                                                                                                                                                                                <div class="comment-content" itemprop="commentText">
+                                                                                                                                                                                    <p>
+                                                                                                                                                                                        重装typecho 两次 也不能解决Sitemap 你给我文件 也用上了 还是不行 疯了</p>
+                                                                                                                                                                                </div>
+                                                                                                                                                                                <div class="comment-reply">
+                                                                                                                                                                                    <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1?replyTo=420#respond-post-435"
+                                                                                                                                                                                        rel="nofollow" onclick="return TypechoComment.reply('comment-420', 420);">回复</a>
+                                                                                                                                                                                </div>
+                                                                                                                                                                                <div class="comment-children" itemprop="discusses">
+                                                                                                                                                                                    <ol class="comment-list">
+                                                                                                                                                                                        <li itemscope itemtype="http://schema.org/UserComments" id="comment-421" class="comment-body comment-child comment-level-odd comment-odd comment-by-author">
+                                                                                                                                                                                            <div class="comment-author" itemprop="creator" itemscope itemtype="http://schema.org/Person">
+                                                                                                                                                                                                <span itemprop="image">
+                                                                                                                                                                                                    <img class="avatar" src="http://www.gravatar.com/avatar/2c3e89142bb960c847e5e213bde13f5f?s=32&amp;r=G&amp;d="
+                                                                                                                                                                                                        alt="阿狸小喵" width="32" height="32" /></span> <cite class="fn" itemprop="name"><a href="http://blog.sloger.info"
+                                                                                                                                                                                                            rel="external nofollow">阿狸小喵</a></cite>
+                                                                                                                                                                                            </div>
+                                                                                                                                                                                            <div class="comment-meta">
+                                                                                                                                                                                                <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1#comment-421">
+                                                                                                                                                                                                    <time itemprop="commentTime" datetime="2014-05-05T22:48:16+00:00">2014/05/05, 22:48:16</time>
+                                                                                                                                                                                                </a>
+                                                                                                                                                                                            </div>
+                                                                                                                                                                                            <div class="comment-content" itemprop="commentText">
+                                                                                                                                                                                                <p>
+                                                                                                                                                                                                    那我就不知道了，我给你的是直接打包我的。</p>
+                                                                                                                                                                                            </div>
+                                                                                                                                                                                            <div class="comment-reply">
+                                                                                                                                                                                                <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1?replyTo=421#respond-post-435"
+                                                                                                                                                                                                    rel="nofollow" onclick="return TypechoComment.reply('comment-421', 421);">回复</a>
+                                                                                                                                                                                            </div>
+                                                                                                                                                                                        </li>
+                                                                                                                                                                                    </ol>
+                                                                                                                                                                                </div>
+                                                                                                                                                                            </li>
+                                                                                                                                                                        </ol>
+                                                                                                                                                                    </div>
+                                                                                                                                                                </li>
+                                                                                                                                                            </ol>
+                                                                                                                                                        </div>
+                                                                                                                                                    </li>
+                                                                                                                                                </ol>
+                                                                                                                                            </div>
+                                                                                                                                        </li>
+                                                                                                                                    </ol>
+                                                                                                                                </div>
+                                                                                                                            </li>
+                                                                                                                        </ol>
+                                                                                                                    </div>
+                                                                                                                </li>
+                                                                                                            </ol>
+                                                                                                        </div>
+                                                                                                    </li>
+                                                                                                </ol>
+                                                                                            </div>
+                                                                                        </li>
+                                                                                    </ol>
+                                                                                </div>
+                                                                            </li>
+                                                                        </ol>
+                                                                    </div>
+                                                                </li>
+                                                            </ol>
+                                                        </div>
+                                                    </li>
+                                                </ol>
+                                            </div>
+                                        </li>
+                                    </ol>
+                                </div>
+                            </li>
+                            <li itemscope itemtype="http://schema.org/UserComments" id="comment-554" class="comment-body comment-parent comment-odd">
+                                <div class="comment-author" itemprop="creator" itemscope itemtype="http://schema.org/Person">
+                                    <span itemprop="image">
+                                        <img class="avatar" src="http://www.gravatar.com/avatar/53f4768c62aa59ff9c6511b8255193fd?s=32&amp;r=G&amp;d="
+                                            alt="闪闪的星" width="32" height="32" /></span> <cite class="fn" itemprop="name"><a href="http://shansing.com"
+                                                rel="external nofollow">闪闪的星</a></cite>
+                                </div>
+                                <div class="comment-meta">
+                                    <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1#comment-554">
+                                        <time itemprop="commentTime" datetime="2014-08-13T14:07:59+00:00">2014/08/13, 14:07:59</time>
+                                    </a>
+                                </div>
+                                <div class="comment-content" itemprop="commentText">
+                                    <p>
+                                        后面那些代码主要是让 XML 更美观吧，感觉没有必要呢。</p>
+                                </div>
+                                <div class="comment-reply">
+                                    <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1?replyTo=554#respond-post-435"
+                                        rel="nofollow" onclick="return TypechoComment.reply('comment-554', 554);">回复</a>
+                                </div>
+                            </li>
+                        </ol>
+                        <ol class="page-navigator">
+                            <li class="current"><a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1#comments">
+                                1</a></li><li><a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-2#comments">
+                                    2</a></li><li class="next"><a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-2#comments">
+                                        后一页 »</a></li></ol>
+                    </div>
+                    <div id="respond-post-435" class="respond widget">
+                        <div class="cancel-comment-reply">
+                            <a id="cancel-comment-reply-link" href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html#respond-post-435"
+                                rel="nofollow" style="display: none" onclick="return TypechoComment.cancelReply();">
+                                取消回复</a>
+                        </div>
+                        <h3 id="response">
+                            <span>new <em>reply</em></span></h3>
+                        <form method="post" action="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment"
+                        id="comment-form">
+                        <div class="field">
+                            <label for="mail">
+                                User (required) :</label>
+                            <input type="text" name="author" id="author" value="">
+                        </div>
+                        <div class="field">
+                            <label for="mail">
+                                Email (required) :</label>
+                            <input type="email" name="mail" id="mail" value="">
+                        </div>
+                        <div class="field">
+                            <label for="mail">
+                                Url :</label>
+                            <input type="url" name="url" id="url" placeholder="http://" value="">
+                        </div>
+                        <div class="field">
+                            <label for="textarea">
+                                内容</label>
+                            <textarea name="comment" id="textarea"></textarea><textarea name="text" cols="100%"
+                                rows="4" style="display: none">spam</textarea>
+                        </div>
+                        <div>
+                            <button type="submit" class="submit">
+                                提交评论</button>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="site-aside">
+                <div class="widget">
+                    <h3>
+                        <span>RECENT <em>REPLIES</em></span>
+                    </h3>
+                    <ul>
+                        <li><a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-2#comment-574">
+                            Bingo</a>: 楼主你好 我用的你的方法 我本地测试通过了 上传到虚拟主机 相...</li>
+                        <li><a href="http://blog.sloger.info/typecho/typecho-theme-suger-and-spice.html/comment-page-2#comment-573">
+                            爱国者捣蛋</a>: 喔！看到您回复了着实让我惊喜。我凌晨的时候想各种办法，希望和您取...</li>
+                        <li><a href="http://blog.sloger.info/typecho/typecho-theme-suger-and-spice.html/comment-page-2#comment-572">
+                            阿狸小喵</a>: 您好，感谢您对主题的喜爱。由于电脑坏了重装了系统，再加上本人今年...</li>
+                        <li><a href="http://blog.sloger.info/typecho/typecho-theme-suger-and-spice.html/comment-page-2#comment-571">
+                            爱国者捣蛋</a>: 抱歉打扰，首先祝十一愉快！听朋友介绍来到了你的博客，看见了你的主...</li>
+                        <li><a href="http://blog.sloger.info/linux/update-archlinux-to-the-latest-version-in-vps.html/comment-page-1#comment-570">
+                            Vans爱好者</a>: 数据海洋有些什么机房啊？ </li>
+                        <li><a href="http://blog.sloger.info/linux/gentoo-xfce4-cannot-set-jpg-file-as-wallpaper.html/comment-page-1#comment-569">
+                            阿狸小喵</a>: 电脑配置太渣, 带不动 Gnome 和 KDE. ^_^ </li>
+                        <li><a href="http://blog.sloger.info/default/end-of-last-summer-holiday.html/comment-page-1#comment-568">
+                            阿狸小喵</a>: 人艰不拆. -_-|| </li>
+                        <li><a href="http://blog.sloger.info/default/end-of-last-summer-holiday.html/comment-page-1#comment-567">
+                            abby</a>: 你不是还会爬电杆吗？这个很不错啊！ </li>
+                        <li><a href="http://blog.sloger.info/linux/gentoo-xfce4-cannot-set-jpg-file-as-wallpaper.html/comment-page-1#comment-566">
+                            JiaYu Blog</a>: 我个人还是喜欢Gnome多一些. </li>
+                        <li><a href="http://blog.sloger.info/guestbook.html/comment-page-12#comment-565">maillot
+                            saxo bank</a>: 友情来访~ </li>
+                    </ul>
+                </div>
+                <div class="widget">
+                    <h3>
+                        <span><em>friends</em> links</span>
+                    </h3>
+                    <div class="split-list">
+                        <ul>
+                            <li><a href="http://fyyz.me/" target="_blank">福音乐章</a></li><li><a href="http://ispeller.sinaapp.com/"
+                                target="_blank">iSpeller</a></li><li><a href="http://danknest.org/" target="_blank">
+                                    dant</a></li><li><a href="http://little.ljcads.com/blog/" target="_blank">greatljcads</a></li><li>
+                                        <a href="http://www.imhan.com" target="_blank">Hanny's Blog</a></li><li><a href="http://lovearia.me/"
+                                            target="_blank">Love Aria</a></li><li><a href="http://poker-lee.tk/" target="_blank">
+                                                Poker Lee</a></li><li><a href="http://www.isaced.com/" target="_blank">isaced</a></li><li>
+                                                    <a href="http://ishell.me/" target="_blank">即或不然</a></li><li><a href="http://blog.xwyam.info/"
+                                                        target="_blank">xw_y_am blog</a></li><li><a href="http://realasking.github.io/" target="_blank">
+                                                            大湿胸</a></li><li><a href="http://www.haomwei.com" target="_blank">屠城</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="widget">
+                    <h3>
+                        <span>date <em>archives</em></span>
+                    </h3>
+                    <div class="split-list">
+                        <ul>
+                            <li><a href="http://blog.sloger.info/2014/10/">October 2014</a></li><li><a href="http://blog.sloger.info/2014/08/">
+                                August 2014</a></li><li><a href="http://blog.sloger.info/2014/07/">July 2014</a></li><li>
+                                    <a href="http://blog.sloger.info/2014/06/">June 2014</a></li><li><a href="http://blog.sloger.info/2014/05/">
+                                        May 2014</a></li><li><a href="http://blog.sloger.info/2014/04/">April 2014</a></li><li>
+                                            <a href="http://blog.sloger.info/2014/03/">March 2014</a></li><li><a href="http://blog.sloger.info/2014/02/">
+                                                February 2014</a></li><li><a href="http://blog.sloger.info/2014/01/">January 2014</a></li><li>
+                                                    <a href="http://blog.sloger.info/2013/12/">December 2013</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="prefooter">
+            <div class="inner">
+
+                <div class="widget">
+                    <h3>
+                        <span><em>search</em> insite</span></h3>
+                    <form class="site-search" method="post" action="./">
+                    <input type="text" name="s" placeholder="搜索" />
+                    </form>
+                </div>
+                <div class="widget">
+                    <h3>
+                        <span><em>tags</em> cloud</span></h3>
+                    <ul class="tag-list">
+                        <li><a href="http://blog.sloger.info/tag/gentoo/">gentoo</a></li>
+                        <li><a href="http://blog.sloger.info/tag/ruby/">ruby</a></li>
+                        <li><a href="http://blog.sloger.info/tag/typecho/">typecho</a></li>
+                        <li><a href="http://blog.sloger.info/tag/meta-programing/">meta programing</a></li>
+                        <li><a href="http://blog.sloger.info/tag/linux/">linux</a></li>
+                        <li><a href="http://blog.sloger.info/tag/rails/">rails</a></li>
+                        <li><a href="http://blog.sloger.info/tag/arbitrary/">arbitrary</a></li>
+                        <li><a href="http://blog.sloger.info/tag/openrc/">openrc</a></li>
+                        <li><a href="http://blog.sloger.info/tag/archlinux/">archlinux</a></li>
+                        <li><a href="http://blog.sloger.info/tag/%E5%90%90%E6%A7%BD/">吐槽</a></li>
+                        <li><a href="http://blog.sloger.info/tag/php/">php</a></li>
+                        <li><a href="http://blog.sloger.info/tag/sitemap/">sitemap</a></li>
+                        <li><a href="http://blog.sloger.info/tag/css/">css</a></li>
+                        <li><a href="http://blog.sloger.info/tag/xinitrc/">xinitrc</a></li>
+                        <li><a href="http://blog.sloger.info/tag/scss/">scss</a></li>
+                        <li><a href="http://blog.sloger.info/tag/benchmark/">benchmark</a></li>
+                        <li><a href="http://blog.sloger.info/tag/website/">website</a></li>
+                        <li><a href="http://blog.sloger.info/tag/trance/">trance</a></li>
+                        <li><a href="http://blog.sloger.info/tag/xfce4/">xfce4</a></li>
+                        <li><a href="http://blog.sloger.info/tag/slim/">slim</a></li>
+                        <li><a href="http://blog.sloger.info/tag/sass/">sass</a></li>
+                        <li><a href="http://blog.sloger.info/tag/typecho-themes/">typecho themes</a></li>
+                        <li><a href="http://blog.sloger.info/tag/zsh/">zsh</a></li>
+                        <li><a href="http://blog.sloger.info/tag/slot-conflict/">slot conflict</a></li>
+                        <li><a href="http://blog.sloger.info/tag/perl/">perl</a></li>
+                        <li><a href="http://blog.sloger.info/tag/bootmantic/">bootmantic</a></li>
+                        <li><a href="http://blog.sloger.info/tag/emerge/">emerge</a></li>
+                        <li><a href="http://blog.sloger.info/tag/regexp/">regexp</a></li>
+                        <li><a href="http://blog.sloger.info/tag/kernel/">kernel</a></li>
+                    </ul>
+                </div>
+                <div class="widget">
+                    <h3>
+                        <span><em>metas</em></span></h3>
+                    <ul>
+                        <li class="last"><a href="http://blog.sloger.info/admin/login.php">登录</a></li>
+                        <li><a href="http://blog.sloger.info/feed/">文章 RSS</a></li>
+                        <li><a href="http://blog.sloger.info/feed/comments/">评论 RSS</a></li>
+                        <li><a href="http://www.typecho.org">Typecho</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    
+    <footer class="site-footer">
+        <div class="site-info">Powered by  
+            <a href="http://typecho.org/">Typecho</a>
+            <span class="sep"> | </span>Theme <a href="https://github.com/DreamHarbor/SugarAndSpice">Sugar & Spice</a>Coding by <a href="http://blog.sloger.info">Sloger</a>.
+            <span class="sep"> | </span>Designed by <a href="http://webtuts.pl">WebTuts</a>.
+        </div>
+    </footer>
+
+    <script src="js/jquery.js"></script>
+    <script src="js/script.js"></script>
+    <script type="text/javascript" src="js/highlight.pack.js"></script>
+    <script type="text/javascript">                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  window.onload = function () {
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      var codes = document.getElementsByTagName("pre"),
+    hlNames = {
+        actionscript: /^as[1-3]$/i,
+        cmake: /^(make|makefile)$/i,
+        cs: /^csharp$/i,
+        css: /^css[1-3]$/i,
+        delphi: /^pascal$/i,
+        javascript: /^js$/i,
+        markdown: /^md$/i,
+        objectivec: /^objective\-c$/i,
+        php: /^php[1-6]$/i,
+        sql: /^mysql$/i,
+        xml: /^(html|html5|xhtml)$/i
+    }, hlLangs = hljs.LANGUAGES;      
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             }</script>
+</body>
+</html>

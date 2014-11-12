@@ -1,0 +1,59 @@
+<div class="body container">
+    <div class="typecho-page-title">
+        <h2>新增分类</h2>
+    </div>
+
+    <% include message.html %>
+
+
+    <div class="row typecho-page-main" role="form">
+        <div class="col-mb-12 col-tb-6 col-tb-offset-3">
+            <form action="/admin/category_doadd" method="post">
+                <ul class="typecho-option" id="">
+                    <li>
+                        <label class="typecho-label" for="name">分类名称 *</label>
+                        <input id="name" name="name" class="text" type="text" value="<%= data.name %>">
+                    </li>
+                </ul>
+                <ul class="typecho-option" id="typecho-option-item-slug-1">
+                    <li>
+                        <label class="typecho-label" for="slug">分类缩略名</label>
+                        <input id="slug" name="slug" class="text" type="text" value="<%= data.slug %>">
+                        <p class="description">分类缩略名用于创建友好的链接形式, 建议使用字母, 数字, 下划线和横杠.</p>
+                    </li>
+                </ul>
+                <ul class="typecho-option" id="typecho-option-item-parent-2">
+                    <li>
+                        <label class="typecho-label" for="parent">父级分类</label>
+                        <select name="parent" id="parent">
+                            <option value="">不选择</option>
+                        <% for(i in list ) {%>
+                            <option value="<%= list[i].id %>"><%= list[i].name %></option>
+                        <% } %>
+                        </select>
+                        <p class="description">此分类将归档在您选择的父级分类下.</p>
+                    </li>
+                </ul>
+                <ul class="typecho-option" id="typecho-option-item-description-3">
+                    <li>
+                        <label class="typecho-label" for="description">
+                            分类描述</label>
+                        <textarea id="description" name="description"><%= data.description  %></textarea>
+                        <p class="description">此文字用于描述分类, 在有的主题中它会被显示.</p>
+                    </li>
+                </ul>
+                <ul class="typecho-option" id="typecho-option-item-do-4" style="display: none">
+                    <li><input name="do" value="insert" type="hidden"></li>
+                </ul>
+                <ul class="typecho-option" id="typecho-option-item-mid-5" style="display: none">
+                    <li><input name="mid" type="hidden"></li>
+                </ul>
+                <ul class="typecho-option typecho-option-submit" id="typecho-option-item--6">
+                    <li>
+                        <button type="submit" class="btn primary">增加分类</button>
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</div>

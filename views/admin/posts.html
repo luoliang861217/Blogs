@@ -1,0 +1,92 @@
+        <div class="body container">
+            <div class="typecho-page-title">
+                <h2>管理文章<a href="/admin/posts_add">新增</a></h2>
+            </div>
+            <div class="row typecho-page-main" role="main">
+                <div class="col-mb-12 typecho-list">
+                    <div class="typecho-list-operate clearfix">
+                        <form method="get">
+                            <div class="operate">
+                                <label><i class="sr-only">全选</i><input type="checkbox" class="typecho-table-select-all" /></label>
+                                <div class="btn-group btn-drop">
+                                    <button class="btn dropdown-toggle btn-s" type="button"><i class="sr-only">操作</i>选中项 <i class="i-caret-down"></i></button>
+                                    <ul class="dropdown-menu">
+                                        <li><a lang="你确认要删除这些文章吗?" href="http://localhost/index.php/action/contents-post-edit?do=delete&_=aab21b5c6badba702d70d5949090e9d6">删除</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="search" role="search">
+                                <input type="text" class="text-s" placeholder="请输入关键字" value="" name="keywords" />
+                                <select name="category">
+                                    <option value="">所有分类</option>
+                                    <option value="1">混沌初始</option>
+                                </select>
+                                <button type="submit" class="btn btn-s">筛选</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- end .typecho-list-operate -->
+
+                    <form method="post" name="manage_posts" class="operate-form">
+                        <div class="typecho-table-wrap">
+                            <table class="typecho-list-table">
+                                <colgroup>
+                                    <col width="20" />
+                                    <col width="6%" />
+                                    <col width="45%" />
+                                    <col width="" />
+                                    <col width="18%" />
+                                    <col width="16%" />
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th></th>
+                                        <th>标题</th>
+                                        <th>作者</th>
+                                        <th>分类</th>
+                                        <th>日期</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr id="post-1">
+                                        <td>
+                                            <input type="checkbox" value="1" name="cid[]" /></td>
+                                        <td><a href="http://localhost/admin/manage-comments.php?cid=1" class="balloon-button size-10">1</a></td>
+                                        <td>
+                                            <a href="http://localhost/admin/write-post.php?cid=1">欢迎使用 Typecho</a>
+                                            <a href="http://localhost/index.php/archives/1/" title="浏览 欢迎使用 Typecho"><i class="i-exlink"></i></a>
+                                        </td>
+                                        <td><a href="http://localhost/admin/manage-posts.php?uid=1">asura</a></td>
+                                        <td><a href="http://localhost/admin/manage-posts.php?category=1">混沌初始</a>                                                                </td>
+                                        <td>昨天 23:39                                                                </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </form>
+                    <!-- end .operate-form -->
+
+                    <div class="typecho-list-operate clearfix">
+                        <form method="get">
+                            <div class="operate">
+                                <label><i class="sr-only">全选</i><input type="checkbox" class="typecho-table-select-all" /></label>
+                                <div class="btn-group btn-drop">
+                                    <button class="btn dropdown-toggle btn-s" type="button"><i class="sr-only">操作</i>选中项 <i class="i-caret-down"></i></button>
+                                    <ul class="dropdown-menu">
+                                        <li><a lang="你确认要删除这些文章吗?" href="http://localhost/index.php/action/contents-post-edit?do=delete&_=aab21b5c6badba702d70d5949090e9d6">删除</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <ul class="typecho-pager">
+                                <li class="current"><a href="http://localhost/admin/manage-posts.php?page=1">1</a></li>
+                            </ul>
+                        </form>
+                    </div>
+                    <!-- end .typecho-list-operate -->
+                </div>
+                <!-- end .typecho-list -->
+            </div>
+            <!-- end .typecho-page-main -->
+        </div>

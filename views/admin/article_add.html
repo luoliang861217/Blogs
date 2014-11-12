@@ -1,0 +1,78 @@
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="js/jquery-ui.js"></script>
+<link rel="stylesheet" href="css/jquery-ui.css">
+<script type="text/javascript" charset="utf-8" src="../ueditor/ueditor.config.js"></script>
+<script type="text/javascript" charset="utf-8" src="../ueditor/ueditor.all.min.js"> </script>
+
+<script type="text/javascript" charset="utf-8" src="../ueditor/lang/zh-cn/zh-cn.js"></script>
+
+        <div class="body container">
+            <div class="typecho-page-title">
+                <h2>撰写新文章</h2>
+            </div>
+            <div class="row typecho-page-main typecho-post-area" role="form">
+                <form action="/admin/article_doadd" method="post" name="write_post">
+                    <div class="col-mb-12 col-tb-9" role="main">
+
+                        <p class="title">
+                            <label for="title" class="sr-only">标题</label>
+                            <input type="text" id="title" name="title" autocomplete="off" value="" placeholder="标题" class="w-100 text title" />
+                        </p>
+                        <p class="mono url-slug">
+                            <label for="slug" class="sr-only">网址缩略名</label>
+                            <!--localhost/index.php/archives/{cid}/ (格式未定)-->
+                        </p>
+                        <p>
+                            <label for="text" class="sr-only">文章内容</label>
+                            <script id="text" name="text" type="text/plain" style="height: 350px">这里写你的初始化内容</script>
+                        </p>
+
+                        <p class="submit clearfix">
+                            <span class="right">
+                                <input type="hidden" name="cid" value="" />
+                                <button type="submit" name="do" value="save" id="btn-save" class="btn">保存草稿</button>
+                                <button type="submit" name="do" value="publish" class="btn primary" id="btn-submit">发布文章</button>
+                                <input type="hidden" name="markdown" value="1" />
+                            </span>
+                        </p>
+
+                    </div>
+
+                    <div id="edit-secondary" class="col-mb-12 col-tb-3" role="complementary">
+
+                        <div id="tab-advance" class="tab-content">
+                            <section class="typecho-post-option" role="application">
+                                <label for="date" class="typecho-label">发布日期</label>
+                                <p>
+                                    <input class="typecho-date w-100" type="text" name="date" id="date" value="" />
+                                </p>
+                            </section>
+
+                            <section class="typecho-post-option category-option">
+                                <label class="typecho-label">分类</label>
+                                <ul>
+                                    <li>
+                                        <input type="checkbox" id="category-1" value="1" name="category[]" />
+                                        <label for="category-1">混沌初始</label></li>
+                                </ul>
+                            </section>
+
+                            <section class="typecho-post-option">
+                                <label for="token-input-tags" class="typecho-label">标签</label>
+                                <p>
+                                    <input id="tags" name="tags" type="text" value="" class="w-100 text" /></p>
+                            </section>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+
+        <script type="text/javascript">
+            var ue = UE.getEditor('text');
+            $("#date").datepicker();
+//            $("#date").datepicker("option", "dateFormat", "DD, d MM, yy");
+        </script>

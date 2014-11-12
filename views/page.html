@@ -1,0 +1,645 @@
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+    <meta name="renderer" content="webkit">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title><%= title %></title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" type="text/css" href="css/custom.css" />
+    
+    <!--
+    <meta name="description" content="This is my personal blog to record my life and my thoughts" />
+    <meta name="keywords" content="typecho, php, blog, gentoo, arch, linux, perl, emacs, ruby, vim" />
+    <meta name="generator" content="Typecho 1.0/14.10.10" />
+    <meta name="template" content="SugarAndSpice" />
+    <link rel="pingback" href="http://blog.sloger.info/action/xmlrpc" />
+    <link rel="EditURI" type="application/rsd+xml" title="RSD" href="http://blog.sloger.info/action/xmlrpc?rsd" />
+    <link rel="wlwmanifest" type="application/wlwmanifest+xml" href="http://blog.sloger.info/action/xmlrpc?wlw" />
+    <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://blog.sloger.info/feed/" />
+    <link rel="alternate" type="application/rdf+xml" title="RSS 1.0" href="http://blog.sloger.info/feed/rss/" />
+    <link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="http://blog.sloger.info/feed/atom/" />
+    -->
+
+</head>
+<body>
+    <div class="wrap">
+
+        <header class="site-header">
+
+            <div class="site-branding">
+            <h1 class="site-title">
+                <a href="index.html">Sloger' Blog</a>
+            </h1>
+            <h2 class="site-description">This is my personal blog to record my life and my thoughts</h2></div>
+
+            <div class="site-navbar"><div class="ribbon-left"></div>
+                <ul class="navbar-nav">
+                    <li class="current">
+                    <a href="#">首页</a>
+                    </li>
+                    <li class="has-children">
+                    <a href="#">分类</a>
+                    <ul class="children"><li class="category-level-0 category-parent"><a href="http://blog.sloger.info/category/typecho/">typecho</a></li><li class="category-level-0 category-parent"><a href="http://blog.sloger.info/category/linux/">Linux</a></li><li class="category-level-0 category-parent"><a href="http://blog.sloger.info/category/programing/">Programing</a></li><li class="category-level-0 category-parent"><a href="http://blog.sloger.info/category/web/">Web</a></li><li class="category-level-0 category-parent"><a href="http://blog.sloger.info/category/default/">无聊吐槽</a></li></ul>          </li>
+                                        <li >
+                    <a href="/guestbook" target="_blank" title="留言">
+                        留言            </a>
+                    </li>
+                            <li >
+                    <a href="/about" target="_blank" title="关于">
+                        关于            </a>
+                    </li>
+                            </ul>        
+                <div class="ribbon-right"></div>
+            </div>
+
+	    </header>
+
+        <div class="site-main">
+            <div class="site-content">
+                <article class="post">
+    <header class="header">
+      <h1 class="title">
+        <a href="http://blog.sloger.info/linux/gentoo-xfce4-cannot-set-jpg-file-as-wallpaper.html">Gentoo xfce4  下无法设置 jpg 文件为壁纸</a>
+      </h1>
+      <ul class="meta">
+        <li>
+          <span>May 31, 2014</span>
+        </li>
+      </ul>
+    </header>
+    <div class="body ">
+    <p>Ristretto 也无法打开 jpg 文件</p>
+
+<p>可以确定某个包没有添加 jpeg 这个 <code>USE</code> 导致的</p>
+
+<p>使用 <code>equery h jpeg</code> 查看哪些包拥有 jpeg 这个 <code>USE</code></p>
+
+<p>然后挨个 <code>eix</code> 看看每个包都什么用吧，我已经找出来了，是 <code>gdk-pixbuf</code></p>
+
+<p>现在 <code>echo 'x11-libs/gdk-pixbuf jpeg' &gt;&gt; /etc/portage/package.use</code></p>
+
+<p>然后<code>emerge -qva gdk-pixbuf</code> 重新安装</p>
+
+<p>最后注销一下 slim 重新登入</p>
+
+<h2>备注：</h2>
+
+<ul>
+<li><code>feh</code> 无法浏览 jpg 文件并设置为桌面，是 <code>imlib2</code></li>
+<li><code>awesome</code> 自带设置壁纸功能，如果不能设置 jpg 文件为壁纸，是 <code>imagemagick</code></li>
+<li><code>scrot</code> 无法将截图保存为 jpg 文件时，也是 <code>imlib2</code></li>
+</ul>
+    </div>
+      </article>
+                <article class="post">
+    <header class="header">
+      <h1 class="title">
+        <a href="http://blog.sloger.info/default/been-in-a-trance-all-month.html">最近一个月精神有点恍惚</a>
+      </h1>
+      <ul class="meta">
+        <li>
+          <span>May 26, 2014</span>
+        </li>
+      </ul>
+    </header>
+    <div class="body ">
+    <p>月初以来，每天都处于游离状态，身体疲惫，没有食欲，大脑空虚，浑然不知身边所以然，发生的事，说过的话转瞬即忘。</p>
+
+<p>三年前的月初，也是这种状况。</p>
+
+<p>我自己开玩笑的称之为 "三年之痒"。</p>
+
+<p>三年前的五月使我在各方面，最主要的是性格方面发生了巨大变化。</p>
+
+<p>不知道这次会有什么变化。</p>
+
+<p>也不知道三年之后的这个时候，是否还会出现。</p>
+
+<p>谁知道呢。</p>
+    </div>
+      </article>
+                <article class="post">
+    <header class="header">
+      <h1 class="title">
+        <a href="http://blog.sloger.info/programing/basic-grammar-in-ruby-part-3-object-further.html">Ruby基础语法(3): Object Further</a>
+      </h1>
+      <ul class="meta">
+        <li>
+          <span>May 5, 2014</span>
+        </li>
+      </ul>
+    </header>
+    <div class="body ">
+    <h1>上文补充</h1>
+
+<h2><code>const_missing</code></h2>
+
+<p>当使用未定义常量时，这个方法就会被调用</p>
+
+<pre><code class="lang-ruby">class ConstMissing; end
+
+ConstMissing.class_eval do
+    def self.const_missing arg
+        puts "Constant #{arg} undefined"
+    end
+end
+
+ConstMissing::A
+# Constant A undefined
+</code></pre>
+
+<h2>eval</h2>
+
+<p>像其它语言一样，使用 <code>eval</code> 把参数当作代码执行</p>
+
+<pre><code class="lang-ruby">eval %Q(puts "I'm eval")
+# I'm eval
+</code></pre>
+
+<p class="more"><a href="http://blog.sloger.info/programing/basic-grammar-in-ruby-part-3-object-further.html" title="Ruby基础语法(3): Object Further">Continue reading →</a></p>    </div>
+      </article>
+                <article class="post">
+    <header class="header">
+      <h1 class="title">
+        <a href="http://blog.sloger.info/web/auto-wrap-with-css-under-ie-and-firefox.html">CSS 在 IE 和 Firefox 下自动换行</a>
+      </h1>
+      <ul class="meta">
+        <li>
+          <span>May 5, 2014</span>
+        </li>
+      </ul>
+    </header>
+    <div class="body ">
+    <p>最近 Firefox 新版本出来了，UI 终于变了，于是就用了几天 Firefox，今天发现原本在 Chrome 下能自动换行，在 IE 和 Firefox 下却不能自动换行</p>
+
+<p>于是各种搜索解决方案，终于找到了解决方案</p>
+
+<h2>我是解决方案</h2>
+
+<pre><code class="lang-css">pre code {
+    overflow: auto;
+    word-wrap: break-all;
+    white-space: pre-wrap;
+}
+</code></pre>
+    </div>
+      </article>
+                <article class="post">
+    <header class="header">
+      <h1 class="title">
+        <a href="http://blog.sloger.info/programing/measure-execution-time-of-code-with-benchmark-in-ruby.html">用 Benchmark 测量 Ruby 代码执行时间</a>
+      </h1>
+      <ul class="meta">
+        <li>
+          <span>May 5, 2014</span>
+        </li>
+      </ul>
+    </header>
+    <div class="body ">
+    <p>Ruby 内置了一个 <code>Benchmark</code>  模块用来测量代码的执行时间</p>
+
+<h3>首先引入 <code>Benchmark</code> 模块</h3>
+
+<pre><code class="lang-ruby">require 'benchmark'
+</code></pre>
+
+<p><code>Benchmark</code> 定义了 5 个方法用来测量时间</p>
+
+<pre><code class="lang-ruby">Benchmark.methods false
+#=&gt; [:benchmark, :measure, :realtime, :bm, :bmbm]
+</code></pre>
+
+<h3>定义一个获取斐波那契数列前 n 项和的方法</h3>
+
+<pre><code class="lang-ruby">def fib n
+    n &lt; 2 ? 1 : fib(n - 1) + fib(n - 2)
+end
+</code></pre>
+
+<p class="more"><a href="http://blog.sloger.info/programing/measure-execution-time-of-code-with-benchmark-in-ruby.html" title="用 Benchmark 测量 Ruby 代码执行时间">Continue reading →</a></p>    </div>
+      </article>
+                <article class="post">
+    <header class="header">
+      <h1 class="title">
+        <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html">Typecho 添加 sitemap.xml</a>
+      </h1>
+      <ul class="meta">
+        <li>
+          <span>May 5, 2014</span>
+        </li>
+      </ul>
+    </header>
+    <div class="body ">
+    <p>首先去 Hanny 的博客下载 sitemap 插件，解压到 <code>/usr/plugins/Sitemap</code></p>
+
+<p>修改 <code>Plugin.php</code> 中 <code>activate</code> 方法为</p>
+
+<pre><code class="lang-php">Helper::addRoute('sitemap', '/sitemap.xml', 'Sitemap_Action', 'action');
+</code></pre>
+
+<p>修改 <code>Action.php</code> 中 <code>action</code> 方法，修改 <code>header</code> 和 <code>foreach</code> 之间内容如下</p>
+
+<pre><code class="lang-php">echo "&lt;?xml version=\"1.0\" encoding=\"utf-8\"?&gt;\n";
+echo "&lt;?xml-stylesheet type='text/xsl' href='" . $options-&gt;pluginUrl . "/Sitemap/sitemap.xsl'?&gt;\n";
+echo "&lt;urlset xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n
+              xsi:schemaLocation=\"http://www.sitemaps.org/schemas/sitem
+ap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd\"\n
+              xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\"&gt;";
+</code></pre>
+
+<p>然后 <a href="https://gist.github.com/DreamHarbor/f158f3ccd176cf0a4361">戳 gists 下载 sitemap.xsl</a> 放在插件目录下，这样就 Ok 了</p>
+    </div>
+      </article>
+                <article class="post">
+    <header class="header">
+      <h1 class="title">
+        <a href="http://blog.sloger.info/typecho/add-archive-page-in-arbitrary.html">Arbitrary 添加归档页面</a>
+      </h1>
+      <ul class="meta">
+        <li>
+          <span>May 5, 2014</span>
+        </li>
+      </ul>
+    </header>
+    <div class="body ">
+    <p>有人问到归档页面，这里说一下吧，还是利用 Typecho 的自定义模板功能</p>
+
+<p>在主题目录下新建一个 PHP 文件，名字无所谓，我取的是 <code>tp-archive.php</code> 表示这是个 archive template，文件中写入以下内容</p>
+
+<pre><code class="lang-php">&lt;?php
+/**
+ * Archive Page
+ *
+ * @package custom
+ */
+
+    $this-&gt;need('header.php');
+?&gt;
+
+&lt;section class="article-list col-tb-8 col-mb-12"&gt;
+    &lt;section id="breadcrumb"&gt;
+        &lt;a href="&lt;?php $this-&gt;options-&gt;siteUrl(); ?&gt;"&gt;首页&lt;/a&gt;
+        &lt;span&gt;&amp;gt;&lt;/span&gt;
+        &lt;?php if ($this-&gt;is('post')): ?&gt;
+            &lt;?php $this-&gt;category(); ?&gt;
+            &lt;span&gt;&amp;gt;&lt;/span&gt;
+            &lt;?php $this-&gt;title() ?&gt;
+        &lt;?php else: ?&gt;      
+            &lt;?php $this-&gt;archiveTitle('','',''); ?&gt;
+        &lt;?php endif; ?&gt;
+    &lt;/section&gt;
+
+    &lt;?php
+    $this-&gt;widget('Widget_Contents_Post_Recent', 'pageSize=10000')-&gt;to($archives);   
+    $output = '&lt;article&gt;&lt;ul id="archives"&gt;';
+
+    while ($archives-&gt;next()) {
+        $output .= '&lt;li&gt;&lt;span&gt;' . date('Y-m-d', $archives-&gt;created) . '&lt;/span&gt;&lt;a href="'.$archives-&gt;permalink .'"&gt;' . $archives-&gt;title . '&lt;/a&gt;&lt;/li&gt;';
+    }
+
+    $output .= '&lt;/ul&gt;&lt;/article&gt;';
+    echo $output;
+?&gt;
+    &lt;?php $this-&gt;need('comments.php'); ?&gt;
+&lt;/section&gt;
+
+&lt;?php
+    $this-&gt;need('side.php');
+    $this-&gt;need('footer.php');
+?&gt;
+</code></pre>
+
+<p class="more"><a href="http://blog.sloger.info/typecho/add-archive-page-in-arbitrary.html" title="Arbitrary 添加归档页面">Continue reading →</a></p>    </div>
+      </article>
+                <article class="post">
+    <header class="header">
+      <h1 class="title">
+        <a href="http://blog.sloger.info/programing/basic-grammar-in-ruby-part-2-object-more.html">Ruby基础语法(2): Object More</a>
+      </h1>
+      <ul class="meta">
+        <li>
+          <span>May 2, 2014</span>
+        </li>
+      </ul>
+    </header>
+    <div class="body ">
+    <h1>上文补充</h1>
+
+<p>在 <a href="/programing/basic-grammar-in-ruby-part-1-object.html">Ruby基础语法(1)</a> 中有一些没有提到，这里补充一下。</p>
+
+<h1><code>{}</code> 与 <code>do end</code></h1>
+
+<p>前面说过，<code>{}</code> 的优先级比 <code>do end</code> 高，没有详细介绍，这里给个示例证明一下。</p>
+
+<pre><code class="lang-ruby"># 使用 *arg 吸收参数以消除参数不匹配的警告
+def first *arg
+    yield "first" if block_given?
+end
+def second *arg
+    yield "second" if block_given?
+end
+
+first second { |str| puts str }
+# second
+first second do |str| puts str end
+# first
+</code></pre>
+
+<p>可以看出，<code>{}</code> 是跟最右边的方法调用关联，而 <code>do end</code> 则是跟最左边的方法调用关联。</p>
+
+<p class="more"><a href="http://blog.sloger.info/programing/basic-grammar-in-ruby-part-2-object-more.html" title="Ruby基础语法(2): Object More">Continue reading →</a></p>    </div>
+      </article>
+                <article class="post">
+    <header class="header">
+      <h1 class="title">
+        <a href="http://blog.sloger.info/web/introducing-the-use-of-sass.html">SASS 用法简单介绍</a>
+      </h1>
+      <ul class="meta">
+        <li>
+          <span>April 28, 2014</span>
+        </li>
+      </ul>
+    </header>
+    <div class="body ">
+    <h1>前言</h1>
+
+<p>最近用了一点 Sass，看了一点官方资料，把一些简单的用法整理如下。</p>
+
+<h1>Sass 是什么</h1>
+
+<p>Sass 是一个基于 Ruby 语言的内部 DSL，可以被编译成 css 文件，使用 Scss 可以方便的创建，修改 css 文件。</p>
+
+<p>Sass 有两种语法格式，一种是像 python 那样使用缩进代表层次的 sass，个人不喜欢这种方式，另一种就是本文介绍的 scss。</p>
+
+<h1>Scss 使用</h1>
+
+<p>Sass 是基于 Ruby 的，所以如果你想在自己的电脑中使用 Scss，你需要先安装 Ruby。</p>
+
+<h2>安装 Ruby</h2>
+
+<p>Linux 下可以使用 <code>pacman</code> <code>emerge</code> <code>apt-get</code> <code>yum</code> 等包管理器安装，Windows 下可以用二进制安装包，你还可以自己手动编译。</p>
+
+<p><em>网上有许多文章说千万不要在 Windows 上使用 Ruby，理由 1 2 3，我没用过，不发表看法。</em></p>
+
+<h2>安装 Sass</h2>
+
+<pre><code class="lang-bash">% gem install sass
+</code></pre>
+
+<p class="more"><a href="http://blog.sloger.info/web/introducing-the-use-of-sass.html" title="SASS 用法简单介绍">Continue reading →</a></p>    </div>
+      </article>
+                <article class="post">
+    <header class="header">
+      <h1 class="title">
+        <a href="http://blog.sloger.info/programing/basic-grammar-in-ruby-part-1-object.html">Ruby基础语法(1): Object</a>
+      </h1>
+      <ul class="meta">
+        <li>
+          <span>April 19, 2014</span>
+        </li>
+      </ul>
+    </header>
+    <div class="body ">
+    <h1>前言</h1>
+
+<p>很早就想学习除了 Perl 以外的另一门脚本语言，自然而然最近比较流行的就是 Python 和 Ruby，之前也曾纠结过要学哪一个。也曾每种语言都浏览一下基本语法，发现 Ruby 与 Perl 在一些方面挺像，再加上群里有人说学一门语法糖多的语言对以后有好处，于是便决定学习 Ruby 了。</p>
+
+<p>本文本来是比较 Ruby 与 Perl 的语法的，结果发现越写越长，于是干脆不比较了，只是在一些地方提到了 Perl 的做法。</p>
+
+<p>Ruby 与 Perl 有很多相似的地方。包括但不限于：</p>
+
+<ul>
+<li><code>$</code> + 一个标点符号的预定义全局变量</li>
+<li>相同的命令行参数</li>
+<li>嵌入语言的正则引擎</li>
+</ul>
+
+<p><em>演示均在 irb 中进行，普通行表示输入， # 开头的行表示输出，#=> 开头的行表示返回值</em></p>
+
+<hr />
+
+<h1>Ruby 中一切皆是对象</h1>
+
+<pre><code class="lang-ruby">1.class
+#=&gt; Fixnum
+1.1.class
+#=&gt; Float
+4200000000.class
+#=&gt; Bignum
+[].class
+#=&gt; Array
+{}.class
+#=&gt; Hash
+/1/.class
+#=&gt; Regexp
+nil.class
+#=&gt; NilClass
+Kernel.class
+#=&gt; Module
+Module.class
+#=&gt; Class
+Class.class
+#=&gt; Class
+</code></pre>
+
+<p class="more"><a href="http://blog.sloger.info/programing/basic-grammar-in-ruby-part-1-object.html" title="Ruby基础语法(1): Object">Continue reading →</a></p>    </div>
+      </article>
+                <div class="pagenavi">
+                    <a class="next" title="" href="http://blog.sloger.info/page/3/">« 较早的文章</a> <a class="prev"
+                        href="http://blog.sloger.info/page/1/">较新的文章 »</a>
+                </div>
+            </div>
+            <div class="site-aside">
+                <div class="widget">
+                    <h3>
+                        <span>RECENT <em>REPLIES</em></span>
+                    </h3>
+                    <ul>
+                        <li><a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-2#comment-574">
+                            Bingo</a>: 楼主你好 我用的你的方法 我本地测试通过了 上传到虚拟主机 相...</li>
+                        <li><a href="http://blog.sloger.info/typecho/typecho-theme-suger-and-spice.html/comment-page-2#comment-573">
+                            爱国者捣蛋</a>: 喔！看到您回复了着实让我惊喜。我凌晨的时候想各种办法，希望和您取...</li>
+                        <li><a href="http://blog.sloger.info/typecho/typecho-theme-suger-and-spice.html/comment-page-2#comment-572">
+                            阿狸小喵</a>: 您好，感谢您对主题的喜爱。由于电脑坏了重装了系统，再加上本人今年...</li>
+                        <li><a href="http://blog.sloger.info/typecho/typecho-theme-suger-and-spice.html/comment-page-2#comment-571">
+                            爱国者捣蛋</a>: 抱歉打扰，首先祝十一愉快！听朋友介绍来到了你的博客，看见了你的主...</li>
+                        <li><a href="http://blog.sloger.info/linux/update-archlinux-to-the-latest-version-in-vps.html/comment-page-1#comment-570">
+                            Vans爱好者</a>: 数据海洋有些什么机房啊？ </li>
+                        <li><a href="http://blog.sloger.info/linux/gentoo-xfce4-cannot-set-jpg-file-as-wallpaper.html/comment-page-1#comment-569">
+                            阿狸小喵</a>: 电脑配置太渣, 带不动 Gnome 和 KDE. ^_^ </li>
+                        <li><a href="http://blog.sloger.info/default/end-of-last-summer-holiday.html/comment-page-1#comment-568">
+                            阿狸小喵</a>: 人艰不拆. -_-|| </li>
+                        <li><a href="http://blog.sloger.info/default/end-of-last-summer-holiday.html/comment-page-1#comment-567">
+                            abby</a>: 你不是还会爬电杆吗？这个很不错啊！ </li>
+                        <li><a href="http://blog.sloger.info/linux/gentoo-xfce4-cannot-set-jpg-file-as-wallpaper.html/comment-page-1#comment-566">
+                            JiaYu Blog</a>: 我个人还是喜欢Gnome多一些. </li>
+                        <li><a href="http://blog.sloger.info/guestbook.html/comment-page-12#comment-565">maillot
+                            saxo bank</a>: 友情来访~ </li>
+                    </ul>
+                </div>
+                <div class="widget">
+                    <h3>
+                        <span><em>friends</em> links</span>
+                    </h3>
+                    <div class="split-list">
+                        <ul>
+                            <li><a href="http://fyyz.me/" target="_blank">福音乐章</a></li><li><a href="http://ispeller.sinaapp.com/"
+                                target="_blank">iSpeller</a></li><li><a href="http://danknest.org/" target="_blank">
+                                    dant</a></li><li><a href="http://little.ljcads.com/blog/" target="_blank">greatljcads</a></li><li>
+                                        <a href="http://www.imhan.com" target="_blank">Hanny's Blog</a></li><li><a href="http://lovearia.me/"
+                                            target="_blank">Love Aria</a></li><li><a href="http://poker-lee.tk/" target="_blank">
+                                                Poker Lee</a></li><li><a href="http://www.isaced.com/" target="_blank">isaced</a></li><li>
+                                                    <a href="http://ishell.me/" target="_blank">即或不然</a></li><li><a href="http://blog.xwyam.info/"
+                                                        target="_blank">xw_y_am blog</a></li><li><a href="http://realasking.github.io/" target="_blank">
+                                                            大湿胸</a></li><li><a href="http://www.haomwei.com" target="_blank">屠城</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="widget">
+                    <h3>
+                        <span>date <em>archives</em></span>
+                    </h3>
+                    <div class="split-list">
+                        <ul>
+                            <li><a href="http://blog.sloger.info/2014/10/">October 2014</a></li><li><a href="http://blog.sloger.info/2014/08/">
+                                August 2014</a></li><li><a href="http://blog.sloger.info/2014/07/">July 2014</a></li><li>
+                                    <a href="http://blog.sloger.info/2014/06/">June 2014</a></li><li><a href="http://blog.sloger.info/2014/05/">
+                                        May 2014</a></li><li><a href="http://blog.sloger.info/2014/04/">April 2014</a></li><li>
+                                            <a href="http://blog.sloger.info/2014/03/">March 2014</a></li><li><a href="http://blog.sloger.info/2014/02/">
+                                                February 2014</a></li><li><a href="http://blog.sloger.info/2014/01/">January 2014</a></li><li>
+                                                    <a href="http://blog.sloger.info/2013/12/">December 2013</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="prefooter">
+            <div class="inner">
+
+                <div class="widget">
+                    <h3>
+                        <span><em>search</em> insite</span></h3>
+                    <form class="site-search" method="post" action="./">
+                    <input type="text" name="s" placeholder="搜索" />
+                    </form>
+                </div>
+                <div class="widget">
+                    <h3>
+                        <span><em>tags</em> cloud</span></h3>
+                    <ul class="tag-list">
+                        <li><a href="http://blog.sloger.info/tag/gentoo/">gentoo</a></li>
+                        <li><a href="http://blog.sloger.info/tag/ruby/">ruby</a></li>
+                        <li><a href="http://blog.sloger.info/tag/typecho/">typecho</a></li>
+                        <li><a href="http://blog.sloger.info/tag/meta-programing/">meta programing</a></li>
+                        <li><a href="http://blog.sloger.info/tag/linux/">linux</a></li>
+                        <li><a href="http://blog.sloger.info/tag/rails/">rails</a></li>
+                        <li><a href="http://blog.sloger.info/tag/arbitrary/">arbitrary</a></li>
+                        <li><a href="http://blog.sloger.info/tag/openrc/">openrc</a></li>
+                        <li><a href="http://blog.sloger.info/tag/archlinux/">archlinux</a></li>
+                        <li><a href="http://blog.sloger.info/tag/%E5%90%90%E6%A7%BD/">吐槽</a></li>
+                        <li><a href="http://blog.sloger.info/tag/php/">php</a></li>
+                        <li><a href="http://blog.sloger.info/tag/sitemap/">sitemap</a></li>
+                        <li><a href="http://blog.sloger.info/tag/css/">css</a></li>
+                        <li><a href="http://blog.sloger.info/tag/xinitrc/">xinitrc</a></li>
+                        <li><a href="http://blog.sloger.info/tag/scss/">scss</a></li>
+                        <li><a href="http://blog.sloger.info/tag/benchmark/">benchmark</a></li>
+                        <li><a href="http://blog.sloger.info/tag/website/">website</a></li>
+                        <li><a href="http://blog.sloger.info/tag/trance/">trance</a></li>
+                        <li><a href="http://blog.sloger.info/tag/xfce4/">xfce4</a></li>
+                        <li><a href="http://blog.sloger.info/tag/slim/">slim</a></li>
+                        <li><a href="http://blog.sloger.info/tag/sass/">sass</a></li>
+                        <li><a href="http://blog.sloger.info/tag/typecho-themes/">typecho themes</a></li>
+                        <li><a href="http://blog.sloger.info/tag/zsh/">zsh</a></li>
+                        <li><a href="http://blog.sloger.info/tag/slot-conflict/">slot conflict</a></li>
+                        <li><a href="http://blog.sloger.info/tag/perl/">perl</a></li>
+                        <li><a href="http://blog.sloger.info/tag/bootmantic/">bootmantic</a></li>
+                        <li><a href="http://blog.sloger.info/tag/emerge/">emerge</a></li>
+                        <li><a href="http://blog.sloger.info/tag/regexp/">regexp</a></li>
+                        <li><a href="http://blog.sloger.info/tag/kernel/">kernel</a></li>
+                    </ul>
+                </div>
+                <div class="widget">
+                    <h3>
+                        <span><em>metas</em></span></h3>
+                    <ul>
+                        <li class="last"><a href="http://blog.sloger.info/admin/login.php">登录</a></li>
+                        <li><a href="http://blog.sloger.info/feed/">文章 RSS</a></li>
+                        <li><a href="http://blog.sloger.info/feed/comments/">评论 RSS</a></li>
+                        <li><a href="http://www.typecho.org">Typecho</a></li>
+                    </ul>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    
+    <footer class="site-footer">
+        <div class="site-info">Powered by  
+            <a href="http://typecho.org/">Typecho</a>
+            <span class="sep"> | </span>Theme <a href="https://github.com/DreamHarbor/SugarAndSpice">Sugar & Spice</a>Coding by <a href="http://blog.sloger.info">Sloger</a>.
+            <span class="sep"> | </span>Designed by <a href="http://webtuts.pl">WebTuts</a>.
+        </div>
+    </footer>
+
+    <script src="js/jquery.js"></script>
+    <script src="js/script.js"></script>
+    <script type="text/javascript" src="js/highlight.pack.js"></script>
+
+    <script type="text/javascript">        window.onload = function () {
+            var codes = document.getElementsByTagName("pre"),
+    hlNames = {
+        actionscript: /^as[1-3]$/i,
+        cmake: /^(make|makefile)$/i,
+        cs: /^csharp$/i,
+        css: /^css[1-3]$/i,
+        delphi: /^pascal$/i,
+        javascript: /^js$/i,
+        markdown: /^md$/i,
+        objectivec: /^objective\-c$/i,
+        php: /^php[1-6]$/i,
+        sql: /^mysql$/i,
+        xml: /^(html|html5|xhtml)$/i
+    }, hlLangs = hljs.LANGUAGES;
+
+            for (var i = 0; i < codes.length; i++) {
+                var children = codes[i].getElementsByTagName("code"), highlighted = false;
+
+                if (children.length > 0) {
+                    var code = children[0], className = code.className;
+
+                    if (!!className) {
+                        if (0 == className.indexOf("lang-")) {
+                            var lang = className.substring(5).toLowerCase(), finalLang;
+
+                            if (hlLangs[lang]) {
+                                finalLang = lang;
+                            } else {
+                                for (var l in hlNames) {
+                                    if (lang.match(hlNames[l])) {
+                                        finalLang = l;
+                                    }
+                                }
+                            }
+
+                            if (!!finalLang) {
+                                var result = hljs.highlight(finalLang, code.textContent, true);
+                                code.innerHTML = result.value;
+                                highlighted = true;
+                            }
+                        }
+                    }
+
+                    if (!highlighted) {
+                        var html = code.innerHTML;
+                        code.innerHTML = html.replace(/<\/?[a-z]+[^>]*>/ig, "");
+                        hljs.highlightBlock(code, "", false);
+                    }
+                }
+            }
+
+            $("code .container").removeClass("container");
+        }</script>
+</body>
+</html>

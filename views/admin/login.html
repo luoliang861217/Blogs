@@ -1,0 +1,29 @@
+
+        <div class="typecho-login">
+            <h1><a href="#" class="i-logo">Asura</a></h1>
+
+            <% include message.html %>
+
+            <form action="/admin/doLogin" method="post" name="login" role="form">
+                <p>
+                    <label for="name" class="sr-only">用户名</label>
+                    <input type="text" id="username" name="username" value="" placeholder="用户名" class="text-l w-100" autofocus />
+                </p>
+                <p>
+                    <label for="password" class="sr-only">密码</label>
+                    <input type="password" id="password" name="password" class="text-l w-100" placeholder="密码" />
+                </p>
+                <p class="submit">
+                    <button type="submit" class="btn btn-l w-100 primary">登录</button>
+                    <input type="hidden" name="referer" value="" />
+                </p>
+                <p>
+                    <label for="remember">
+                        <input type="checkbox" name="remember" class="checkbox" value="1" id="remember" />下次自动登录</label>
+                </p>
+            </form>
+
+            <p class="more-link">
+                <a href="/">返回首页</a>&bull;<a href="/admin/register">用户注册</a>
+            </p>
+        </div>

@@ -1,0 +1,84 @@
+<div class="body container">
+    <div class="typecho-page-title">
+        <h2>管理标签</h2>
+    </div>
+    <div class="row typecho-page-main manage-metas">
+
+        <div class="col-mb-12 col-tb-8" role="main">
+
+            <form method="post" name="manage_tags" class="operate-form">
+                <div class="typecho-list-operate clearfix">
+                    <div class="operate">
+                        <label><i class="sr-only">全选</i><input type="checkbox" class="typecho-table-select-all" /></label>
+                        <div class="btn-group btn-drop">
+                            <button class="btn dropdown-toggle btn-s" type="button"><i class="sr-only">操作</i>选中项 <i class="i-caret-down"></i></button>
+                            <ul class="dropdown-menu">
+                                <li><a lang="你确认要删除这些标签吗?" href="http://localhost/index.php/action/metas-tag-edit?do=delete&_=4099862036e489696788ad48d8c0dbcf">删除</a></li>
+                                <li><a lang="刷新标签可能需要等待较长时间, 你确认要刷新这些标签吗?" href="http://localhost/index.php/action/metas-tag-edit?do=refresh&_=4099862036e489696788ad48d8c0dbcf">刷新</a></li>
+                                <li class="multiline">
+                                    <button type="button" class="btn btn-s merge" rel="http://localhost/index.php/action/metas-tag-edit?do=merge&_=4099862036e489696788ad48d8c0dbcf">合并到</button>
+                                    <input type="text" name="merge" class="text-s" />
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <ul class="typecho-list-notable tag-list clearfix">
+                    <li class="size-5" id="tag-3">
+                        <input type="checkbox" value="3" name="mid[]" />
+                        <span rel="http://localhost/admin/manage-tags.php?mid=3">ceshi</span>
+                        <a class="tag-edit-link" href="http://localhost/admin/manage-tags.php?mid=3"><i class="i-edit"></i></a>
+                    </li>
+                    <li class="size-5" id="tag-2">
+                        <input type="checkbox" value="2" name="mid[]" />
+                        <span rel="http://localhost/admin/manage-tags.php?mid=2">nodejs</span>
+                        <a class="tag-edit-link" href="http://localhost/admin/manage-tags.php?mid=2"><i class="i-edit"></i></a>
+                    </li>
+                </ul>
+                <input type="hidden" name="do" value="delete" />
+            </form>
+
+        </div>
+        <div class="col-mb-12 col-tb-4" role="form">
+            <form action="http://localhost/index.php/action/metas-tag-edit?_=4099862036e489696788ad48d8c0dbcf" method="post" enctype="application/x-www-form-urlencoded">
+                <ul class="typecho-option" id="typecho-option-item-name-0">
+                    <li>
+                        <label class="typecho-label" for="name-0-1">
+                            标签名称 *</label>
+                        <input id="name-0-1" name="name" type="text" class="text" />
+                        <p class="description">
+                            这是标签在站点中显示的名称.可以使用中文,如 "地球".
+                        </p>
+                    </li>
+                </ul>
+                <ul class="typecho-option" id="typecho-option-item-slug-1">
+                    <li>
+                        <label class="typecho-label" for="slug-0-2">
+                            标签缩略名</label>
+                        <input id="slug-0-2" name="slug" type="text" class="text" />
+                        <p class="description">
+                            标签缩略名用于创建友好的链接形式, 如果留空则默认使用标签名称.
+                        </p>
+                    </li>
+                </ul>
+                <ul class="typecho-option" id="typecho-option-item-do-2" style="display: none">
+                    <li>
+                        <input name="do" type="hidden" value="insert" />
+                    </li>
+                </ul>
+                <ul class="typecho-option" id="typecho-option-item-mid-3" style="display: none">
+                    <li>
+                        <input name="mid" type="hidden" />
+                    </li>
+                </ul>
+                <ul class="typecho-option typecho-option-submit" id="typecho-option-item--4">
+                    <li>
+                        <button type="submit" class="btn primary">
+                            增加标签</button>
+                    </li>
+                </ul>
+            </form>
+        </div>
+    </div>
+</div>

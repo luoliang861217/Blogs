@@ -1,0 +1,319 @@
+<!DOCTYPE HTML>
+<html class="no-js">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1">
+        <meta name="renderer" content="webkit">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>评论设置 - 独孤求败 - Powered by Typecho</title>
+        <meta name="robots" content="noindex, nofollow">
+        <link rel="stylesheet" href="http://localhost/admin/css/normalize.css?v=14.10.10">
+<link rel="stylesheet" href="http://localhost/admin/css/grid.css?v=14.10.10">
+<link rel="stylesheet" href="http://localhost/admin/css/style.css?v=14.10.10">
+<!--[if lt IE 9]>
+<script src="http://localhost/admin/js/html5shiv.js?v=14.10.10"></script>
+<script src="http://localhost/admin/js/respond.js?v=14.10.10"></script>
+<![endif]-->    </head>
+    <body>
+    <!--[if lt IE 9]>
+        <div class="message error browsehappy" role="dialog">当前网页 <strong>不支持</strong> 你正在使用的浏览器. 为了正常的访问, 请 <a href="http://browsehappy.com/">升级你的浏览器</a>.</div>
+    <![endif]-->
+<div class="typecho-head-nav clearfix" role="navigation">
+    <nav id="typecho-nav-list">
+        <ul class="root"><li class="parent"><a href="http://localhost/admin/index.php">控制台</a></dt></li><ul class="child"><li><a href="http://localhost/admin/index.php">概要</a></li><li><a href="http://localhost/admin/profile.php">个人设置</a></li><li><a href="http://localhost/admin/plugins.php">插件</a></li><li class="last"><a href="http://localhost/admin/themes.php">外观</a></li></ul></ul><ul class="root"><li class="parent"><a href="http://localhost/admin/write-post.php">撰写</a></dt></li><ul class="child"><li><a href="http://localhost/admin/write-post.php">撰写文章</a></li><li class="last"><a href="http://localhost/admin/write-page.php">创建页面</a></li></ul></ul><ul class="root"><li class="parent"><a href="http://localhost/admin/manage-posts.php">管理</a></dt></li><ul class="child"><li><a href="http://localhost/admin/manage-posts.php">文章</a></li><li><a href="http://localhost/admin/manage-pages.php">独立页面</a></li><li><a href="http://localhost/admin/manage-comments.php">评论</a></li><li><a href="http://localhost/admin/manage-categories.php">分类</a></li><li><a href="http://localhost/admin/manage-tags.php">标签</a></li><li><a href="http://localhost/admin/manage-medias.php">文件</a></li><li class="last"><a href="http://localhost/admin/manage-users.php">用户</a></li></ul></ul><ul class="root focus"><li class="parent"><a href="http://localhost/admin/options-general.php">设置</a></dt></li><ul class="child"><li><a href="http://localhost/admin/options-general.php">基本</a></li><li class="focus"><a href="http://localhost/admin/options-discussion.php">评论</a></li><li><a href="http://localhost/admin/options-reading.php">阅读</a></li><li class="last"><a href="http://localhost/admin/options-permalink.php">永久链接</a></li></ul></ul>    </nav>
+    <div class="operate">
+                <a title="最后登录: 24分钟前" href="http://localhost/admin/profile.php" class="author">asura</a><a class="exit" href="http://localhost/index.php/action/logout">登出</a><a href="http://localhost/">网站</a>
+    </div>
+</div>
+
+
+<div class="main">
+    <div class="body container">
+        <div class="typecho-page-title">
+    <h2>评论设置</h2>
+</div>
+        <div class="row typecho-page-main" role="form">
+            <div class="col-mb-12 col-tb-8 col-tb-offset-2">
+                <form action="http://localhost/index.php/action/options-discussion?_=c0e478db4278b24239b1cde5e0996707" method="post" enctype="application/x-www-form-urlencoded">
+<ul class="typecho-option" id="typecho-option-item-commentDateFormat-0">
+<li>
+<label class="typecho-label" for="commentDateFormat-0-1">
+评论日期格式</label>
+<input id="commentDateFormat-0-1" name="commentDateFormat" type="text" class="w-40 mono" value="F jS, Y \a\t h:i a" />
+<p class="description">
+这是一个默认的格式,当你在模板中调用显示评论日期方法时, 如果没有指定日期格式, 将按照此格式输出.<br />具体写法请参考 <a href="http://www.php.net/manual/zh/function.date.php">PHP 日期格式写法</a>.</p>
+</li>
+</ul>
+<ul class="typecho-option" id="typecho-option-item-commentsListSize-1">
+<li>
+<label class="typecho-label" for="commentsListSize-0-2">
+评论列表数目</label>
+<input id="commentsListSize-0-2" name="commentsListSize" type="text" class="w-20" value="10" />
+<p class="description">
+此数目用于指定显示在侧边栏中的评论列表数目.</p>
+</li>
+</ul>
+<ul class="typecho-option" id="typecho-option-item-commentsShow-2">
+<li>
+<label class="typecho-label">
+评论显示</label>
+<span class="multiline">
+<input name="commentsShow[]" type="checkbox" value="commentsShowCommentOnly" id="commentsShow-commentsShowCommentOnly" />
+<label for="commentsShow-commentsShowCommentOnly">
+仅显示评论, 不显示 Pingback 和 Trackback</label>
+</span>
+<span class="multiline">
+<input name="commentsShow[]" type="checkbox" value="commentsMarkdown" id="commentsShow-commentsMarkdown" />
+<label for="commentsShow-commentsMarkdown">
+在评论中使用Markdown语法</label>
+</span>
+<span class="multiline">
+<input name="commentsShow[]" type="checkbox" value="commentsShowUrl" id="commentsShow-commentsShowUrl" checked="true" />
+<label for="commentsShow-commentsShowUrl">
+评论者名称显示时自动加上其个人主页链接</label>
+</span>
+<span class="multiline">
+<input name="commentsShow[]" type="checkbox" value="commentsUrlNofollow" id="commentsShow-commentsUrlNofollow" checked="true" />
+<label for="commentsShow-commentsUrlNofollow">
+对评论者个人主页链接使用 <a href="http://en.wikipedia.org/wiki/Nofollow">nofollow 属性</a></label>
+</span>
+<span class="multiline">
+<input name="commentsShow[]" type="checkbox" value="commentsAvatar" id="commentsShow-commentsAvatar" checked="true" />
+<label for="commentsShow-commentsAvatar">
+启用 <a href="http://gravatar.com">Gravatar</a> 头像服务, 最高显示评级为 </label><select id="commentsShow-commentsAvatarRating" name="commentsAvatarRating">
+            <option value="G" selected="true">G - 普通</option>
+            <option value="PG">PG - 13岁以上</option>
+            <option value="R">R - 17岁以上成人</option>
+            <option value="X">X - 限制级</option></select>
+            <label for="commentsShow-commentsAvatarRating"> 的头像</label>
+</span>
+<span class="multiline">
+<input name="commentsShow[]" type="checkbox" value="commentsPageBreak" id="commentsShow-commentsPageBreak" />
+<label for="commentsShow-commentsPageBreak">
+启用分页, 并且每页显示 </label><input type="text" value="20" class="text num text-s" id="commentsShow-commentsPageSize" name="commentsPageSize" /><label for="commentsShow-commentsPageSize"> 篇评论, 在列出时将 </label><select id="commentsShow-commentsPageDisplay" name="commentsPageDisplay">
+            <option value="first">第一页</option>
+            <option value="last" selected="true">最后一页</option></select><label for="commentsShow-commentsPageDisplay"> 作为默认显示</label>
+</span>
+<span class="multiline">
+<input name="commentsShow[]" type="checkbox" value="commentsThreaded" id="commentsShow-commentsThreaded" checked="true" />
+<label for="commentsShow-commentsThreaded">
+启用评论回复, 以 </label><input name="commentsMaxNestingLevels" type="text" class="text num text-s" value="5" id="commentsShow-commentsMaxNestingLevels" />
+            <label for="commentsShow-commentsMaxNestingLevels"> 层作为每个评论最多的回复层数</label></span><span class="multiline">将 <select id="commentsShow-commentsOrder" name="commentsOrder">
+            <option value="DESC">较新的</option>
+            <option value="ASC" selected="true">较旧的</option></select><label for="commentsShow-commentsOrder"> 的评论显示在前面</label>
+</span>
+</li>
+</ul>
+<ul class="typecho-option" id="typecho-option-item-commentsPost-3">
+<li>
+<label class="typecho-label">
+评论提交</label>
+<span class="multiline">
+<input name="commentsPost[]" type="checkbox" value="commentsRequireModeration" id="commentsPost-commentsRequireModeration" />
+<label for="commentsPost-commentsRequireModeration">
+所有评论必须经过审核</label>
+</span>
+<span class="multiline">
+<input name="commentsPost[]" type="checkbox" value="commentsWhitelist" id="commentsPost-commentsWhitelist" />
+<label for="commentsPost-commentsWhitelist">
+评论者之前须有评论通过了审核</label>
+</span>
+<span class="multiline">
+<input name="commentsPost[]" type="checkbox" value="commentsRequireMail" id="commentsPost-commentsRequireMail" checked="true" />
+<label for="commentsPost-commentsRequireMail">
+必须填写邮箱</label>
+</span>
+<span class="multiline">
+<input name="commentsPost[]" type="checkbox" value="commentsRequireURL" id="commentsPost-commentsRequireURL" />
+<label for="commentsPost-commentsRequireURL">
+必须填写网址</label>
+</span>
+<span class="multiline">
+<input name="commentsPost[]" type="checkbox" value="commentsCheckReferer" id="commentsPost-commentsCheckReferer" checked="true" />
+<label for="commentsPost-commentsCheckReferer">
+检查评论来源页 URL 是否与文章链接一致</label>
+</span>
+<span class="multiline">
+<input name="commentsPost[]" type="checkbox" value="commentsAntiSpam" id="commentsPost-commentsAntiSpam" checked="true" />
+<label for="commentsPost-commentsAntiSpam">
+开启反垃圾保护</label>
+</span>
+<span class="multiline">
+<input name="commentsPost[]" type="checkbox" value="commentsAutoClose" id="commentsPost-commentsAutoClose" />
+<label for="commentsPost-commentsAutoClose">
+在文章发布 </label><input name="commentsPostTimeout" type="text" class="text num text-s" value="30" id="commentsPost-commentsPostTimeout" />
+            <label for="commentsPost-commentsPostTimeout"> 天以后自动关闭评论</label>
+</span>
+<span class="multiline">
+<input name="commentsPost[]" type="checkbox" value="commentsPostIntervalEnable" id="commentsPost-commentsPostIntervalEnable" checked="true" />
+<label for="commentsPost-commentsPostIntervalEnable">
+同一 IP 发布评论的时间间隔限制为 </label><input name="commentsPostInterval" type="text" class="text num text-s" value="1" id="commentsPost-commentsPostInterval" />
+            <label for="commentsPost-commentsPostInterval"> 分钟</label>
+</span>
+</li>
+</ul>
+<ul class="typecho-option" id="typecho-option-item-commentsHTMLTagAllowed-4">
+<li>
+<label class="typecho-label" for="commentsHTMLTagAllowed-0-5">
+允许使用的HTML标签和属性</label>
+<textarea id="commentsHTMLTagAllowed-0-5" name="commentsHTMLTagAllowed" class="mono">
+</textarea>
+<p class="description">
+默认的用户评论不允许填写任何的HTML标签, 你可以在这里填写允许使用的HTML标签.<br />比如: : <code>&lt;a href=&quot;&quot;&gt; &lt;img src=&quot;&quot;&gt; &lt;blockquote&gt;</code></p>
+</li>
+</ul>
+<ul class="typecho-option typecho-option-submit" id="typecho-option-item-submit-5">
+<li>
+<button type="submit" class="btn primary">
+保存设置</button>
+</li>
+</ul>
+</form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="typecho-foot" role="contentinfo">
+    <div class="copyright">
+        <a href="http://typecho.org" class="i-logo-s">Typecho</a>
+        <p>由 <a href="http://typecho.org">Typecho</a> 强力驱动, 版本 1.0 (14.10.10)</p>
+    </div>
+    <nav class="resource">
+        <a href="http://docs.typecho.org">帮助文档</a> &bull;
+        <a href="http://forum.typecho.org">支持论坛</a> &bull;
+        <a href="https://github.com/typecho/typecho/issues">报告错误</a> &bull;
+        <a href="http://extends.typecho.org">资源下载</a>
+    </nav>
+</div>
+<script src="http://localhost/admin/js/jquery.js?v=14.10.10"></script>
+<script src="http://localhost/admin/js/jquery-ui.js?v=14.10.10"></script>
+<script src="http://localhost/admin/js/typecho.js?v=14.10.10"></script>
+<script>
+    (function () {
+        $(document).ready(function() {
+            // 处理消息机制
+            (function () {
+                var prefix = '86a9106ae65537651a8e456835b316ab',
+                    cookies = {
+                        notice      :   $.cookie(prefix + '__typecho_notice'),
+                        noticeType  :   $.cookie(prefix + '__typecho_notice_type'),
+                        highlight   :   $.cookie(prefix + '__typecho_notice_highlight')
+                    },
+                    path = '/';
+
+                if (!!cookies.notice && 'success|notice|error'.indexOf(cookies.noticeType) >= 0) {
+                    var head = $('.typecho-head-nav'),
+                        p = $('<div class="message popup ' + cookies.noticeType + '">'
+                        + '<ul><li>' + $.parseJSON(cookies.notice).join('</li><li>') 
+                        + '</li></ul></div>'), offset = 0;
+
+                    if (head.length > 0) {
+                        p.insertAfter(head);
+                        offset = head.outerHeight();
+                    } else {
+                        p.prependTo(document.body);
+                    }
+
+                    function checkScroll () {
+                        if ($(window).scrollTop() >= offset) {
+                            p.css({
+                                'position'  :   'fixed',
+                                'top'       :   0
+                            });
+                        } else {
+                            p.css({
+                                'position'  :   'absolute',
+                                'top'       :   offset
+                            });
+                        }
+                    }
+
+                    $(window).scroll(function () {
+                        checkScroll();
+                    });
+
+                    checkScroll();
+
+                    p.slideDown(function () {
+                        var t = $(this), color = '#C6D880';
+                        
+                        if (t.hasClass('error')) {
+                            color = '#FBC2C4';
+                        } else if (t.hasClass('notice')) {
+                            color = '#FFD324';
+                        }
+
+                        t.effect('highlight', {color : color})
+                            .delay(5000).slideUp(function () {
+                            $(this).remove();
+                        });
+                    });
+
+                    
+                    $.cookie(prefix + '__typecho_notice', null, {path : path});
+                    $.cookie(prefix + '__typecho_notice_type', null, {path : path});
+                }
+
+                if (cookies.highlight) {
+                    $('#' + cookies.highlight).effect('highlight', 1000);
+                    $.cookie(prefix + '__typecho_notice_highlight', null, {path : path});
+                }
+            })();
+
+
+            // 导航菜单 tab 聚焦时展开下拉菜单
+            (function () {
+                $('#typecho-nav-list').find('.parent a').focus(function() {
+                    $('#typecho-nav-list').find('.child').hide();
+                    $(this).parents('.root').find('.child').show();
+                });
+                $('.operate').find('a').focus(function() {
+                    $('#typecho-nav-list').find('.child').hide();
+                });
+            })();
+
+
+            if ($('.typecho-login').length == 0) {
+                $('a').each(function () {
+                    var t = $(this), href = t.attr('href');
+
+                    if ((href && href[0] == '#')
+                        || /^http\:\/\/localhost\/admin\/.*$/.exec(href) 
+                            || /^http\:\/\/localhost\/index\.php\/action\/[_a-zA-Z0-9\/]+.*$/.exec(href)) {
+                        return;
+                    }
+
+                    t.attr('target', '_blank');
+                });
+            }
+        });
+    })();
+</script>
+<script>
+(function () {
+    $(document).ready(function () {
+        var error = $('.typecho-option .error:first');
+
+        if (error.length > 0) {
+            $('html,body').scrollTop(error.parents('.typecho-option').offset().top);
+        }
+
+        $('form').submit(function () {
+            if (this.submitted) {
+                return false;
+            } else {
+                this.submitted = true;
+            }
+        });
+
+        $('label input[type=text]').click(function (e) {
+            var check = $('#' + $(this).parents('label').attr('for'));
+            check.prop('checked', true);
+            return false;
+        });
+    });
+})();
+</script>
+    </body>
+</html>

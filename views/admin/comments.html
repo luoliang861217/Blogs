@@ -1,0 +1,129 @@
+        <div class="body container">
+            <div class="typecho-page-title">
+                <h2>管理评论</h2>
+            </div>
+            <div class="row typecho-page-main" role="main">
+                <div class="col-mb-12 typecho-list">
+                    <div class="clearfix">
+                        <ul class="typecho-option-tabs right">
+                            <li class=""><a href="http://localhost/admin/manage-comments.php?__typecho_all_comments=on">所有</a></li>
+                            <li class=" current"><a href="http://localhost/admin/manage-comments.php?__typecho_all_comments=off">我的</a></li>
+                        </ul>
+                        <ul class="typecho-option-tabs">
+                            <li class="current"><a href="http://localhost/admin/manage-comments.php">已通过</a></li>
+                            <li><a href="http://localhost/admin/manage-comments.php?status=waiting">待审核                                                </a></li>
+                            <li><a href="http://localhost/admin/manage-comments.php?status=spam">垃圾                                                </a></li>
+                        </ul>
+                    </div>
+
+                    <div class="typecho-list-operate clearfix">
+                        <form method="get">
+                            <div class="operate">
+                                <label><i class="sr-only">全选</i><input type="checkbox" class="typecho-table-select-all" /></label>
+                                <div class="btn-group btn-drop">
+                                    <button class="btn dropdown-toggle btn-s" type="button"><i class="sr-only">操作</i>选中项 <i class="i-caret-down"></i></button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="http://localhost/index.php/action/comments-edit?do=approved&_=5603d8f8f2111e98779e2cb5cfc85af2">通过</a></li>
+                                        <li><a href="http://localhost/index.php/action/comments-edit?do=waiting&_=5603d8f8f2111e98779e2cb5cfc85af2">待审核</a></li>
+                                        <li><a href="http://localhost/index.php/action/comments-edit?do=spam&_=5603d8f8f2111e98779e2cb5cfc85af2">标记垃圾</a></li>
+                                        <li><a lang="你确认要删除这些评论吗?" href="http://localhost/index.php/action/comments-edit?do=delete&_=5603d8f8f2111e98779e2cb5cfc85af2">删除</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="search" role="search">
+                                <input type="text" class="text-s" placeholder="请输入关键字" value="" onclick="value = ''; name = 'keywords';" />
+                                <button type="submit" class="btn btn-s">筛选</button>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- end .typecho-list-operate -->
+
+                    <form method="post" name="manage_comments" class="operate-form">
+                        <div class="typecho-table-wrap">
+                            <table class="typecho-list-table">
+                                <colgroup>
+                                    <col width="3%" />
+                                    <col width="6%" />
+                                    <col width="20%" />
+                                    <col width="71%" />
+                                </colgroup>
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>作者</th>
+                                        <th></th>
+                                        <th>内容</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+
+                                    <tr id="comment-1" data-comment="{&quot;author&quot;:&quot;Typecho&quot;,&quot;mail&quot;:null,&quot;url&quot;:&quot;http:\/\/typecho.org&quot;,&quot;ip&quot;:&quot;127.0.0.1&quot;,&quot;type&quot;:&quot;comment&quot;,&quot;text&quot;:&quot;\u6b22\u8fce\u52a0\u5165 Typecho \u5927\u5bb6\u65cf&quot;}">
+                                        <td valign="top">
+                                            <input type="checkbox" value="1" name="coid[]" />
+                                        </td>
+                                        <td valign="top">
+                                            <div class="comment-avatar">
+                                                <img class="avatar" src="http://www.gravatar.com/avatar/?s=40&amp;r=G&amp;d=" alt="Typecho" width="40" height="40" />
+                                            </div>
+                                        </td>
+                                        <td valign="top" class="comment-head">
+                                            <div class="comment-meta">
+                                                <strong class="comment-author"><a href="http://typecho.org" rel="external nofollow">Typecho</a></strong>
+                                                <br />
+                                                <span>127.0.0.1</span>
+                                            </div>
+                                        </td>
+                                        <td valign="top" class="comment-body">
+                                            <div class="comment-date">昨天 23:39 于 <a href="http://localhost/index.php/archives/1/#comment-1">欢迎使用 Typecho</a></div>
+                                            <div class="comment-content">
+                                                <p>欢迎加入 Typecho 大家族</p>
+                                            </div>
+                                            <div class="comment-action hidden-by-mouse">
+                                                <span class="weak">通过</span>
+
+                                                <a href="http://localhost/index.php/action/comments-edit?do=waiting&coid=1&_=5603d8f8f2111e98779e2cb5cfc85af2" class="operate-waiting">待审核</a>
+
+                                                <a href="http://localhost/index.php/action/comments-edit?do=spam&coid=1&_=5603d8f8f2111e98779e2cb5cfc85af2" class="operate-spam">垃圾</a>
+
+                                                <a href="#comment-1" rel="http://localhost/index.php/action/comments-edit?do=edit&coid=1&_=5603d8f8f2111e98779e2cb5cfc85af2" class="operate-edit">编辑</a>
+
+                                                <a href="#comment-1" rel="http://localhost/index.php/action/comments-edit?do=reply&coid=1&_=5603d8f8f2111e98779e2cb5cfc85af2" class="operate-reply">回复</a>
+
+                                                <a lang="你确认要删除Typecho的评论吗?" href="http://localhost/index.php/action/comments-edit?do=delete&coid=1&_=5603d8f8f2111e98779e2cb5cfc85af2" class="operate-delete">删除</a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            <!-- end .typecho-list-table -->
+                        </div>
+                        <!-- end .typecho-table-wrap -->
+
+                    </form>
+                    <!-- end .operate-form -->
+
+                    <div class="typecho-list-operate clearfix">
+                        <form method="get">
+                            <div class="operate">
+                                <label><i class="sr-only">全选</i><input type="checkbox" class="typecho-table-select-all" /></label>
+                                <div class="btn-group btn-drop">
+                                    <button class="btn dropdown-toggle btn-s" type="button"><i class="sr-only">操作</i>选中项 <i class="i-caret-down"></i></button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="http://localhost/index.php/action/comments-edit?do=approved&_=5603d8f8f2111e98779e2cb5cfc85af2">通过</a></li>
+                                        <li><a href="http://localhost/index.php/action/comments-edit?do=waiting&_=5603d8f8f2111e98779e2cb5cfc85af2">待审核</a></li>
+                                        <li><a href="http://localhost/index.php/action/comments-edit?do=spam&_=5603d8f8f2111e98779e2cb5cfc85af2">标记垃圾</a></li>
+                                        <li><a lang="你确认要删除这些评论吗?" href="http://localhost/index.php/action/comments-edit?do=delete&_=5603d8f8f2111e98779e2cb5cfc85af2">删除</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <ul class="typecho-pager">
+                                <li class="current"><a href="http://localhost/admin/manage-comments.php?page=1">1</a></li>
+                            </ul>
+                        </form>
+                    </div>
+                    <!-- end .typecho-list-operate -->
+                </div>
+                <!-- end .typecho-list -->
+            </div>
+            <!-- end .typecho-page-main -->
+        </div>

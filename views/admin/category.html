@@ -1,0 +1,60 @@
+        <div class="body container">
+            <div class="typecho-page-title">
+                <h2>管理分类<a href="/admin/category_add">新增</a></h2>
+            </div>
+
+            <% include message.html %>
+
+
+            <div class="row typecho-page-main manage-metas">
+
+                <div class="col-mb-12" role="main">
+
+                        <div class="typecho-table-wrap">
+                            <table class="typecho-list-table">
+                                <colgroup>
+                                    <col width="20" />
+                                    <col width="30%" />
+                                    <col width="15%" />
+                                    <col width="25%" />
+                                    <col width="" />
+                                    <col width="10%" />
+                                </colgroup>
+                                <thead>
+                                    <tr class="nodrag">
+                                        <th></th>
+                                        <th>名称</th>
+                                        <th>父级</th>
+                                        <th>缩略名</th>
+                                        <th>操作</th>
+                                        <th>文章数</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                <% data.forEach(function (item ,index){ %>
+                                    <tr id="mid-category-1">
+                                        <td>
+                                            <input type="checkbox" value="<%= item.id %>" />
+                                        </td>
+                                        <td>
+                                            <a href="#"><%= item.name %></a>
+                                            <a href="" title="浏览 <%= item.name %>"><i class="i-exlink"></i></a>
+                                        </td>
+                                        <td>
+                                            <a href="#"><%= item.parent %></a>
+                                        </td>
+                                        <td><%= item.slug %></td>
+                                        <td><a href="/admin/category_delete?id=<%= item.id %>" target="_self">删除</a> | <a href="/admin/category_update?id=<%= item.id %>">修改</a></td>
+                                        <td>
+                                            <a class="balloon-button left size-10" href="#"><%= item.count %></a>
+                                        </td>
+                                    </tr>
+
+                                <% }) %>
+                                </tbody>
+                            </table>
+                        </div>
+
+                </div>
+            </div>
+        </div>

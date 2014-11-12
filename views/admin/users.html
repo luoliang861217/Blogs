@@ -1,0 +1,88 @@
+<div class="body container">
+    <div class="typecho-page-title">
+        <h2>管理用户<a href="/admin/user_add">新增</a></h2>
+    </div>
+    <div class="row typecho-page-main" role="main">
+        <div class="col-mb-12 typecho-list">
+            <div class="typecho-list-operate clearfix">
+                <form method="get">
+                    <div class="operate">
+                        <label><i class="sr-only">全选</i><input type="checkbox" class="typecho-table-select-all" /></label>
+                        <div class="btn-group btn-drop">
+                            <button class="btn dropdown-toggle btn-s" type="button"><i class="sr-only">操作</i>选中项 <i class="i-caret-down"></i></button>
+                            <ul class="dropdown-menu">
+                                <li><a lang="你确认要删除这些用户吗?" href="http://localhost/index.php/action/users-edit?do=delete&_=1ecaf20546366213ef545fb6b356fed5">删除</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="search" role="search">
+                        <input type="text" class="text-s" placeholder="请输入关键字" value="" name="keywords" />
+                        <button type="submit" class="btn btn-s">筛选</button>
+                    </div>
+                </form>
+            </div>
+            <!-- end .typecho-list-operate -->
+
+            <form method="post" name="manage_users" class="operate-form">
+                <div class="typecho-table-wrap">
+                    <table class="typecho-list-table">
+                        <colgroup>
+                            <col width="20" />
+                            <col width="6%" />
+                            <col width="30%" />
+                            <col width="" />
+                            <col width="25%" />
+                            <col width="15%" />
+                        </colgroup>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th>用户名</th>
+                                <th>昵称</th>
+                                <th>电子邮件</th>
+                                <th>用户组</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr id="user-1">
+                                <td>
+                                    <input type="checkbox" value="1" name="uid[]" /></td>
+                                <td><a href="http://localhost/admin/manage-posts.php?uid=1" class="balloon-button left size-10">1</a></td>
+                                <td><a href="http://localhost/admin/user.php?uid=1">asura</a>
+                                    <a href="http://localhost/index.php/author/1/" title="浏览 asura"><i class="i-exlink"></i></a>
+                                </td>
+                                <td>asura</td>
+                                <td><a href="mailto:513274882@qq.com">513274882@qq.com</a></td>
+                                <td>管理员</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <!-- end .typecho-list-table -->
+                </div>
+                <!-- end .typecho-table-wrap -->
+            </form>
+            <!-- end .operate-form -->
+
+            <div class="typecho-list-operate clearfix">
+                <form method="get">
+                    <div class="operate">
+                        <label><i class="sr-only">全选</i><input type="checkbox" class="typecho-table-select-all" /></label>
+                        <div class="btn-group btn-drop">
+                            <button class="btn dropdown-toggle btn-s" type="button"><i class="sr-only">操作</i>选中项 <i class="i-caret-down"></i></button>
+                            <ul class="dropdown-menu">
+                                <li><a lang="你确认要删除这些用户吗?" href="http://localhost/index.php/action/users-edit?do=delete&_=1ecaf20546366213ef545fb6b356fed5">删除</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <ul class="typecho-pager">
+                        <li class="current"><a href="http://localhost/admin/manage-users.php?page=1">1</a></li>
+                    </ul>
+                </form>
+            </div>
+            <!-- end .typecho-list-operate -->
+        </div>
+        <!-- end .typecho-list -->
+    </div>
+    <!-- end .typecho-page-main -->
+</div>

@@ -1,0 +1,5 @@
+D:\Program Files\MongoDB\bin\mongod --dbpath ../data/db
+supervisor E:\wwwfiles\nodejs\Blogs\app.js
+
+//mongodb客户端
+mongo
