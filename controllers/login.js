@@ -6,6 +6,7 @@
 
 var settings = require('../settings');
 var userRepository = require('../Repository/userRepository');
+var error = require('../common/err');
 
 //自定义变量
 var blogtitle = settings.blogtitle;
@@ -41,21 +42,25 @@ exports.dologin = function(req,res){
         password : req.body.password
     };
     if( !param.username && param.username === ''){
-        req.flash('error','用户名不能为空！');
-        return res.redirect('/admin/login');
+        error.writelog('用户名不能为空！',error.type.normal,req,function(){
+            return res.redirect('/admin/login');
+        });
     }
     if( !param.password && param.password === ''){
-        req.flash('error','密码不能为空！');
-        return res.redirect('/admin/login');
+        error.writelog('密码不能为空！',error.type.normal,req,function(){
+            return res.redirect('/admin/login');
+        });
     }
     repository.getByuserName(param.username,function(err,user){
         if(err){
-            req.flash('error',err);
-            return res.redirect('/admin/login');
+            error.writelog(err ,error.type.normal ,req, function(){
+                return res.redirect('/admin/login');
+            });
         }
         if( !user ){
-            req.flash('error','用户不存在！');
-            return res.redirect('/admin/login');
+            error.writelog('用户不存在！' ,error.type.normal,req, function(){
+                return res.redirect('/admin/login');
+            });
         }
         else{
             var password = param.password.encryption();;
@@ -65,12 +70,21 @@ exports.dologin = function(req,res){
                 res.redirect('/admin/index');
             }
             else{
-                req.flash('error','密码不准确！');
-                return res.redirect('/admin/login');
+                error.writelog('密码不准确！' ,error.type.normal ,req, function(){
+                    return res.redirect('/admin/login');
+                });
             }
 
         }
     });
+};
+
+
+exports.logout = function(req,res){
+    req.session.user = null;
+    req.flash('success', '注销成功!');
+    res.redirect('/');
+
 };
 
 /**

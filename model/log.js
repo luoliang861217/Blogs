@@ -1,0 +1,31 @@
+/**
+ * 日志存储架构
+ * Created by Asura on 2014/11/13.
+ */
+
+var db = require('../common/db');
+var mongoose = db.mongoose;
+var Schema = db.Schema
+
+var logSchema = new Schema({
+//日志内容
+    content : { type:String ,index : true},
+//请求URL
+    url : { type:String ,index : true},
+//用户
+    user:{ type: Schema.Types.ObjectId, ref: 'User' },
+//日志级别：0:普通访问;1:增加；2：删除；3：修改；4：查；5：异常
+    level:{type:Number,default:0 ,index : true},
+//创建时间
+    createTime:{type:Date,default:Date.now ,index : true}
+});
+
+module.exports = mongoose.model('Log',logSchema);
+
+
+
+
+
+
+
+

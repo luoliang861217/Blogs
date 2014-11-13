@@ -17,6 +17,8 @@ var category = require('../controllers/category');
 var backstage = require('../controllers/backstage');
 //执行验证模块
 var auth = require('../middlewares/auth');
+//日志中间件
+var log = require('../middlewares/log');
 
 
 
@@ -27,13 +29,15 @@ module.exports = function(app){
 
     app.get('/admin/index',auth.userRequire, backstage.index);
 
-    app.get('/admin/login', login.showlogin);
+    app.get('/admin/login',login.showlogin);
 
     app.post('/admin/dologin', login.dologin);
 
-    app.get('/admin/register', register.showregister);
+    app.get('/admin/register',register.showregister);
 
     app.post('/admin/doregister', register.doregister);
+
+    app.get('/admin/logout', login.logout);
 
 //分类
     app.get('/admin/category',auth.userRequire,category.index);

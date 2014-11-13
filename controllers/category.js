@@ -5,6 +5,7 @@
 
 var settings = require('../settings');
 var categoryRepository = require('../Repository/categoryRepository');
+var Category = require('../model/category');
 
 var EventProxy = require('eventproxy');
 var http = require('http');

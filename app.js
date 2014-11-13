@@ -17,6 +17,7 @@ var EventProxy = require('eventproxy');
 var staticExtension = require('./common/staticExtension');
 var webRoutes = require('./routes/web');//前台路由
 var backRoutes = require('./routes/back');//后台路由
+var log = require('./middlewares/log');//日志中间件
 
 var app = express();
 
@@ -41,6 +42,8 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
+app.use("*",function(req,res,next){console.log('OK00');});
+app.use(log.accessLog);
 //调用前台路由器
 webRoutes(app);
 //调用后台路由器

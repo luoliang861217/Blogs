@@ -51,7 +51,7 @@ module.exports = function(){
     };
 
     /**
-     * 查找数据
+     * 查找数据 通过ID
      * @param id        指定ID
      * @param callback  回调函数
      */
@@ -60,6 +60,11 @@ module.exports = function(){
         User.findOne({ _id : id },callback);
     };
 
+    /**
+     * 查找数据 通过usernanme
+     * @param username
+     * @param callback
+     */
     this.getByuserName = function(username,callback) {
 
         User.findOne({ username: username }, callback);

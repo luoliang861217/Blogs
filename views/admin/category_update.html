@@ -28,7 +28,9 @@
                         <select name="parent" id="parent">
                             <option value="">不选择</option>
                         <% for(i in list ) {%>
+                            <% if ( list[i].id != data._id ) { %>
                             <option value="<%= list[i].id %>"><%= list[i].name %></option>
+                            <% } %>
                         <% } %>
                         </select>
                         <p class="description">此分类将归档在您选择的父级分类下.</p>

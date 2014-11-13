@@ -7,6 +7,8 @@ module.exports = {
 
     //是否调试
     debug:true,
+    //是否记录操作日志
+    isLog:true,
     // 邮箱配置
     smtpTransport: {
         host: '192.168.1.45',
