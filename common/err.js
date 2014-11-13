@@ -48,7 +48,10 @@ function Error(){
             url : req.url.toString(),
             level : level
         };
-        req.flash('error',content);
+        logRepository.add(param,function(err,log){
+            req.flash('error',content);
+            callback();
+        });
     };
 
 }

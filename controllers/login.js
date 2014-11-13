@@ -41,38 +41,31 @@ exports.dologin = function(req,res){
         username : req.body.username,
         password : req.body.password
     };
+    var errReturn = function(){
+        return res.redirect('/admin/login');
+    };
     if( !param.username && param.username === ''){
-        error.writelog('用户名不能为空！',error.type.normal,req,function(){
-            return res.redirect('/admin/login');
-        });
+        error.writelog('用户名不能为空！',error.type.normal,req,errReturn);
     }
     if( !param.password && param.password === ''){
-        error.writelog('密码不能为空！',error.type.normal,req,function(){
-            return res.redirect('/admin/login');
-        });
+        error.writelog('密码不能为空！',error.type.normal,req,errReturn);
     }
     repository.getByuserName(param.username,function(err,user){
         if(err){
-            error.writelog(err ,error.type.normal ,req, function(){
-                return res.redirect('/admin/login');
-            });
+            error.writelog(err ,error.type.normal ,req, errReturn);
         }
         if( !user ){
-            error.writelog('用户不存在！' ,error.type.normal,req, function(){
-                return res.redirect('/admin/login');
-            });
+            error.writelog('用户不存在！' ,error.type.normal,req, errReturn);
         }
         else{
-            var password = param.password.encryption();;
+            var password = param.password.encryption();
             if(user.password ===  password){
                 req.session.user = user;
                 req.flash('success', '登陆成功!');
                 res.redirect('/admin/index');
             }
             else{
-                error.writelog('密码不准确！' ,error.type.normal ,req, function(){
-                    return res.redirect('/admin/login');
-                });
+                error.writelog('密码不准确！' ,error.type.normal ,req, errReturn);
             }
 
         }

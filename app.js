@@ -20,12 +20,16 @@ var backRoutes = require('./routes/back');//后台路由
 var log = require('./middlewares/log');//日志中间件
 
 var app = express();
-
 // all environments
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
 app.engine('.html', ejs.__express);
 app.set('view engine', 'html');
+
+app.use(express.static(path.join(__dirname, 'public')));
+
+//记录日志
+app.use(log.accessLog);
 app.use(partials());
 app.use(flash());
 app.use(express.favicon());
@@ -35,15 +39,14 @@ app.use(express.methodOverride());
 app.use(express.cookieParser('asura'));
 app.use(express.session({cookie: { maxAge: 1000 * 60 * 60 }}));
 app.use(app.router);
-app.use(express.static(path.join(__dirname, 'public')));
 
 // development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-app.use("*",function(req,res,next){console.log('OK00');});
-app.use(log.accessLog);
+
+
 //调用前台路由器
 webRoutes(app);
 //调用后台路由器

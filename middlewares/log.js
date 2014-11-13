@@ -15,13 +15,12 @@ var logRepository = require('../Repository/logRepository');
  * @param next
  */
 exports.accessLog = function(req,res,next){
-    console.log('OK');
-//    var param = {
-//        content : '访问',
-//        url : req.url.toString(),
-//        level : 0
-//    };
-//    logRepository.add(param,function(err,log){
-//        next();
-//    });
+    var param = {
+        content : '访问',
+        url : req.url.toString(),
+        level : 0
+    };
+    logRepository.add(param,function(err,log){
+        next();
+    });
 };

@@ -23,7 +23,6 @@ function LogRepository(){
                 level : param.level,
                 user : param.user
             });
-            console.log(user.toString());
             user.save(callback);
         }
     };

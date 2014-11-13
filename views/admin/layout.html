@@ -31,7 +31,7 @@
             <ul class="root">
                 <li class="parent"><a href="/admin/categories">管理</a></dt></li>
                 <ul class="child">
-                    <li><a href="/admin/category">分类</a></li>
+                    <li><a href="/admin/category" target="_self">分类</a></li>
                     <li><a href="/admin/article">文章</a></li>
                     <li><a href="/admin/tag">标签</a></li>
                     <li><a href="/admin/comment">评论</a></li>
@@ -157,20 +157,6 @@
                     });
                 })();
 
-
-                if ($('.typecho-login').length == 0) {
-                    $('a').each(function () {
-                        var t = $(this), href = t.attr('href');
-
-                        if ((href && href[0] == '#')
-                            || /^http\:\/\/localhost\/admin\/.*$/.exec(href)
-                                || /^http\:\/\/localhost\/index\.php\/action\/[_a-zA-Z0-9\/]+.*$/.exec(href)) {
-                            return;
-                        }
-
-                        t.attr('target', '_blank');
-                    });
-                }
             });
         })();
     </script>
