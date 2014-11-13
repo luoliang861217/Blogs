@@ -28,8 +28,7 @@ app.set('view engine', 'html');
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-//记录日志
-app.use(log.accessLog);
+
 app.use(partials());
 app.use(flash());
 app.use(express.favicon());
@@ -37,15 +36,14 @@ app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(express.cookieParser('asura'));
-app.use(express.session({cookie: { maxAge: 1000 * 60 * 60 }}));
+app.use(express.session({cookie: { maxAge: 1000 * 60 * 60 }}));//记录日志
+app.use(log.accessLog);
 app.use(app.router);
 
 // development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
-
-
 
 //调用前台路由器
 webRoutes(app);

@@ -20,6 +20,7 @@ function LogRepository(){
             var user = new Log({
                 content : param.content,
                 url : param.url,
+                host : param.host,
                 level : param.level,
                 user : param.user
             });

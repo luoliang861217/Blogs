@@ -30,7 +30,11 @@ var Type = {
     /**
      * 异常错误
      */
-    exception:5
+    exception:5,
+    /**
+     * 非法访问
+     */
+    illegal:6
 };
 exports.type = Type;
 
@@ -43,11 +47,16 @@ function Error(){
      * @param callback  回调函数
      */
     this.writelog = function(content,level,req,callback){
+        var user = req.session.user;
         var param = {
             content : content,
             url : req.url.toString(),
+            host : req.host.toString(),
             level : level
         };
+        if( user ){
+            param.user = user._id ;
+        }
         logRepository.add(param,function(err,log){
             req.flash('error',content);
             callback();

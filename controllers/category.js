@@ -6,6 +6,7 @@
 var settings = require('../settings');
 var categoryRepository = require('../Repository/categoryRepository');
 var Category = require('../model/category');
+var error = require('../common/err');
 
 var EventProxy = require('eventproxy');
 var http = require('http');
@@ -22,11 +23,13 @@ var title = ' - '+ settings.blogtitle;
  */
 exports.index = function(req,res){
     var repository = new categoryRepository();
+    var errReturn = function(){
+        return res.redirect('/admin/category');
+    };
     var param = {};
     repository.list(param,1,10,function(err,categoies){
         if(err){
-            req.flash('error',err);
-            return res.redirect('/admin/category');
+            error.writelog(err,error.type.normal,req,errReturn);
         }
         res.render('admin/category', {
             title: '分类管理' + title,
@@ -48,9 +51,11 @@ exports.showadd = function(req,res){
     var repository = new categoryRepository();
     var param = {};
     repository.list(param,1,10,function(err,categoies){
-        if(err){
-            req.flash('error',err);
+        var errReturn = function(){
             return res.redirect('/admin/category');
+        };
+        if(err){
+            error.writelog(err,error.type.normal,req,errReturn);
         }
         res.render('admin/category_add', {
             title: '添加分类' + title,
@@ -71,26 +76,26 @@ exports.showadd = function(req,res){
  */
 exports.add = function(req,res){
     var repository = new categoryRepository();
+    var errReturn = function(){
+        return res.redirect('/admin/category_add');
+    };
     var param = {
         name : req.body.name,
         slug : req.body.slug,
         description : req.body.description
     };
     if( !param.name && param.name === ''){
-        req.flash('error','分类名称不能为空！');
-        return res.redirect('/admin/category_add');
+        error.writelog('分类名称不能为空！',error.type.normal,req,errReturn);
     }
     if(!param.slug && param.slug === ''){
-        req.flash('error','分类缩略名不能为空！');
-        return res.redirect('/admin/category_add');
+        error.writelog('分类缩略名不能为空！',error.type.normal,req,errReturn);
     }
     if(req.body.parent && req.body.parent != ''){
         param.parent = req.body.parent;
     }
     repository.add(param,function(err,category){
         if(err){
-            req.flash('error',err.message);
-            return res.redirect('/admin/category_add');
+            error.writelog(err.message,error.type.normal,req,errReturn);
         }
         req.flash('success', '添加成功!');
         res.redirect('/admin/category');
@@ -103,14 +108,16 @@ exports.add = function(req,res){
  * @param res
  */
 exports.delete = function(req,res){
+    var errReturn = function(){
+        return res.redirect('/admin/category');
+    };
     var paramStr = url.parse(req.url).query;
     var param = querystring.parse(paramStr);
     var repository = new categoryRepository();
 
     repository.findByIdAndRemove(param.id,function(err,cate){
         if(err){
-            req.flash('error',err.message);
-            return res.redirect('/admin/category');
+            error.writelog(err.message,error.type.normal,req,errReturn);
         }
         req.flash('success','删除成功!');
         res.redirect('/admin/category');
@@ -124,20 +131,21 @@ exports.delete = function(req,res){
  * @param res
  */
 exports.showupdate = function(req,res){
+    var errReturn = function(){
+        return res.redirect('/admin/category');
+    };
     var paramStr = url.parse(req.url).query;
     var param = querystring.parse(paramStr);
     var repository = new categoryRepository();
     var paramer = {};
     repository.list(paramer,1,10000,function(err,categoies){
         if(err){
-            req.flash('error',err);
-            return res.redirect('/admin/category');
+            error.writelog(err,error.type.normal,req,errReturn);
         }
         param = {id : param.id};
         repository.getById(param.id,function(err,category){
             if(err){
-                req.flash('error',err);
-                return res.redirect('/admin/category');
+                error.writelog(err,error.type.normal,req,errReturn);
             }
             res.render('admin/category_update', {
                 title: '更新分类' + title,
@@ -158,6 +166,9 @@ exports.showupdate = function(req,res){
  * @returns {*}
  */
 exports.update = function(req,res){
+    var errReturn = function(){
+        return res.redirect('/admin/category_add');
+    };
     var repository = new categoryRepository();
     var param = {
         id : req.body.id,
@@ -166,16 +177,14 @@ exports.update = function(req,res){
         description : req.body.description
     };
     if( (!param.id && param.id === '') || (!param.name && param.name === '')){
-        req.flash('error','数据出错！');
-        return res.redirect('admin/category');
+        error.writelog('数据出错！',error.type.normal,req,errReturn);
     }
     if(req.body.parent && req.body.parent != ''){
         param.parent = req.body.parent;
     }
     repository.update(param,function(err,category){
         if(err){
-            req.flash('error',err.message);
-            return res.redirect('/admin/category_add');
+            error.writelog(err.message,error.type.normal,req,errReturn);
         }
         req.flash('success', '保存成功!');
         res.redirect('/admin/category');
@@ -188,12 +197,14 @@ exports.update = function(req,res){
  * @param res
  */
 exports.list = function(req,res){
+    var errReturn = function(){
+        return res.redirect('/admin/category');
+    };
     var repository = new categoryRepository();
     var param = {};
     repository.list(param,1,10,function(err,categoies){
         if(err){
-            req.flash('error',err);
-            return res.redirect('/admin/category');
+            error.writelog(err,error.type.normal,req,errReturn);
         }
         res.render('admin/category01', {
             title: '分类管理' + title,

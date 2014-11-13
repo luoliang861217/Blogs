@@ -52,7 +52,7 @@ exports.dologin = function(req,res){
     }
     repository.getByuserName(param.username,function(err,user){
         if(err){
-            error.writelog(err ,error.type.normal ,req, errReturn);
+            error.writelog(err ,error.type.exception ,req, errReturn);
         }
         if( !user ){
             error.writelog('用户不存在！' ,error.type.normal,req, errReturn);

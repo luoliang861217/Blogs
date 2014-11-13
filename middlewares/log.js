@@ -1,12 +1,8 @@
 /**
  * Created by Asura on 2014/10/30.
  */
-/**
- * Created by Asura on 2014/10/30.
- */
 
-
-var logRepository = require('../Repository/logRepository');
+var error = require('../common/err');
 
 /**
  * 访问日志
@@ -15,12 +11,7 @@ var logRepository = require('../Repository/logRepository');
  * @param next
  */
 exports.accessLog = function(req,res,next){
-    var param = {
-        content : '访问',
-        url : req.url.toString(),
-        level : 0
-    };
-    logRepository.add(param,function(err,log){
+    error.writelog('访问',error.type.normal,req,function(err,log){
         next();
     });
 };
