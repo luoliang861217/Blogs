@@ -57,10 +57,7 @@ function Error(){
         if( user ){
             param.user = user._id ;
         }
-        logRepository.add(param,function(err,log){
-            req.flash('error',content);
-            callback();
-        });
+        logRepository.add(param,callback);
     };
 
 }
