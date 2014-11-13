@@ -6,7 +6,7 @@
 
 var settings = require('../settings');
 var userRepository = require('../Repository/userRepository');
-var error = require('../common/err');
+var log = require('../common/log');
 
 //自定义变量
 var blogtitle = settings.blogtitle;
@@ -46,31 +46,31 @@ exports.doregister = function(req,res){
         return res.redirect('/admin/register');
     };
     if(!param.username || param.username === ''){
-        error.writelog('用户名不能为空！',error.type.normal,req,errReturn);
+        log.writelog('用户名不能为空！',log.type.add,req,errReturn);
     }
     if(!param.password || param.password === ''){
-        error.writelog('密码不能为空！',error.type.normal,req,errReturn);
+        log.writelog('密码不能为空！',log.type.add,req,errReturn);
     }
     if( param.password != req.body.password_repeat){
-        error.writelog('密码不一致！',error.type.normal,req,errReturn);
+        log.writelog('密码不一致！',log.type.add,req,errReturn);
     }
     if(!param.email || param.email === ''){
-        error.writelog('邮箱不能为空！',error.type.normal,req,errReturn);
+        log.writelog('邮箱不能为空！',log.type.add,req,errReturn);
     }
     if(!param.email.isEmail()){
-        error.writelog('邮箱不正确！',error.type.normal,req,errReturn);
+        log.writelog('邮箱不正确！',log.type.add,req,errReturn);
     }
     param.password = param.password.encryption();
     repository.getByuserName(param.username,function(err,user){
         if(err){
-            error.writelog(err,error.type.exception,req,errReturn);
+            log.writelog(err,log.type.exception,req,errReturn);
         }
         if(user){
-            error.writelog('用户已经存在!',error.type.normal,req,errReturn);
+            log.writelog('用户已经存在!',log.type.add,req,errReturn);
         }
         repository.add(param,function(err,user){
             if (err) {
-                error.writelog(err,error.type.exception,req,errReturn);
+                log.writelog(err,log.type.exception,req,errReturn);
             }
             req.flash('success', '注册成功!');
             res.redirect('/');

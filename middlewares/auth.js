@@ -7,7 +7,7 @@
 
 
 var settings = require('../settings');
-var error = require('../common/err');
+var error = require('../common/log');
 //自定义变量
 var blogtitle = settings.blogtitle;
 var title = ' - '+ settings.blogtitle;

@@ -6,7 +6,7 @@
 var settings = require('../settings');
 var categoryRepository = require('../Repository/categoryRepository');
 var Category = require('../model/category');
-var error = require('../common/err');
+var log = require('../common/log');
 
 var EventProxy = require('eventproxy');
 var http = require('http');
@@ -29,7 +29,7 @@ exports.index = function(req,res){
     var param = {};
     repository.list(param,1,10,function(err,categoies){
         if(err){
-            error.writelog(err,error.type.normal,req,errReturn);
+            log.writelog(err,log.type.normal,req,errReturn);
         }
         res.render('admin/category', {
             title: '分类管理' + title,
@@ -55,7 +55,7 @@ exports.showadd = function(req,res){
             return res.redirect('/admin/category');
         };
         if(err){
-            error.writelog(err,error.type.normal,req,errReturn);
+            log.writelog(err,log.type.normal,req,errReturn);
         }
         res.render('admin/category_add', {
             title: '添加分类' + title,
@@ -85,17 +85,17 @@ exports.add = function(req,res){
         description : req.body.description
     };
     if( !param.name && param.name === ''){
-        error.writelog('分类名称不能为空！',error.type.normal,req,errReturn);
+        log.writelog('分类名称不能为空！',log.type.add,req,errReturn);
     }
     if(!param.slug && param.slug === ''){
-        error.writelog('分类缩略名不能为空！',error.type.normal,req,errReturn);
+        log.writelog('分类缩略名不能为空！',log.type.add,req,errReturn);
     }
     if(req.body.parent && req.body.parent != ''){
         param.parent = req.body.parent;
     }
     repository.add(param,function(err,category){
         if(err){
-            error.writelog(err.message,error.type.normal,req,errReturn);
+            log.writelog(err.message,log.type.exception,req,errReturn);
         }
         req.flash('success', '添加成功!');
         res.redirect('/admin/category');
@@ -117,7 +117,7 @@ exports.delete = function(req,res){
 
     repository.findByIdAndRemove(param.id,function(err,cate){
         if(err){
-            error.writelog(err.message,error.type.normal,req,errReturn);
+            log.writelog(err.message,log.type.exception,req,errReturn);
         }
         req.flash('success','删除成功!');
         res.redirect('/admin/category');
@@ -140,12 +140,12 @@ exports.showupdate = function(req,res){
     var paramer = {};
     repository.list(paramer,1,10000,function(err,categoies){
         if(err){
-            error.writelog(err,error.type.normal,req,errReturn);
+            log.writelog(err,log.type.normal,req,errReturn);
         }
         param = {id : param.id};
         repository.getById(param.id,function(err,category){
             if(err){
-                error.writelog(err,error.type.normal,req,errReturn);
+                log.writelog(err,log.type.normal,req,errReturn);
             }
             res.render('admin/category_update', {
                 title: '更新分类' + title,
@@ -177,14 +177,14 @@ exports.update = function(req,res){
         description : req.body.description
     };
     if( (!param.id && param.id === '') || (!param.name && param.name === '')){
-        error.writelog('数据出错！',error.type.normal,req,errReturn);
+        log.writelog('数据出错！',log.type.normal,req,errReturn);
     }
     if(req.body.parent && req.body.parent != ''){
         param.parent = req.body.parent;
     }
     repository.update(param,function(err,category){
         if(err){
-            error.writelog(err.message,error.type.normal,req,errReturn);
+            log.writelog(err.message,log.type.normal,req,errReturn);
         }
         req.flash('success', '保存成功!');
         res.redirect('/admin/category');
@@ -204,7 +204,7 @@ exports.list = function(req,res){
     var param = {};
     repository.list(param,1,10,function(err,categoies){
         if(err){
-            error.writelog(err,error.type.normal,req,errReturn);
+            log.writelog(err,log.type.normal,req,errReturn);
         }
         res.render('admin/category01', {
             title: '分类管理' + title,
@@ -214,5 +214,4 @@ exports.list = function(req,res){
             data : categoies
         });
     });
-
 };

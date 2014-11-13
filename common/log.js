@@ -38,7 +38,7 @@ var Type = {
 };
 exports.type = Type;
 
-function Error(){
+function Log(){
     /**
      * 写日志
      * @param content   内容
@@ -62,6 +62,6 @@ function Error(){
 
 }
 
-var error = new Error();
-exports.writelog = error.writelog;
+var log = new Log();
+exports.writelog = log.writelog;
 

@@ -2,7 +2,7 @@
  * Created by Asura on 2014/10/30.
  */
 
-var error = require('../common/err');
+var log = require('../common/log');
 
 /**
  * 访问日志
@@ -11,7 +11,7 @@ var error = require('../common/err');
  * @param next
  */
 exports.accessLog = function(req,res,next){
-    error.writelog('访问',error.type.normal,req,function(err,log){
+    log.writelog('访问',log.type.normal,req,function(err,log){
         next();
     });
 };

@@ -6,7 +6,7 @@
 
 var settings = require('../settings');
 var userRepository = require('../Repository/userRepository');
-var error = require('../common/err');
+var log = require('../common/log');
 
 //自定义变量
 var blogtitle = settings.blogtitle;
@@ -45,17 +45,17 @@ exports.dologin = function(req,res){
         return res.redirect('/admin/login');
     };
     if( !param.username && param.username === ''){
-        error.writelog('用户名不能为空！',error.type.normal,req,errReturn);
+        log.writelog('用户名不能为空！',log.type.normal,req,errReturn);
     }
     if( !param.password && param.password === ''){
-        error.writelog('密码不能为空！',error.type.normal,req,errReturn);
+        log.writelog('密码不能为空！',log.type.normal,req,errReturn);
     }
     repository.getByuserName(param.username,function(err,user){
         if(err){
-            error.writelog(err ,error.type.exception ,req, errReturn);
+            log.writelog(err ,log.type.exception ,req, errReturn);
         }
         if( !user ){
-            error.writelog('用户不存在！' ,error.type.normal,req, errReturn);
+            log.writelog('用户不存在！' ,log.type.normal,req, errReturn);
         }
         else{
             var password = param.password.encryption();
@@ -65,7 +65,7 @@ exports.dologin = function(req,res){
                 res.redirect('/admin/index');
             }
             else{
-                error.writelog('密码不准确！' ,error.type.normal ,req, errReturn);
+                log.writelog('密码不准确！' ,log.type.normal ,req, errReturn);
             }
 
         }
