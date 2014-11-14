@@ -120,7 +120,6 @@ exports.authUser = function (req, res, next) {
     if(auth_token){
         var auth = auth_token.split('$$$$');
         var user_id = auth[0];
-        console.log(user_id);
         if(user_id){
             var repository = new userRepository();
             repository.getById(user_id,function(err,user){

@@ -38,9 +38,9 @@ app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(express.cookieParser('asura'));
-app.use(express.session({cookie: { maxAge: 1000 * 60 * 60 }}));//记录日志
-app.use(auth.authUser);
-app.use(log.accessLog);
+app.use(express.session({cookie: { maxAge: 1000 * 60 * 60 }}));     /** cookie管理 */
+app.use(auth.authUser);     /** 验证用户 */
+app.use(log.accessLog);     /** 记录日志 */
 app.use(app.router);
 
 // development only

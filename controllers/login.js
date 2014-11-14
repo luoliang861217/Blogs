@@ -73,7 +73,11 @@ exports.dologin = function(req,res){
     });
 };
 
-
+/**
+ * 注销
+ * @param req
+ * @param res
+ */
 exports.logout = function(req,res){
     req.session.user = null;
     res.clearCookie(settings.auth_cookie_name, { path: '/' });
