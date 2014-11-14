@@ -116,7 +116,7 @@ exports.blockUser = function(req,res,next){
  * @returns {*}
  */
 exports.authUser = function (req, res, next) {
-    var auth_token = req.signedCookies[settings.auth_cookie_name];
+    var auth_token = req.signedCookies['connect.sess'];
     if(auth_token){
         var auth = auth_token.split('$$$$');
         var user_id = auth[0];

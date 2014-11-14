@@ -20,6 +20,7 @@ var backRoutes = require('./routes/back');//后台路由
 var log = require('./middlewares/log');//日志中间件
 //执行验证模块
 var auth = require('./middlewares/auth');
+var settings = require('./settings');
 
 var app = express();
 // all environments
@@ -37,10 +38,28 @@ app.use(express.favicon());
 app.use(express.logger('dev'));
 app.use(express.bodyParser());
 app.use(express.methodOverride());
-app.use(express.cookieParser('asura'));
-app.use(express.session({cookie: { maxAge: 1000 * 60 * 60 }}));     /** cookie管理 */
+
+
+// 第一种：使用mongodb存储session
+var SessionStore = require("session-mongoose")(express);
+var store = new SessionStore({ url: 'mongodb://' + settings.host + '/' + settings.session_db, interval: 120000});
+app.use(express.cookieParser());
+app.use(express.cookieSession({secret : settings.session_secret}));
+app.use(express.session({
+    secret : settings.session_secret,
+    store: store,
+    cookie: { maxAge: 1000 * 60 * 60 }
+}));    /** cookie管理 */
+
+
+// 第二种：使用内存存储session
+//app.use(express.cookieParser('asura'));
+//app.use(express.session({cookie: { maxAge: 1000 * 60 * 60 }}));     /** cookie管理 */
+
 app.use(auth.authUser);     /** 验证用户 */
 app.use(log.accessLog);     /** 记录日志 */
+
+
 app.use(app.router);
 
 // development only

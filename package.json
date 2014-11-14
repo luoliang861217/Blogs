@@ -6,6 +6,7 @@
     "start": "node app.js"
   },
   "dependencies": {
+    "connect": "^2.27.3",
     "connect-flash": "^0.1.1",
     "crypto": "0.0.3",
     "ejs": "^1.0.0",
@@ -14,6 +15,7 @@
     "express-partials": "^0.3.0",
     "mongoose": "^3.8.18",
     "nodemailer": "^1.2.1",
-    "validator": "^3.22.1"
+    "validator": "^3.22.1",
+    "session-mongoose": "^0.5.2"
   }
 }
