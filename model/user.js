@@ -40,6 +40,29 @@ var userSchema = new Schema({
 
 module.exports = mongoose.model('User',userSchema);
 
+var userType = {
+    /**
+     * 普通
+     */
+    general:0,
+    /**
+     * 管理员
+     */
+    admin:1
+};
+module.exports.userType = userType;
+var userLevel = {
+    /**
+     * 一级会员
+     */
+    one:1,
+    /**
+     * 二级会员
+     */
+    two:2
+};
+module.exports.userLevel = userLevel;
+
 
 
 

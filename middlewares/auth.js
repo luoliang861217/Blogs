@@ -8,12 +8,14 @@
 
 var settings = require('../settings');
 var error = require('../common/log');
+var User = require('../model/user');
+
 //自定义变量
 var blogtitle = settings.blogtitle;
 var title = ' - '+ settings.blogtitle;
 
 /**
- * 回调函数模型
+ * 回调函数模型，调用此函数不是没权限访问就是未登陆访问
  * @param url       url
  * @param title     标题
  * @param layout    布局文件
@@ -44,7 +46,7 @@ exports.adminRequire = function(req,res,next){
             req,funReturn(res,'admin/login','登录' + title,'admin/layout_login',false,'您还没有登录。')
         );
     }
-    else if( user.type != 1 ){
+    else if( user.type != User.userType.admin ){
         error.writelog(
             '您没有权限访问此资源！',
             error.type.illegal,
@@ -100,6 +102,8 @@ exports.blockUser = function(req,res,next){
             funReturn(res,'admin/error','权限提示' + title,'admin/layout_login',false,'您已被管理员屏蔽了。')
         );
     }
-    next();
+    else{
+        next();
+    }
 };
 
