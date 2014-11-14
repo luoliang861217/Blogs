@@ -9,6 +9,7 @@
 var settings = require('../settings');
 var error = require('../common/log');
 var User = require('../model/user');
+var userRepository = require('../Repository/userRepository');
 
 //自定义变量
 var blogtitle = settings.blogtitle;
@@ -105,5 +106,53 @@ exports.blockUser = function(req,res,next){
     else{
         next();
     }
+};
+
+/**
+ * 验证用户是否登录
+ * @param req
+ * @param res
+ * @param next
+ * @returns {*}
+ */
+exports.authUser = function (req, res, next) {
+    var auth_token = req.signedCookies[settings.auth_cookie_name];
+    if(auth_token){
+        var auth = auth_token.split('$$$$');
+        var user_id = auth[0];
+        console.log(user_id);
+        if(user_id){
+            var repository = new userRepository();
+            repository.getById(user_id,function(err,user){
+                if(err){
+                    error.writelog(
+                        err,
+                        error.type.illegal,
+                        req,
+                        funReturn(res,'admin/error','错误提示' + title,'admin/layout_login',false,err)
+                    );
+                }
+                if(!user){
+                    error.writelog(
+                        '用户数据出现异常',
+                        error.type.illegal,
+                        req,
+                        funReturn(res,'admin/error','错误提示' + title,'admin/layout_login',false,'用户数据出现异常')
+                    );
+                }
+                else{
+                    req.session.user = user;
+                    return next();
+                }
+            });
+        }
+        else{
+            return next();
+        }
+    }
+    else{
+        return next();
+    }
+
 };
 

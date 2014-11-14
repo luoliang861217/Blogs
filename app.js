@@ -18,6 +18,8 @@ var staticExtension = require('./common/staticExtension');
 var webRoutes = require('./routes/web');//前台路由
 var backRoutes = require('./routes/back');//后台路由
 var log = require('./middlewares/log');//日志中间件
+//执行验证模块
+var auth = require('./middlewares/auth');
 
 var app = express();
 // all environments
@@ -37,6 +39,7 @@ app.use(express.bodyParser());
 app.use(express.methodOverride());
 app.use(express.cookieParser('asura'));
 app.use(express.session({cookie: { maxAge: 1000 * 60 * 60 }}));//记录日志
+app.use(auth.authUser);
 app.use(log.accessLog);
 app.use(app.router);
 
@@ -44,6 +47,7 @@ app.use(app.router);
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
+
 
 //调用前台路由器
 webRoutes(app);

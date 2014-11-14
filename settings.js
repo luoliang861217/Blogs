@@ -9,6 +9,8 @@ module.exports = {
     debug:true,
     //是否记录操作日志
     isLog:true,
+    session_secret: 'node_club_secret', // 务必修改
+    auth_cookie_name: 'asurablog',
     // 邮箱配置
     smtpTransport: {
         host: '192.168.1.45',

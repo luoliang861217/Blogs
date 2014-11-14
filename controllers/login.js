@@ -60,14 +60,15 @@ exports.dologin = function(req,res){
         else{
             var password = param.password.encryption();
             if(user.password ===  password){
-                req.session.user = user;
                 req.flash('success', '登陆成功!');
+                var auth_token = user._id + '$$$$'; // 以后可能会存储更多信息，用 $$$$ 来分隔
+                res.cookie(settings.auth_cookie_name, auth_token,
+                    {path: '/', maxAge: 1000 * 60 * 60 * 24, signed: true, httpOnly: true}); //cookie 有效期1天
                 res.redirect('/admin/index');
             }
             else{
                 log.writelog('密码不准确！' ,log.type.normal ,req, errReturn);
             }
-
         }
     });
 };
@@ -75,6 +76,7 @@ exports.dologin = function(req,res){
 
 exports.logout = function(req,res){
     req.session.user = null;
+    res.clearCookie(settings.auth_cookie_name, { path: '/' });
     req.flash('success', '注销成功!');
     res.redirect('/admin/login');
 

@@ -10,7 +10,6 @@ var blogtitle = settings.blogtitle;
 var blogdescription = settings.blogdescription;
 var title = ' - '+ settings.blogtitle;
 
-
 exports.index = function(req,res){
     res.render('admin/index', {
         title: '后台中心' + title,
