@@ -22,7 +22,7 @@ var title = ' - '+ settings.blogtitle;
  * @returns {*}
  */
 var funReturn = function(res,url,title,layout,success,error){
-    return res.render(url, {
+    return res.status(403).render(url, {
         title: title,
         layout:layout,
         success : success,
@@ -44,15 +44,17 @@ exports.adminRequire = function(req,res,next){
             req,funReturn(res,'admin/login','登录' + title,'admin/layout_login',false,'您还没有登录。')
         );
     }
-    else if( user.type === 0 ){
+    else if( user.type != 1 ){
         error.writelog(
             '您没有权限访问此资源！',
             error.type.illegal,
             req,
-            funReturn(res,'admin/login','登录' + title,'admin/layout_login',false,'您没有权限。')
+            funReturn(res,'admin/error','权限提示' + title,'admin/layout_login',false,'您没有权限访问此资源。')
         );
     }
-    next();
+    else{
+        next();
+    }
 };
 /**
  * 普通用户权限，相当于需要登录
@@ -64,13 +66,15 @@ exports.userRequire = function(req,res,next){
     var user = req.session.user;
     if( !user ){
         error.writelog(
-            '您没有权限访问此资源！',
+            '您未登录没有权限访问此资源！',
             error.type.illegal,
             req,
             funReturn(res,'admin/login','登录' + title,'admin/layout_login',false,'您还没有登录。')
         );
     }
-    next();
+    else{
+        next();
+    }
 };
 /**
  * 用户锁定
@@ -82,7 +86,7 @@ exports.blockUser = function(req,res,next){
     var user = req.session.user;
     if( !user ){
         error.writelog(
-            '您没有权限访问此资源！',
+            '您未登录没有权限访问此资源！',
             error.type.illegal,
             req,
             funReturn(res,'admin/login','登录' + title,'admin/layout_login',false,'您还没有登录。')
@@ -93,7 +97,7 @@ exports.blockUser = function(req,res,next){
             '您没有权限访问此资源！',
             error.type.illegal,
             req,
-            funReturn(res,'admin/login','登录' + title,'admin/layout_login',false,'您已被管理员屏蔽了。')
+            funReturn(res,'admin/error','权限提示' + title,'admin/layout_login',false,'您已被管理员屏蔽了。')
         );
     }
     next();

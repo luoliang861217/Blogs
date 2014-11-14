@@ -42,15 +42,15 @@ module.exports = function(app){
 //分类
     app.get('/admin/category',auth.userRequire,category.index);
 
-    app.get('/admin/category_add',auth.userRequire,category.showadd);
+    app.get('/admin/category_add',auth.adminRequire,category.showadd);
 
-    app.post('/admin/category_doadd',auth.userRequire,category.add);
+    app.post('/admin/category_doadd',auth.adminRequire,category.add);
 
-    app.get('/admin/category_delete',auth.userRequire,category.delete);
+    app.get('/admin/category_delete',auth.adminRequire,category.delete);
 
-    app.get('/admin/category_update',auth.userRequire,category.showupdate);
+    app.get('/admin/category_update',auth.adminRequire,category.showupdate);
 
-    app.post('/admin/category/doupdate',auth.userRequire,category.update);
+    app.post('/admin/category/doupdate',auth.adminRequire,category.update);
 
     app.get('/admin/category/list',auth.userRequire,category.list);
 

@@ -76,7 +76,7 @@ exports.dologin = function(req,res){
 exports.logout = function(req,res){
     req.session.user = null;
     req.flash('success', '注销成功!');
-    res.redirect('/');
+    res.redirect('/admin/login');
 
 };
 
