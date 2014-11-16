@@ -214,4 +214,5 @@ exports.list = function(req,res){
             data : categoies
         });
     });
+
 };

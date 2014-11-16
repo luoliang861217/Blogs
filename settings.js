@@ -1,5 +1,4 @@
 module.exports = {
-    cookSecret : 'asura',
     db:'Blogs',
     host:'localhost',
     blogtitle:'独孤求败',
@@ -9,8 +8,8 @@ module.exports = {
     debug:true,
     //是否记录操作日志
     isLog:true,
-    session_db : 'Blogs_session',
-    session_secret: 'node_club_secret', // 务必修改
+    session_db : 'Blogs',
+    session_secret: 'asura_secret', // 务必修改
     auth_cookie_name: 'asurablog',
     // 邮箱配置
     smtpTransport: {

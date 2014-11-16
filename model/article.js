@@ -13,9 +13,9 @@ var articleSchema = new Schema({
 //文章内容
     slug : {type : String},
 //文章标签
-    tags : { type : String },
+    tags : [{ type : String }],
 //文章所属分类
-    category : { type : String },
+    category : { type: Schema.Types.ObjectId, ref: 'Category' },
 //创建时间
     createTime:{type:Date,default:Date.now},
 //修改时间
@@ -24,8 +24,7 @@ var articleSchema = new Schema({
     PublicTime:{type:Date,default:Date.now}
 });
 
-exports.Article = mongoose.model('Article',articleSchema);
-exports.ObjectId = ObjectId;
+module.exports = mongoose.model('Article',articleSchema);
 
 
 
