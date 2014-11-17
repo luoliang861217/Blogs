@@ -4,7 +4,8 @@
  */
 
 //登陆模块
-var login = require('../controllers/logintest');
+var Login = require('../controllers/logintest');
+
 //注册模块
 var register = require('../controllers/register');
 //UEditor模块
@@ -23,21 +24,21 @@ var log = require('../middlewares/log');
 
 
 module.exports = function(app){
-    var l = new login();
+    var login = new Login();
 //登陆注销
     app.get('/admin',auth.userRequire, backstage.index);
 
     app.get('/admin/index',auth.userRequire, backstage.index);
 
-    app.get('/admin/login',l.showlogin);
+    app.get('/admin/login',login.showlogin);
 
-    app.post('/admin/dologin', l.dologin);
+    app.post('/admin/dologin', login.test.bind(login));
 
     app.get('/admin/register',register.showregister);
 
     app.post('/admin/doregister', register.doregister);
 
-    app.get('/admin/logout', l.logout);
+    app.get('/admin/logout', login.test);
 
 //分类
     app.get('/admin/category',auth.userRequire,category.index);
