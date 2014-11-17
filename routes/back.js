@@ -4,7 +4,7 @@
  */
 
 //登陆模块
-var login = require('../controllers/logintest');
+var login = require('../controllers/login');
 
 //注册模块
 var register = require('../controllers/register');
@@ -31,7 +31,7 @@ module.exports = function(app){
 
     app.get('/admin/login',login.showlogin);
 
-    app.get('/admin/logintest',login.test);
+    app.get('/admin/logintest',login.dologin);
 
     app.post('/admin/dologin', login.dologin);
 

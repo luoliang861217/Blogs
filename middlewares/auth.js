@@ -24,10 +24,11 @@ var title = ' - '+ settings.blogtitle;
  * @param error     错误提示
  * @returns {*}
  */
-var funReturn = function(res,url,title,layout,success,error){
+var funReturn = function(req,res,url,title,layout,success,error){
     return res.status(403).render(url, {
         title: title,
         layout:layout,
+        data : req.headers['referer'].toString(),
         success : success,
         error: error
     });
@@ -44,7 +45,7 @@ exports.adminRequire = function(req,res,next){
         error.writelog(
             '您未登录，请先登录！',
             error.type.illegal,
-            req,funReturn(res,'admin/login','登录' + title,'admin/layout_login',false,'您还没有登录。')
+            req,funReturn(req,res,'admin/login','登录' + title,'admin/layout_login',false,'您还没有登录。')
         );
     }
     else if( user.type != User.userType.admin ){
@@ -52,7 +53,7 @@ exports.adminRequire = function(req,res,next){
             '您没有权限访问此资源！',
             error.type.illegal,
             req,
-            funReturn(res,'admin/error','权限提示' + title,'admin/layout_login',false,'您没有权限访问此资源。')
+            funReturn(req,res,'admin/error','权限提示' + title,'admin/layout_login',false,'您没有权限访问此资源。')
         );
     }
     else{
@@ -72,7 +73,7 @@ exports.userRequire = function(req,res,next){
             '您未登录没有权限访问此资源！',
             error.type.illegal,
             req,
-            funReturn(res,'admin/login','登录' + title,'admin/layout_login',false,'您还没有登录。')
+            funReturn(req,res,'admin/login','登录' + title,'admin/layout_login',false,'您还没有登录。')
         );
     }
     else{
@@ -92,7 +93,7 @@ exports.blockUser = function(req,res,next){
             '您未登录没有权限访问此资源！',
             error.type.illegal,
             req,
-            funReturn(res,'admin/login','登录' + title,'admin/layout_login',false,'您还没有登录。')
+            funReturn(req,res,'admin/login','登录' + title,'admin/layout_login',false,'您还没有登录。')
         );
     }
     else if( user.is_block ){
@@ -100,7 +101,7 @@ exports.blockUser = function(req,res,next){
             '您没有权限访问此资源！',
             error.type.illegal,
             req,
-            funReturn(res,'admin/error','权限提示' + title,'admin/layout_login',false,'您已被管理员屏蔽了。')
+            funReturn(req,res,'admin/error','权限提示' + title,'admin/layout_login',false,'您已被管理员屏蔽了。')
         );
     }
     else{
@@ -128,7 +129,7 @@ exports.authUser = function (req, res, next) {
                         err,
                         error.type.illegal,
                         req,
-                        funReturn(res,'admin/error','错误提示' + title,'admin/layout_login',false,err)
+                        funReturn(req,res,'admin/error','错误提示' + title,'admin/layout_login',false,err)
                     );
                 }
                 if(!user){
@@ -136,7 +137,7 @@ exports.authUser = function (req, res, next) {
                         '用户数据出现异常',
                         error.type.illegal,
                         req,
-                        funReturn(res,'admin/error','错误提示' + title,'admin/layout_login',false,'用户数据出现异常')
+                        funReturn(req,res,'admin/error','错误提示' + title,'admin/layout_login',false,'用户数据出现异常')
                     );
                 }
                 else{
