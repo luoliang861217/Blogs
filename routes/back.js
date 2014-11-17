@@ -4,7 +4,7 @@
  */
 
 //登陆模块
-var Login = require('../controllers/logintest');
+var login = require('../controllers/logintest');
 
 //注册模块
 var register = require('../controllers/register');
@@ -24,7 +24,6 @@ var log = require('../middlewares/log');
 
 
 module.exports = function(app){
-    var login = new Login();
 //登陆注销
     app.get('/admin',auth.userRequire, backstage.index);
 
@@ -32,13 +31,15 @@ module.exports = function(app){
 
     app.get('/admin/login',login.showlogin);
 
-    app.post('/admin/dologin', login.test.bind(login));
+    app.get('/admin/logintest',login.test);
+
+    app.post('/admin/dologin', login.dologin);
 
     app.get('/admin/register',register.showregister);
 
     app.post('/admin/doregister', register.doregister);
 
-    app.get('/admin/logout', login.test);
+    app.get('/admin/logout', login.logout);
 
 //分类
     app.get('/admin/category',auth.userRequire,category.index);
