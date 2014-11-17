@@ -3,7 +3,10 @@
  * Created by Asura on 2014/10/30.
  */
 
+var util = require('util');
+var base = require('./base');
 var settings = require('../settings');
+var log = require('../common/log');
 
 var categorymodel = require('../model/category');
 var Category = categorymodel.Category;
@@ -19,59 +22,75 @@ var querystring = require('querystring');
 //自定义变量
 var title = ' - '+ settings.blogtitle;
 
-//后台文章首页
-exports.index = function(req,res){
-    res.render('admin/article', {
-        title: '文章管理' + title,
-        layout:'admin/layout',
-        success : req.flash("success").toString(),
-        error: req.flash("error").toString(),
-        data : null
-    });
-};
+function article(){
+    base.call(this);
+    util.inherits(article,base);
+
+    //后台文章首页
+    this.index = function(req,res){
+        res.render('admin/article', {
+            title: '文章管理' + title,
+            layout:'admin/layout',
+            success : req.flash("success").toString(),
+            error: req.flash("error").toString(),
+            data : null
+        });
+    };
 
 //后台显示文章添加页面
-exports.showadd = function(req,res){
+    this.showadd = function(req,res){
 
-    res.render('admin/article_add', {
-        title: '添加文章' + title,
-        layout:'admin/layout',
-        success : req.flash("success").toString(),
-        error: req.flash("error").toString(),
-        data : null
-    });
-};
+        res.render('admin/article_add', {
+            title: '添加文章' + title,
+            layout:'admin/layout',
+            success : req.flash("success").toString(),
+            error: req.flash("error").toString(),
+            data : null
+        });
+    };
 
 //后台文章保存
-exports.add = function(req,res){
-    res.render('admin/article_add', {
-    title: '添加文章' + title,
-    layout:'admin/layout',
-    success : req.flash("success").toString(),
-    error: req.flash("error").toString(),
-    data : null
-});
+    this.add = function(req,res){
+        res.render('admin/article_add', {
+            title: '添加文章' + title,
+            layout:'admin/layout',
+            success : req.flash("success").toString(),
+            error: req.flash("error").toString(),
+            data : null
+        });
 
-};
+    };
 
 
 //后台文章删除
-exports.delete = function(req,res){
+    this.delete = function(req,res){
 
-};
+    };
 
 //后台显示文章更改页面
-exports.showupdate = function(req,res){
+    this.showupdate = function(req,res){
 
-};
+    };
 
 //后台文章更新
-exports.update = function(req,res){
+    this.update = function(req,res){
 
-};
+    };
 
 
 //后台文章列表
-exports.list = function(req,res){
+    this.list = function(req,res){
 
-};
+    };
+
+}
+
+
+var art = new article();
+exports.index = art.index;
+exports.showadd = art.showadd;
+exports.add = art.add;
+exports.delete = art.delete;
+exports.showupdate = art.showupdate;
+exports.update = art.update;
+exports.list = art.list;

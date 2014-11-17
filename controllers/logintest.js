@@ -55,7 +55,6 @@ function logintest(){
         if( !param.password && param.password === ''){
             this.log(true,'密码不能为空！',log.type.normal,req,errReturn);
         }
-        this.log(true,'密码不准确！',log.type.normal ,req, errReturn);
         repository.getByuserName(param.username,function(err,user){
             if(err){
                 this.log(true,err ,log.type.exception ,req, errReturn);

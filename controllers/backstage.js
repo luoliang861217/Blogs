@@ -3,25 +3,50 @@
  */
 
 
+var util = require('util');
+var base = require('./base');
 var settings = require('../settings');
+var log = require('../common/log');
 
 //自定义变量
 var blogtitle = settings.blogtitle;
 var blogdescription = settings.blogdescription;
 var title = ' - '+ settings.blogtitle;
 
-exports.index = function(req,res){
-    res.render('admin/index', {
-        title: '后台中心' + title,
-        layout:'admin/layout',
-        success : req.flash("success").toString(),
-        error : req.flash("error").toString()
-    });
-};
+//exports.index = function(req,res){
+//    res.render('admin/index', {
+//        title: '后台中心' + title,
+//        layout:'admin/layout',
+//        success : req.flash("success").toString(),
+//        error : req.flash("error").toString()
+//    });
+//};
+//
+//exports.profile = function(req,res){
+//
+//};
 
-exports.profile = function(req,res){
+function backstage(){
 
-};
+    base.call(this);
+    util.inherits(backstage,base);
 
+    this.index = function(req,res){
+        res.render('admin/index', {
+            title: '后台中心' + title,
+            layout:'admin/layout',
+            success : req.flash("success").toString(),
+            error : req.flash("error").toString()
+        });
+    };
+
+    this.profile = function(req,res){
+
+    };
+}
+
+var backStage = new backstage();
+exports.index = backStage.index;
+exports.profile = backStage.profile;
 
 
