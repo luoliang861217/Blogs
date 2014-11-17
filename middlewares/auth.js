@@ -28,7 +28,7 @@ var funReturn = function(req,res,url,title,layout,success,error){
     return res.status(403).render(url, {
         title: title,
         layout:layout,
-        data : req.headers['referer'].toString(),
+        data : req.headers['referer'] ? req.headers['referer'].toString() : '',
         success : success,
         error: error
     });

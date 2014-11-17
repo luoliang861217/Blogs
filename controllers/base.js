@@ -20,7 +20,6 @@ module.exports = function(){
      * @param callback  回调函数
      */
     this.log = function(isflash,content,level,req,callback){
-        console.log('method log is ~~~~');
         if(isflash){
             req.flash('error',content);
         }

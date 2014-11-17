@@ -66,7 +66,6 @@ module.exports = function(){
      * @param callback
      */
     this.getByuserName = function(username,callback) {
-
         User.findOne({ username: username }, callback);
     };
 
