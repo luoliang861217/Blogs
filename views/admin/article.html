@@ -28,20 +28,20 @@
                         </thead>
                         <tbody>
                         <% for(i in list) { %>
+
                         <tr id="post-<%= list[i].id %>">
                             <td>
                                 <input type="checkbox" value="1" name="cid[]" />
                             </td>
                             <td>
-                                <a href="http://localhost/admin/manage-comments.php?cid=1" class="balloon-button size-10">1</a>
+                                <a href="#" class="balloon-button size-10"><%= list[i].comments.length %></a>
                             </td>
                             <td>
-                                <a href="http://localhost/admin/write-post.php?cid=1"><%= list[i].title %></a>
-                                <a href="http://localhost/index.php/archives/1/" title="<%= list[i].title %>"><i class="i-exlink"></i></a>
+                                <a href="/admin/article_update?id=<%= list[i].id %>"><%= list[i].title %></a>
                             </td>
                             <td><a href="http://localhost/admin/manage-posts.php?uid=1"><%= list[i].user.username %></a></td>
                             <td><a href="http://localhost/admin/manage-posts.php?category=1"><%= list[i].category.name %></a>                                                                </td>
-                            <td><%= list[i].PublicTime.toLocaleDateString() %></td>
+                            <td><%= list[i].publicTime %></td>
                         </tr>
                         <% } %>
                         </tbody>

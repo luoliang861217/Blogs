@@ -77,9 +77,9 @@ module.exports = function(app){
 
     app.post('/admin/article_doadd',auth.userRequire,article.add);
 
-    app.get('/admin/article/update',auth.userRequire,article.showupdate);
+    app.get('/admin/article_update',auth.userRequire,article.showupdate);
 
-    app.post('/admin/article/update',auth.userRequire,article.update);
+    app.post('/admin/article_doupdate',auth.userRequire,article.update);
 
     app.post('/admin/article/list',auth.userRequire,article.list);
 

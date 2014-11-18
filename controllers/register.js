@@ -52,39 +52,41 @@ function register(){
             return res.redirect('/admin/register');
         };
         if(!param.username || param.username === ''){
-            log.writelog('用户名不能为空！',log.type.add,req,errReturn);
+            this.log(true,'用户名不能为空！',log.type.add,req,errReturn);
         }
         if(!param.password || param.password === ''){
-            log.writelog('密码不能为空！',log.type.add,req,errReturn);
+            this.log(true,'密码不能为空！',log.type.add,req,errReturn);
         }
         if( param.password != req.body.password_repeat){
-            log.writelog('密码不一致！',log.type.add,req,errReturn);
+            this.log(true,'密码不一致！',log.type.add,req,errReturn);
         }
         if(!param.email || param.email === ''){
-            log.writelog('邮箱不能为空！',log.type.add,req,errReturn);
+            this.log(true,'邮箱不能为空！',log.type.add,req,errReturn);
         }
         if(!param.email.isEmail()){
-            log.writelog('邮箱不正确！',log.type.add,req,errReturn);
+            this.log(true,'邮箱不正确！',log.type.add,req,errReturn);
         }
         param.password = param.password.encryption();
         repository.getByuserName(param.username,function(err,user){
             if(err){
-                log.writelog(err,log.type.exception,req,errReturn);
+                this.log(true,err,log.type.exception,req,errReturn);
             }
             if(user){
-                log.writelog('用户已经存在!',log.type.add,req,errReturn);
+                this.log(true,'用户已经存在!',log.type.add,req,errReturn);
             }
             repository.add(param,function(err,user){
                 if (err) {
-                    log.writelog(err,log.type.exception,req,errReturn);
+                    this.log(true,err,log.type.exception,req,errReturn);
                 }
-                req.flash('success', '注册成功!');
-                res.redirect('/');
-            });
+                this.log(false,user.username + '注册',log.type.add ,req, function(){
+                    req.flash('success', '注册成功!');
+                    res.redirect('/');
+                 });
+            }.bind(this));
         }.bind(this));
     };
 }
 
 var reg = new register();
-exports.showregister = reg.showregister;
-exports.doregister = reg.doregister;
+exports.showregister = reg.showregister.bind(reg);
+exports.doregister = reg.doregister.bind(reg);

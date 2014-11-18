@@ -11,6 +11,7 @@ var http = require('http');
 var path = require('path');
 var flash = require('connect-flash');
 var mongoose = require('mongoose');
+var relationship = require("mongoose-relationship");
 var crypto = require('crypto');
 var validator = require('validator');
 var EventProxy = require('eventproxy');

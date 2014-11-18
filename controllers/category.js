@@ -105,8 +105,10 @@ function category(){
             if(err){
                 this.log(true,err.message,log.type.exception ,req, errReturn);
             }
-            req.flash('success', '添加成功!');
-            res.redirect('/admin/category');
+            this.log(false,category.toString(),log.type.add ,req, function(){
+                req.flash('success', '添加成功!');
+                res.redirect('/admin/category');
+            });
         }.bind(this));
     };
 
@@ -127,8 +129,10 @@ function category(){
             if(err){
                 this.log(true,err.message,log.type.exception ,req, errReturn);
             }
-            req.flash('success','删除成功!');
-            res.redirect('/admin/category');
+            this.log(false,'删除id:' + param.id,log.type.delete ,req, function(){
+                req.flash('success','删除成功!');
+                res.redirect('/admin/category');
+            });
         }.bind(this));
 
     };
@@ -194,8 +198,10 @@ function category(){
             if(err){
                 this.log(true,err.message,log.type.exception ,req, errReturn);
             }
-            req.flash('success', '保存成功!');
-            res.redirect('/admin/category');
+            this.log(false,category.toString(),log.type.update ,req, function(){
+                req.flash('success', '保存成功!');
+                res.redirect('/admin/category');
+            });
         }.bind(this));
     };
 
@@ -230,10 +236,10 @@ function category(){
 
 
 var cateGory = new category();
-exports.index = cateGory.index;
-exports.showadd = cateGory.showadd;
-exports.add = cateGory.add;
-exports.delete = cateGory.delete;
-exports.showupdate = cateGory.showupdate;
-exports.update = cateGory.update;
-exports.list = cateGory.list;
+exports.index = cateGory.index.bind(cateGory);
+exports.showadd = cateGory.showadd.bind(cateGory);
+exports.add = cateGory.add.bind(cateGory);
+exports.delete = cateGory.delete.bind(cateGory);
+exports.showupdate = cateGory.showupdate.bind(cateGory);
+exports.update = cateGory.update.bind(cateGory);
+exports.list = cateGory.list.bind(cateGory);

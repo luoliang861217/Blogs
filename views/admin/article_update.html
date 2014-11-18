@@ -23,11 +23,11 @@
 
                         <p class="title">
                             <label for="title" class="sr-only">标题</label>
-                            <input type="text" id="title" name="title" autocomplete="off" placeholder="标题" class="w-100 text title" />
+                            <input type="text" id="title" name="title" autocomplete="off" placeholder="标题" value="<%= data.title %>" class="w-100 text title" />
                         </p>
                         <p>
                             <label for="text" class="sr-only">文章内容</label>
-                            <script id="content" name="content" type="text/plain" style="height: 350px">这里写你的初始化内容</script>
+                            <script id="content" name="content" type="text/plain" style="height: 350px"><%= data.content %></script>
                         </p>
 
                         <p class="submit clearfix">
@@ -47,22 +47,22 @@
                             <section class="typecho-post-option" role="application">
                                 <label for="date" class="typecho-label">发布日期</label>
                                 <p>
-                                    <input class="typecho-date w-100" type="text" name="PublicTime" id="PublicTime" value="" />
+                                    <input class="typecho-date w-100" type="text" name="PublicTime" id="PublicTime" />
                                 </p>
                             </section>
 
                             <section class="typecho-post-option category-option">
                                 <label class="typecho-label">分类</label>
-                            <% if(data.length >0 ) {%>
+                            <% if(list.length >0 ) {%>
                                 <ul>
-                                    <% for(i in data ) {%>
+                                    <% for(i in list ) {%>
 
                                     <li>
-                                        <% if(data[i].parent) { %>
+                                        <% if(list[i].parent) { %>
                                         &nbsp;&nbsp;&nbsp;&nbsp;
                                         <% } %>
-                                        <input type="radio" name="category" value="<%= data[i].id %>" id="category-<%= data[i].id %>">
-                                        <label for="category-<%= data[i].id %>"><%= data[i].name %></label>
+                                        <input type="radio" name="category" value="<%= list[i].id %>" id="category-<%= list[i].id %>">
+                                        <label for="category-<%= list[i].id %>"><%= list[i].name %></label>
                                     </li>
                                     <% } %>
                                 </ul>
@@ -72,7 +72,7 @@
                             <section class="typecho-post-option">
                                 <label for="token-input-tags" class="typecho-label">标签</label>
                                 <p>
-                                    <input id="tags" name="tags" type="text" value="" autocomplete="off" placeholder="空格分隔" class="w-100 text" /></p>
+                                    <input id="tags" name="tags" type="text" value="<%= data.tags %>" autocomplete="off" placeholder="空格分隔" class="w-100 text" /></p>
                             </section>
                         </div>
                     </div>

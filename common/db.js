@@ -5,6 +5,7 @@
 
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var relationship = require("mongoose-relationship");
 var settings = require('../settings');
 var host = settings.host;
 var blog = settings.db;
@@ -12,3 +13,4 @@ var blog = settings.db;
 mongoose.connect('mongodb://' + host + '/' + blog);
 exports.mongoose = mongoose;
 exports.Schema = Schema;
+exports.relationship = relationship;

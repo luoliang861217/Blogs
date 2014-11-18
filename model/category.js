@@ -3,6 +3,7 @@
  * Created by Asura on 2014/10/30.
  */
 
+var moment = require('moment');
 var db = require('../common/db');
 var mongoose = db.mongoose;
 var Schema = db.Schema;
@@ -21,9 +22,9 @@ var categorySchema = new Schema({
     //文章数量
     count : { type:Number,default:0 },
     //创建时间
-    createTime:{ type:Date,default:Date.now },
+    createTime:{ type:Number,default:moment().unix()  },
     //修改时间
-    UpdateTime:{ type:Date,default:Date.now }
+    UpdateTime:{ type:Number,default:moment().unix()  }
 });
 
 module.exports = mongoose.model('Category',categorySchema);

@@ -8,6 +8,7 @@
 //var Schema = db.Schema;
 
 
+var moment = require('moment');
 var Category = require('../model/category');
 
 module.exports = function(){
@@ -51,7 +52,7 @@ module.exports = function(){
             result.name = param.name;
             result.slug = param.slug;
             result.description = param.description;
-            result.updateTime = Date.now;
+            result.updateTime = moment().unix();
             if(param.parent && param.parent != ''){
                 result.parent = param.parent;
             }

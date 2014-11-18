@@ -3,6 +3,7 @@
  * Created by Asura on 2014/10/30.
  */
 
+var moment = require('moment');
 var db = require('../common/db');
 var mongoose = db.mongoose;
 var Schema = db.Schema
@@ -33,9 +34,9 @@ var userSchema = new Schema({
 //用户类型：0：普通用户；1：管理员；
     type:{type:Number,default:0},
 //创建时间
-    createTime:{type:Date,default:Date.now},
+    createTime:{type:Number,default:moment().unix()},
 //修改时间
-    UpdateTime:{type:Date,default:Date.now}
+    UpdateTime:{type:Number,default:moment().unix()}
 });
 
 module.exports = mongoose.model('User',userSchema);

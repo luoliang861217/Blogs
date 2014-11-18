@@ -10,6 +10,7 @@ var articleRepository = require('../Repository/articleRepository');
 var categoryRepository = require('../Repository/categoryRepository');
 var Article = require('../model/article');
 var log = require('../common/log');
+var moment = require('moment');
 
 
 var EventProxy = require('eventproxy');
@@ -35,6 +36,9 @@ function article(){
             if(err){
                 this.log(true,err,log.type.exception ,req, errReturn);
             }
+            for(i in articles){
+                articles[i].publicTime = moment(articles[i].PublicTime).format('YYYY-MM-DD HH:mm:ss');
+            }
             res.render('admin/article', {
                 title: '文章管理' + title,
                 layout:'admin/layout',
@@ -47,28 +51,21 @@ function article(){
 
 //后台显示文章添加页面
     this.showadd = function(req,res){
-        var repository = new articleRepository();
         var CategoryRepository = new categoryRepository();
         var errReturn = function(){
             return res.redirect('/admin/article');
         };
-        repository.list({},1,10,function(err,articles){
+        CategoryRepository.list({},1,10000,function(err,categoies){
             if(err){
                 this.log(true,err,log.type.exception ,req, errReturn);
             }
-            CategoryRepository.list({},1,10000,function(err,categoies){
-                if(err){
-                    this.log(true,err,log.type.exception ,req, errReturn);
-                }
-                res.render('admin/article_add', {
-                    title: '添加文章' + title,
-                    layout:'admin/layout',
-                    success : req.flash("success").toString(),
-                    error: req.flash("error").toString(),
-                    data :categoies,
-                    list : articles
-                });
-            }.bind(this));
+            res.render('admin/article_add', {
+                title: '添加文章' + title,
+                layout:'admin/layout',
+                success : req.flash("success").toString(),
+                error: req.flash("error").toString(),
+                data :categoies
+            });
         }.bind(this));
     };
 
@@ -84,6 +81,7 @@ function article(){
             tags : req.body.tags,
             category : req.body.category,
             user : req.session.user._id,
+            comments :[],
             PublicTime : req.body.PublicTime
         };
         if( !param.title && param.title === ''){
@@ -101,8 +99,7 @@ function article(){
          * @type {Array}
          */
         if( param.tags){
-            var tags = [];
-            tags.push(param.tags);
+            var tags = param.tags.split(" ");
             param.tags = tags;
         }
 
@@ -110,7 +107,7 @@ function article(){
             this.log(true,'文章发布时间不能为空！',log.type.add ,req, errReturn);
         }
         else{
-            param.PublicTime = new Date(param.PublicTime);
+            param.PublicTime = moment(param.PublicTime).unix();
         }
         repository.add(param,function(err,article){
             if(err){
@@ -129,7 +126,31 @@ function article(){
 
 //后台显示文章更改页面
     this.showupdate = function(req,res){
-
+        var repository = new articleRepository();
+        var CategoryRepository = new categoryRepository();
+        var errReturn = function(){
+            return res.redirect('/admin/article');
+        };
+        var paramStr = url.parse(req.url).query;
+        var param = querystring.parse(paramStr);
+        CategoryRepository.list({},1,1000,function(err,categoies){
+            if(err){
+                this.log(true,err,log.type.exception ,req, errReturn);
+            }
+            repository.getById(param.id,function(err,article){
+                if(err){
+                    this.log(true,err,log.type.exception ,req, errReturn);
+                }
+                res.render('admin/article_update', {
+                    title: '编辑文章' + title,
+                    layout:'admin/layout',
+                    success : req.flash("success").toString(),
+                    error: req.flash("error").toString(),
+                    data :article,
+                    list : categoies
+                });
+            }.bind(this));
+        }.bind(this));
     };
 
 //后台文章更新
@@ -147,10 +168,10 @@ function article(){
 
 
 var art = new article();
-exports.index = art.index;
-exports.showadd = art.showadd;
-exports.add = art.add;
-exports.delete = art.delete;
-exports.showupdate = art.showupdate;
-exports.update = art.update;
-exports.list = art.list;
+exports.index = art.index.bind(art);
+exports.showadd = art.showadd.bind(art);
+exports.add = art.add.bind(art);
+exports.delete = art.delete.bind(art);
+exports.showupdate = art.showupdate.bind(art);
+exports.update = art.update.bind(art);
+exports.list = art.list.bind(art);

@@ -4,6 +4,7 @@
  */
 
 
+var moment = require('moment');
 var Article = require('../model/article');
 
 module.exports = function(){
@@ -19,6 +20,7 @@ module.exports = function(){
             tags : param.tags,
             user : param.user,
             category : param.category,
+            comments : param.comments,
             PublicTime : param.PublicTime
         });
         article.save(callback);
@@ -48,6 +50,7 @@ module.exports = function(){
             result.tags = param.tags;
             result.user = param.user;
             result.category = param.category;
+            result.comments = param.comments;
             result.PublicTime = param.PublicTime;
             result.updateTime = Date.now;
             result.save(callback);
@@ -93,6 +96,9 @@ module.exports = function(){
         if(param.PublicTime){
             qurey['PublicTime'] = param.PublicTime;
         }
+        /**
+         * comments属性由关系维护自动加载
+         */
         Article.find(qurey).skip(skip).limit(pageSize).populate('category').populate('user').exec(callback);
     };
 

@@ -4,6 +4,7 @@
  */
 
 
+var moment = require('moment');
 var User = require('../model/user');
 
 module.exports = function(){
@@ -45,7 +46,7 @@ module.exports = function(){
             result.username = param.username;
             result.password = param.password;
             result.email = param.email;
-            result.UpdateTime = Date.now;
+            result.UpdateTime = moment().unix();
             result.save(callback);
         });
     };

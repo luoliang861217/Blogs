@@ -63,17 +63,19 @@ function logintest(){
             else{
                 var password = param.password.encryption();
                 if(user.password ===  password){
-                    req.flash('success', '登陆成功!');
+                    this.log(false,user.username + '登录',log.type.normal ,req, function(){
+                        req.flash('success', '登陆成功!');
 
-                    //  第一种：使用mongodb存储session
-                    req.session.user = user;
+                        //  第一种：使用mongodb存储session
+                        req.session.user = user;
 
-                    //  第二种：使用内存存储session
+                        //  第二种：使用内存存储session
 //                var auth_token = user._id + '$$$$'; // 以后可能会存储更多信息，用 $$$$ 来分隔
 //                res.cookie(settings.auth_cookie_name, auth_token,
 //                    {path: '/', maxAge: 1000 * 60 * 60 * 24, signed: true, httpOnly: true}); //cookie 有效期1天
 
-                    return res.redirect('/admin/index');
+                        return res.redirect('/admin/index');
+                    });
                 }
                 else{
                     this.log(true,'密码不准确！',log.type.normal ,req, errReturn);
@@ -89,16 +91,18 @@ function logintest(){
      * @param res
      */
     this.logout = function(req,res){
-        //  第一种：使用mongodb存储session
-        req.session.user = null ;
+        var user = req.session.user ;
+        this.log(false,user.username + '退出',log.type.normal ,req, function(){
+            //  第一种：使用mongodb存储session
+            req.session.user = null ;
 
-        //  第二种：使用内存存储session
+            //  第二种：使用内存存储session
 //    req.session.user = null;
 //    res.clearCookie(settings.auth_cookie_name, { path: '/' });
 
-        req.flash('success', '注销成功!');
-        res.redirect('/admin/login');
-
+            req.flash('success', '注销成功!');
+            res.redirect('/admin/login');
+        });
     };
 
     /**
@@ -128,6 +132,6 @@ var login = new logintest();
 exports.showlogin = login.showlogin;
 exports.test = login.test.bind(login);
 exports.dologin = login.dologin.bind(login);
-exports.logout = login.logout;
-exports.doactive = login.doactive;
+exports.logout = login.logout.bind(login);
+exports.doactive = login.doactive.bind(login);
 

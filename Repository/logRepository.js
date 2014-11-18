@@ -3,7 +3,6 @@
  * Created by Administrator on 2014/11/13.
  */
 
-
 var Log = require('../model/log');
 var settings = require('../settings');
 
