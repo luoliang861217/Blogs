@@ -1,11 +1,17 @@
-<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
-<script type="text/javascript" charset="utf-8" src="js/jquery.js"></script>
-<script type="text/javascript" charset="utf-8" src="js/jquery-ui.js"></script>
-<link rel="stylesheet" href="css/jquery-ui.css">
-<script type="text/javascript" charset="utf-8" src="../ueditor/ueditor.config.js"></script>
-<script type="text/javascript" charset="utf-8" src="../ueditor/ueditor.all.min.js"> </script>
+
+
 
 <script type="text/javascript" charset="utf-8" src="../ueditor/lang/zh-cn/zh-cn.js"></script>
+<style type="text/css">
+    ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
+    .ui-timepicker-div dl { text-align: left; }
+    .ui-timepicker-div dl dt { height: 25px; margin-bottom: -25px; }
+    .ui-timepicker-div dl dd { margin: 0 10px 10px 65px; }
+    .ui-timepicker-div td { font-size: 90%; }
+    .ui-tpicker-grid-label { background: none; border: none; margin: 0; padding: 0; }
+    .ui_tpicker_hour_label,.ui_tpicker_minute_label,.ui_tpicker_second_label,
+    .ui_tpicker_millisec_label,.ui_tpicker_time_label{padding-left:20px}
+</style>
 
         <div class="body container">
             <div class="typecho-page-title">
@@ -78,5 +84,12 @@
 
         <script type="text/javascript">
             var ue = UE.getEditor('content');
-            $("#PublicTime").datepicker({dateFormat: 'yy-mm-dd'});
+            $('#PublicTime').datetimepicker({
+                showSecond: true,
+                timeFormat: 'hh:mm:ss',
+                dateFormat: 'yy-mm-dd',
+                numberOfMonths: 2,
+                minDate: 0,
+                maxDate: 30
+            });
         </script>
