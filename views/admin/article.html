@@ -9,12 +9,12 @@
                 <div class="typecho-table-wrap">
                     <table class="typecho-list-table">
                         <colgroup>
-                            <col width="20" />
+                            <col width="10" />
                             <col width="6%" />
-                            <col width="45%" />
-                            <col width="" />
+                            <col width="35%" />
+                            <col width="10%" />
                             <col width="18%" />
-                            <col width="16%" />
+                            <col width="26%" />
                         </colgroup>
                         <thead>
                         <tr>
@@ -27,18 +27,23 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr id="post-1">
+                        <% for(i in list) { %>
+                        <tr id="post-<%= list[i].id %>">
                             <td>
-                                <input type="checkbox" value="1" name="cid[]" /></td>
-                            <td><a href="http://localhost/admin/manage-comments.php?cid=1" class="balloon-button size-10">1</a></td>
-                            <td>
-                                <a href="http://localhost/admin/write-post.php?cid=1">欢迎使用 Typecho</a>
-                                <a href="http://localhost/index.php/archives/1/" title="浏览 欢迎使用 Typecho"><i class="i-exlink"></i></a>
+                                <input type="checkbox" value="1" name="cid[]" />
                             </td>
-                            <td><a href="http://localhost/admin/manage-posts.php?uid=1">asura</a></td>
-                            <td><a href="http://localhost/admin/manage-posts.php?category=1">混沌初始</a>                                                                </td>
-                            <td>昨天 23:39                                                                </td>
+                            <td>
+                                <a href="http://localhost/admin/manage-comments.php?cid=1" class="balloon-button size-10">1</a>
+                            </td>
+                            <td>
+                                <a href="http://localhost/admin/write-post.php?cid=1"><%= list[i].title %></a>
+                                <a href="http://localhost/index.php/archives/1/" title="<%= list[i].title %>"><i class="i-exlink"></i></a>
+                            </td>
+                            <td><a href="http://localhost/admin/manage-posts.php?uid=1"><%= list[i].user.username %></a></td>
+                            <td><a href="http://localhost/admin/manage-posts.php?category=1"><%= list[i].category.name %></a>                                                                </td>
+                            <td><%= list[i].PublicTime.toLocaleDateString() %></td>
                         </tr>
+                        <% } %>
                         </tbody>
                     </table>
                 </div>

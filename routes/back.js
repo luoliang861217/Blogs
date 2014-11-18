@@ -4,7 +4,7 @@
  */
 
 //登陆模块
-var login = require('../controllers/logintest');
+var login = require('../controllers/login');
 
 //注册模块
 var register = require('../controllers/register');

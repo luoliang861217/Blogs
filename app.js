@@ -14,6 +14,7 @@ var mongoose = require('mongoose');
 var crypto = require('crypto');
 var validator = require('validator');
 var EventProxy = require('eventproxy');
+var moment = require('moment');
 var staticExtension = require('./common/staticExtension');
 var webRoutes = require('./routes/web');//前台路由
 var backRoutes = require('./routes/back');//后台路由

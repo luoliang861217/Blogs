@@ -11,8 +11,6 @@ var userRepository = require('../Repository/userRepository');
 var log = require('../common/log');
 
 //自定义变量
-var blogtitle = settings.blogtitle;
-var blogdescription = settings.blogdescription;
 var title = ' - '+ settings.blogtitle;
 
 function register(){

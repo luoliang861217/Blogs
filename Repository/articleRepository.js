@@ -13,15 +13,14 @@ module.exports = function(){
      * @param callback  回调函数
      */
     this.add = function(param,callback){
-        var article = new Category({
-            name : param.name,
-            slug : param.slug,
+        var article = new Article({
+            title : param.title,
+            content : param.content,
             tags : param.tags,
+            user : param.user,
+            category : param.category,
             PublicTime : param.PublicTime
         });
-        if( param.category && param.category != ''){
-            category.category = param.category;
-        }
         article.save(callback);
     };
 
@@ -44,14 +43,13 @@ module.exports = function(){
             if(err){
                 callback(err);
             }
-            result.name = param.name;
-            result.slug = param.slug;
+            result.title = param.title;
+            result.content = param.content;
             result.tags = param.tags;
+            result.user = param.user;
+            result.category = param.category;
             result.PublicTime = param.PublicTime;
             result.updateTime = Date.now;
-            if(param.category && param.category != ''){
-                result.category = param.category;
-            }
             result.save(callback);
         });
     };
@@ -62,7 +60,6 @@ module.exports = function(){
      * @param callback  回调函数
      */
     this.getById = function(id,callback){
-
         Article.findOne({ _id : id },callback);
     };
     /**
@@ -78,17 +75,25 @@ module.exports = function(){
         if(param.id){
             qurey['_id'] = param.id;
         }
-        if(param.name){
-            qurey['name'] = param.name;
+        if(param.title){
+            qurey['title'] = param.title;
         }
         if(param.slug){
-            qurey['slug'] = param.slug;
+            qurey['content'] = param.content;
         }
         if(param.tags){
             qurey['tags'] = param.tags;
         }
-
-        Article.find(qurey).skip(skip).limit(pageSize).populate('parent').exec(callback);
+        if(param.user){
+            qurey['user'] = param.user;
+        }
+        if(param.PublicTime){
+            qurey['category'] = param.category;
+        }
+        if(param.PublicTime){
+            qurey['PublicTime'] = param.PublicTime;
+        }
+        Article.find(qurey).skip(skip).limit(pageSize).populate('category').populate('user').exec(callback);
     };
 
 }
