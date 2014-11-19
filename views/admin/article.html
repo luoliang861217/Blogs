@@ -2,6 +2,9 @@
     <div class="typecho-page-title">
         <h2>管理文章<a href="/admin/article_add">新增</a></h2>
     </div>
+
+    <% include message.html %>
+
     <div class="row typecho-page-main" role="main">
         <div class="col-mb-12 typecho-list">
 
@@ -9,21 +12,21 @@
                 <div class="typecho-table-wrap">
                     <table class="typecho-list-table">
                         <colgroup>
-                            <col width="10" />
-                            <col width="6%" />
-                            <col width="35%" />
+                            <col width="5" />
+                            <col width="30%" />
                             <col width="10%" />
                             <col width="18%" />
                             <col width="26%" />
+                            <col width="20%" />
                         </colgroup>
                         <thead>
                         <tr>
                             <th></th>
-                            <th></th>
                             <th>标题</th>
                             <th>作者</th>
                             <th>分类</th>
-                            <th>日期</th>
+                            <th>发布日期</th>
+                            <th>操作</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -35,13 +38,15 @@
                             </td>
                             <td>
                                 <a href="#" class="balloon-button size-10"><%= list[i].comments.length %></a>
-                            </td>
-                            <td>
                                 <a href="/admin/article_update?id=<%= list[i].id %>"><%= list[i].title %></a>
                             </td>
-                            <td><a href="http://localhost/admin/manage-posts.php?uid=1"><%= list[i].user.username %></a></td>
-                            <td><a href="http://localhost/admin/manage-posts.php?category=1"><%= list[i].category.name %></a>                                                                </td>
+                            <td><a href="#"><%= list[i].user.username %></a></td>
+                            <td><a href="#"><%= list[i].category.name %></a>                                                                </td>
                             <td><%= list[i].publicTime %></td>
+                            <td>
+                                <a href="/admin/article_delete?id=<%= list[i].id %>">删除</a> |
+                                <a href="/admin/article_update?id=<%= list[i].id %>">修改</a>
+                            </td>
                         </tr>
                         <% } %>
                         </tbody>

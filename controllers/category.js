@@ -124,17 +124,20 @@ function category(){
         var paramStr = url.parse(req.url).query;
         var param = querystring.parse(paramStr);
         var repository = new categoryRepository();
-
-        repository.findByIdAndRemove(param.id,function(err,cate){
-            if(err){
-                this.log(true,err.message,log.type.exception ,req, errReturn);
-            }
-            this.log(false,'删除id:' + param.id,log.type.delete ,req, function(){
-                req.flash('success','删除成功!');
-                res.redirect('/admin/category');
-            });
-        }.bind(this));
-
+        if(param.id){
+            repository.findByIdAndRemove(param.id,function(err,cate){
+                if(err){
+                    this.log(true,err.message,log.type.exception ,req, errReturn);
+                }
+                this.log(false,'删除id:' + param.id,log.type.delete ,req, function(){
+                    req.flash('success','删除成功!');
+                    res.redirect('/admin/category');
+                });
+            }.bind(this));
+        }
+        else{
+            this.log(true,'参数错误！',log.type.delete ,req, errReturn);
+        }
     };
 
     /**

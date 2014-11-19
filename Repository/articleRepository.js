@@ -52,7 +52,7 @@ module.exports = function(){
             result.category = param.category;
             result.comments = param.comments;
             result.PublicTime = param.PublicTime;
-            result.updateTime = Date.now;
+            result.updateTime = param.updateTime;
             result.save(callback);
         });
     };

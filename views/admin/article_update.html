@@ -1,7 +1,6 @@
 
 
 
-<script type="text/javascript" charset="utf-8" src="../ueditor/lang/zh-cn/zh-cn.js"></script>
 <style type="text/css">
     ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
     .ui-timepicker-div dl { text-align: left; }
@@ -17,17 +16,21 @@
             <div class="typecho-page-title">
                 <h2>撰写新文章</h2>
             </div>
+            <% include message.html %>
             <div class="row typecho-page-main typecho-post-area" role="form">
-                <form action="/admin/article_doadd" method="post" name="write_post">
+                <form action="/admin/article_doupdate" method="post" name="write_post">
                     <div class="col-mb-12 col-tb-9" role="main">
 
                         <p class="title">
                             <label for="title" class="sr-only">标题</label>
+                            <input id="id" name="id" class="hidden" type="text" value="<%= data._id %>">
+                            <input id="category.id" name="category.id" class="hidden" type="text" value="<%= data.category.id %>">
                             <input type="text" id="title" name="title" autocomplete="off" placeholder="标题" value="<%= data.title %>" class="w-100 text title" />
                         </p>
                         <p>
                             <label for="text" class="sr-only">文章内容</label>
-                            <script id="content" name="content" type="text/plain" style="height: 350px"><%= data.content %></script>
+                            <input id="temp" name="temp" class="hidden" type="text" value="<%= data.content %>">
+                            <script id="content" name="content" type="text/plain" style="height: 350px"></script>
                         </p>
 
                         <p class="submit clearfix">
@@ -47,7 +50,7 @@
                             <section class="typecho-post-option" role="application">
                                 <label for="date" class="typecho-label">发布日期</label>
                                 <p>
-                                    <input class="typecho-date w-100" type="text" name="PublicTime" id="PublicTime" />
+                                    <input class="typecho-date w-100" type="text" name="PublicTime" id="PublicTime"  />
                                 </p>
                             </section>
 
@@ -61,7 +64,14 @@
                                         <% if(list[i].parent) { %>
                                         &nbsp;&nbsp;&nbsp;&nbsp;
                                         <% } %>
-                                        <input type="radio" name="category" value="<%= list[i].id %>" id="category-<%= list[i].id %>">
+
+                                        <% if(data.category.name === list[i].name) { %>
+                                        <input checked='checked' type="radio" name="category" value="<%= list[i].id %>" id="category-<%= list[i].id %>" >
+                                        <% } %>
+                                        <% if(data.category.name != list[i].name) { %>
+                                        <input type="radio" name="category" value="<%= list[i].id %>" id="category-<%= list[i].id %>" >
+                                        <% } %>
+
                                         <label for="category-<%= list[i].id %>"><%= list[i].name %></label>
                                     </li>
                                     <% } %>
@@ -72,7 +82,7 @@
                             <section class="typecho-post-option">
                                 <label for="token-input-tags" class="typecho-label">标签</label>
                                 <p>
-                                    <input id="tags" name="tags" type="text" value="<%= data.tags %>" autocomplete="off" placeholder="空格分隔" class="w-100 text" /></p>
+                                    <input id="tags" name="tags" type="text" value="<%= data.tags.join(' ') %>" autocomplete="off" placeholder="空格分隔" class="w-100 text" /></p>
                             </section>
                         </div>
                     </div>
@@ -92,4 +102,12 @@
                 minDate: 0,
                 maxDate: 30
             });
+            $(document).ready(function(){
+                $('#PublicTime').datetimepicker('setDate', (new Date()) );
+                setTimeout("insertHtml()",1000);
+            });
+            function insertHtml() {
+                var html = $("#temp").val();
+                UE.getEditor('content').execCommand('insertHtml', html);
+            }
         </script>

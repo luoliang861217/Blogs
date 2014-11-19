@@ -25,5 +25,35 @@ module.exports = function(){
         }
         log.writelog(content,level,req,callback);
     };
+
+    /**
+     *
+     * @param array
+     * @returns {*}
+     */
+    this.deleteWhitespaceOfArray = function(array){
+        for(var i = 0; i < array.length; i++) {
+            if(array[i].length == 0) array.splice(i,1);
+        }
+        return array;
+    };
+
+    /**
+     * 判断是否为空
+     * @param str
+     * @returns {boolean}
+     */
+    this.isnullOrundefined = function (str) {
+        if( str === undefined || str.length < 1){
+            return true;
+        }
+        str = this.toString().replace(/(^\s*)|(\s*$)/g, "");
+        if(!str || str === undefined || str === ''){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
 }
 
