@@ -88,6 +88,8 @@ String.prototype.isEmail = function() {
         return false;
 }
 
+
+
 /**
  * 生成随机数
  * @param length 长度
