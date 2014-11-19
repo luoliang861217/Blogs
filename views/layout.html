@@ -5,9 +5,9 @@
     <meta name="renderer" content="webkit">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <title><%= title %></title>
-    <link rel="stylesheet" href="stylesheets/style.css">
-    <link rel="stylesheet" type="text/css" href="stylesheets/custom.css" />
-        <script type="text/javascript">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <link rel="stylesheet" type="text/css" href="/stylesheets/custom.css" />
+    <script type="text/javascript">
         (function () {
             window.TypechoComment = {
                 dom: function (id) {
@@ -154,8 +154,8 @@
         <header class="site-header">
 
             <div class="site-branding">
-            <h1 class="site-title"><a href="index.html"><%= blogtitle %></a></h1>
-            <h2 class="site-description"><%= blogdescription %></h2>
+            <h1 class="site-title"><a href="index.html"><%= lay.blogtitle %></a></h1>
+            <h2 class="site-description"><%= lay.blogdescription %></h2>
 
             </div>
 
@@ -303,7 +303,7 @@
                         <span><em>metas</em></span></h3>
                     <ul>
                         <li class="last">
-                            <% if(user){%>
+                            <% if(lay.user){%>
                             <a href="/admin/logout">注销</a>
                             <% } else{ %>
                             <a href="/admin/login">登录</a>                            
@@ -328,9 +328,9 @@
         </div>
     </footer>
 
-    <script src="javascripts/jquery.js"></script>
-    <script src="javascripts/script.js"></script>
-    <script type="text/javascript" src="javascripts/highlight.pack.js"></script>
+    <script src="/javascripts/jquery.js"></script>
+    <script src="/javascripts/script.js"></script>
+    <script type="text/javascript" src="/javascripts/highlight.pack.js"></script>
     <script type="text/javascript">        window.onload = function () {
             var codes = document.getElementsByTagName("pre"),
     hlNames = {

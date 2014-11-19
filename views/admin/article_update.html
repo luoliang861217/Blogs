@@ -14,7 +14,7 @@
 
         <div class="body container">
             <div class="typecho-page-title">
-                <h2>撰写新文章</h2>
+                <h2>编辑文章</h2>
             </div>
             <% include message.html %>
             <div class="row typecho-page-main typecho-post-area" role="form">
@@ -65,10 +65,9 @@
                                         &nbsp;&nbsp;&nbsp;&nbsp;
                                         <% } %>
 
-                                        <% if(data.category.name === list[i].name) { %>
+                                        <% if(data.category.id.toString() === list[i].id.toString()) { %>
                                         <input checked='checked' type="radio" name="category" value="<%= list[i].id %>" id="category-<%= list[i].id %>" >
-                                        <% } %>
-                                        <% if(data.category.name != list[i].name) { %>
+                                        <% } else { %>
                                         <input type="radio" name="category" value="<%= list[i].id %>" id="category-<%= list[i].id %>" >
                                         <% } %>
 

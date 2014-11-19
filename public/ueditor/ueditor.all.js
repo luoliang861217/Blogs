@@ -10423,7 +10423,7 @@ UE.commands['inserthtml'] = {
         setTimeout(function(){
             range = me.selection.getRange();
             range.scrollToView(me.autoHeightEnabled,me.autoHeightEnabled ? domUtils.getXY(me.iframe).y:0);
-            me.fireEvent('afterinserthtml', html);
+            me.fireEvent('afterinserthtml', html);alert(html);
         },200);
     }
 };
@@ -13193,10 +13193,8 @@ UE.plugins['insertcode'] = function() {
                     var frag = rng.extractContents();
                     var div = me.document.createElement('div');
                     div.appendChild(frag);
-
                     utils.each(UE.filterNode(UE.htmlparser(div.innerHTML.replace(/[\r\t]/g,'')),me.options.filterTxtRules).children,function(node){
                         if(browser.ie && browser.ie11below && browser.version > 8){
-
                             if(node.type =='element'){
                                 if(node.tagName == 'br'){
                                     code += '\n'

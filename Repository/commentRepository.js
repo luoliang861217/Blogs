@@ -1,11 +1,11 @@
 /**
- * 文章伪仓储，之后会增加类似仓储接口的设计，达到按照接口编程
+ * 评论伪仓储，之后会增加类似仓储接口的设计，达到按照接口编程
  * Created by Administrator on 2014/11/12.
  */
 
 
 var moment = require('moment');
-var Article = require('../model/article');
+var Comment = require('../model/comment');
 
 module.exports = function(){
     /**
@@ -14,16 +14,12 @@ module.exports = function(){
      * @param callback  回调函数
      */
     this.add = function(param,callback){
-        var article = new Article({
-            title : param.title,
+        var comment = new Comment({
             content : param.content,
-            tags : param.tags,
-            user : param.user,
-            category : param.category,
-            comments : param.comments,
-            PublicTime : param.PublicTime
+            article : param.article,
+            user : param.user
         });
-        article.save(callback);
+        comment.save(callback);
     };
 
     /**
@@ -32,7 +28,7 @@ module.exports = function(){
      * @param callback  回调函数
      */
     this.findByIdAndRemove = function(id,callback){
-        Article.findByIdAndRemove(id,callback);
+        Comment.findByIdAndRemove(id,callback);
     };
 
     /**
@@ -45,14 +41,10 @@ module.exports = function(){
             if(err){
                 callback(err);
             }
-            result.title = param.title;
             result.content = param.content;
-            result.tags = param.tags;
+            result.article = param.article;
             result.user = param.user;
-            result.category = param.category;
-            result.comments = param.comments;
-            result.PublicTime = param.PublicTime;
-            result.updateTime = param.updateTime;
+            result.updateTime = moment().unix();
             result.save(callback);
         });
     };
@@ -63,10 +55,10 @@ module.exports = function(){
      * @param callback  回调函数
      */
     this.getById = function(id,callback){
-        Article.findOne({ _id : id }).populate('category').populate('user').exec(callback);
+        Comment.findOne({ _id : id }).populate('article').populate('user').exec(callback);
     };
     /**
-     * 文章列表
+     * 评论列表
      * @param param     查询条件
      * @param pageIndex 页码
      * @param pageSize  页大小
@@ -78,28 +70,19 @@ module.exports = function(){
         if(param.id){
             qurey['_id'] = param.id;
         }
-        if(param.title){
-            qurey['title'] = param.title;
-        }
-        if(param.slug){
+        if(param.content){
             qurey['content'] = param.content;
         }
-        if(param.tags){
-            qurey['tags'] = param.tags;
+        if(param.article){
+            qurey['article'] = param.article;
         }
         if(param.user){
             qurey['user'] = param.user;
         }
-        if(param.PublicTime){
-            qurey['category'] = param.category;
+        if(param.createTime){
+            qurey['createTime'] = param.createTime;
         }
-        if(param.PublicTime){
-            qurey['PublicTime'] = param.PublicTime;
-        }
-        /**
-         * comments属性由关系维护自动加载
-         */
-        Article.find(qurey).skip(skip).limit(pageSize).populate('category').populate('user').exec(callback);
+        Comment.find(qurey).skip(skip).limit(pageSize).populate('article').populate('user').exec(callback);
     };
 
 }

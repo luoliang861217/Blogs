@@ -103,9 +103,8 @@ function article(){
          * 这里可以进行字符分隔多个数组，不过要页面配合，现在这架设页面只输入一个进行转化数组再赋值
          * @type {Array}
          */
-        if( isCommit && this.isnullOrundefined(param.tags)){
-            isCommit = false;
-            param.tags = this.deleteWhitespaceOfArray(param.tags.split(" "));
+        if( isCommit && !this.isnullOrundefined(param.tags)){
+            param.tags = this.getArraywithdeleteWhitespace(param.tags);
         }
         if( isCommit && this.isnullOrundefined(param.PublicTime)){
             isCommit = false;
@@ -209,12 +208,8 @@ function article(){
             this.log(true,'文章发布时间不能为空！',log.type.add ,req, errReturn);
         }
         if(isCommit){
-            /**
-             * 这里可以进行字符分隔多个数组，不过要页面配合，现在这架设页面只输入一个进行转化数组再赋值
-             * @type {Array}
-             */
             if( !this.isnullOrundefined(param.tags)){
-                param.tags = this.deleteWhitespaceOfArray(param.tags.split(" "));
+                param.tags = this.getArraywithdeleteWhitespace(param.tags);
             }
             param.PublicTime = moment(param.PublicTime).unix();
             param.updateTime = moment().unix();
@@ -235,6 +230,31 @@ function article(){
     this.list = function(req,res){
 
     };
+
+//前台文章页面 路由：/article/:id
+    this.details = function(req,res){
+        console.log(req.params.id);
+        var repository = new articleRepository();
+        repository.getById(req.params.id,function(err,article){
+            if(err){
+                this.log(true,err.message,log.type.exception ,req, errReturn);
+            }
+            if(!article){
+                this.log(true,'文章id:' + param.id + '不存在',log.type.exception ,req, errReturn);
+            }
+            else{
+                article.create = moment(article.createTime).format('YYYY-MM-DD HH:mm:ss');
+                res.render('details', {
+                    title:  article.title + title,
+                    layout:'layout',
+                    success : req.flash("success").toString(),
+                    error: req.flash("error").toString(),
+                    data :article
+                });
+            }
+        }.bind(this));
+    }
+
 
 }
 

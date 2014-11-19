@@ -111,9 +111,9 @@
         //粘贴只保留标签，去除标签所有属性
         //,retainOnlyLabelPasted: false
 
-        //,pasteplain:false  //是否默认为纯文本粘贴。false为不使用纯文本粘贴，true为使用纯文本粘贴
-        //纯文本粘贴模式下的过滤规则
-        //'filterTxtRules' : function(){
+        // ,pasteplain:false  //是否默认为纯文本粘贴。false为不使用纯文本粘贴，true为使用纯文本粘贴
+        // 纯文本粘贴模式下的过滤规则
+        // 'filterTxtRules' : function(){
         //    function transP(node){
         //        node.tagName = 'p';
         //        node.setStyle();
@@ -138,7 +138,7 @@
         //            node.parentNode.removeChild(node,node.innerText())
         //        }
         //    }
-        //}()
+        // }()
 
         //,allHtmlEnabled:false //提交到后台的数据是否包含整个html字符串
 

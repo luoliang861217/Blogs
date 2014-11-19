@@ -31,7 +31,9 @@ module.exports = function(){
      * @param array
      * @returns {*}
      */
-    this.deleteWhitespaceOfArray = function(array){
+    this.getArraywithdeleteWhitespace = function(str){
+        str = str.toString().replace(/(^\s*)|(\s*$)/g, "");
+        var array = str.split(" ");
         for(var i = 0; i < array.length; i++) {
             if(array[i].length == 0) array.splice(i,1);
         }
