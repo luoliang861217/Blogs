@@ -77,7 +77,7 @@ module.exports = function(app){
 
     app.post('/admin/article_doadd',auth.userRequire,article.add);
 
-    app.get('/admin/article_delete',auth.adminRequire,category.delete);
+    app.get('/admin/article_delete',auth.adminRequire,article.delete);
 
     app.get('/admin/article_update',auth.userRequire,article.showupdate);
 

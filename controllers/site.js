@@ -25,6 +25,9 @@ function site(){
 
     this.index = function(req,res,next){
         var repository = new articleRepository();
+        var errReturn = function(){
+            return res.redirect('index');
+        };
         repository.list({},1,10,function(err,articles){
             if(err){
                 this.log(true,err,log.type.exception ,req, errReturn);
@@ -44,15 +47,19 @@ function site(){
         }.bind(this));
     };
 
+//前台文章页面 路由：/article/:id
     this.details = function(req,res,next){
         console.log(req.params.id);
         var repository = new articleRepository();
+        var errReturn = function(){
+            return res.redirect('index');
+        };
         repository.getById(req.params.id,function(err,article){
             if(err){
                 this.log(true,err.message,log.type.exception ,req, errReturn);
             }
             if(!article){
-                this.log(true,'文章id:' + param.id + '不存在',log.type.exception ,req, errReturn);
+                this.log(true,'文章id:' + params.id + '不存在',log.type.exception ,req, errReturn);
             }
             else{
                 article.create = moment(article.createTime).format('YYYY-MM-DD HH:mm:ss');

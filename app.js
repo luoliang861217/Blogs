@@ -15,6 +15,7 @@ var relationship = require("mongoose-relationship");
 var crypto = require('crypto');
 var validator = require('validator');
 var EventProxy = require('eventproxy');
+var Q = require("q");
 var moment = require('moment');
 var staticExtension = require('./common/staticExtension');
 var webRoutes = require('./routes/web');//前台路由

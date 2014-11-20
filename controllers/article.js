@@ -5,6 +5,7 @@
 
 var util = require('util');
 var base = require('./base');
+var Q = require("q");
 var validator = require('validator');
 var settings = require('../settings');
 var articleRepository = require('../Repository/articleRepository');
@@ -14,7 +15,6 @@ var log = require('../common/log');
 var moment = require('moment');
 
 
-var EventProxy = require('eventproxy');
 var http = require('http');
 var url = require('url');
 var querystring = require('querystring');
@@ -75,6 +75,7 @@ function article(){
     this.add = function(req,res){
         var isCommit = true;
         var repository = new articleRepository();
+        var cgrepository = new categoryRepository();
         var errReturn = function(){
             return res.redirect('/admin/article_add');
         };
@@ -112,15 +113,27 @@ function article(){
         }
         if(isCommit){
             param.PublicTime = moment(param.PublicTime).unix();
-            repository.add(param,function(err,article){
+            cgrepository.getById(param.category,function(err,category){
                 if(err){
                     this.log(true,err.message,log.type.exception ,req, errReturn);
                 }
-                this.log(false,article.toString(),log.type.add ,req, function(){
-                    req.flash('success', '添加成功!');
-                    res.redirect('/admin/article');
-                });
+                repository.add(param,function(err,article){
+                    if(err){
+                        this.log(true,err.message,log.type.exception ,req, errReturn);
+                    }
+                    category.articles.push(article);
+                    cgrepository.update(category,function(err,category){
+                        if(err){
+                            this.log(true,err.message,log.type.exception ,req, errReturn);
+                        }
+                        this.log(false,article.toString(),log.type.add ,req, function(){
+                            req.flash('success', '添加成功!');
+                            res.redirect('/admin/article');
+                        });
+                    }.bind(this));
+                }.bind(this));
             }.bind(this));
+
         }
     };
 
@@ -133,14 +146,37 @@ function article(){
         var paramStr = url.parse(req.url).query;
         var param = querystring.parse(paramStr);
         var repository = new articleRepository();
-        repository.findByIdAndRemove(param.id,function(err,cate){
+        var cgrepository = new categoryRepository();
+
+        repository.getById(param.id,function(err,article){
             if(err){
                 this.log(true,err.message,log.type.exception ,req, errReturn);
             }
-            this.log(false,'删除id:' + param.id,log.type.delete ,req, function(){
-                req.flash('success','删除成功!');
-                res.redirect('/admin/article');
-            });
+            cgrepository.getById(article.category,function(err,category){
+                if(err){
+                    this.log(true,err.message,log.type.exception ,req, errReturn);
+                }
+                repository.findByIdAndRemove(param.id,function(err,cate){
+                    if(err){
+                        this.log(true,err.message,log.type.exception ,req, errReturn);
+                    }
+                    repository.list({category:category.id},1,1000,function(err,articles){
+                        if(err){
+                            this.log(true,err.message,log.type.exception ,req, errReturn);
+                        }
+                        category.articles = articles;
+                        cgrepository.update(category,function(err,category){
+                            if(err){
+                                this.log(true,err.message,log.type.exception ,req, errReturn);
+                            }
+                            this.log(false,'删除id:' + param.id,log.type.delete ,req, function(){
+                                req.flash('success','删除成功!');
+                                res.redirect('/admin/article');
+                            });
+                        }.bind(this));
+                    }.bind(this));
+                }.bind(this));
+            }.bind(this));
         }.bind(this));
     };
 
@@ -176,13 +212,16 @@ function article(){
 //后台文章更新
     this.update = function(req,res){
         var isCommit = true;
+        var newcategory = {};
         var repository = new articleRepository();
+        var cgrepository = new categoryRepository();
         var param = {
             id : req.body.id,
             title : req.body.title,
             content : req.body.content,
             tags : req.body.tags,
             category : req.body.category,
+            oldcategory : req.body.oldcategory,
             user : req.session.user._id,
             comments :[],
             PublicTime : req.body.PublicTime
@@ -213,15 +252,71 @@ function article(){
             }
             param.PublicTime = moment(param.PublicTime).unix();
             param.updateTime = moment().unix();
-            repository.update(param,function(err,article){
+
+            //获取老文章数据
+            repository.getById(param.id,function(err,oldarticle){
                 if(err){
                     this.log(true,err.message,log.type.exception ,req, errReturn);
                 }
-                this.log(false,article.toString(),log.type.update ,req, function(){
-                    req.flash('success', '保存成功!');
-                    res.redirect('/admin/article');
-                });
+                //获取老分类数据
+                cgrepository.getById(oldarticle.category,function(err,oldcategory){
+                    if(err){
+                        this.log(true,err.message,log.type.exception ,req, errReturn);
+                    }
+                    //更新文章数据
+                    repository.update(param,function(err,newarticle){
+                        if(err){
+                            this.log(true,err.message,log.type.exception ,req, errReturn);
+                        }
+                        //获取新分类数据
+                        cgrepository.getById(newarticle.category,function(err,cg){
+                            if(err){
+                                this.log(true,err.message,log.type.exception ,req, errReturn);
+                            }
+                            newcategory = cg;
+                            //获取新分类下的所有文章
+                            repository.list({category:newcategory.id},1,1000,function(err,newarticles){
+                                if(err){
+                                    this.log(true,err.message,log.type.exception ,req, errReturn);
+                                }
+                                newcategory.articles = newarticles;
+                                //保存新分类数据
+                                cgrepository.update(newcategory,function(err,newcategory){
+                                    if(err){
+                                        this.log(true,err.message,log.type.exception ,req, errReturn);
+                                    }
+                                    if(newcategory.id === oldcategory.id){
+                                        this.log(false,newarticle.toString(),log.type.update ,req, function(){
+                                            req.flash('success', '保存成功!');
+                                            res.redirect('/admin/article');
+                                        });
+                                    }
+                                    else{
+                                        //获取老分类下的所有文章
+                                        repository.list({category:oldcategory.id},1,1000,function(err,oldarticles){
+                                            if(err){
+                                                this.log(true,err.message,log.type.exception ,req, errReturn);
+                                            }
+                                            oldcategory.articles = oldarticles;
+                                            //保存老分类数据
+                                            cgrepository.update(oldcategory,function(err,category){
+                                                if(err){
+                                                    this.log(true,err.message,log.type.exception ,req, errReturn);
+                                                }
+                                                this.log(false,newarticle.toString(),log.type.update ,req, function(){
+                                                    req.flash('success', '保存成功!');
+                                                    res.redirect('/admin/article');
+                                                });
+                                            }.bind(this));
+                                        }.bind(this));
+                                    }
+                                }.bind(this));
+                            }.bind(this));
+                        }.bind(this));
+                    }.bind(this));
+                }.bind(this));
             }.bind(this));
+
         }
     };
 
@@ -230,30 +325,6 @@ function article(){
     this.list = function(req,res){
 
     };
-
-//前台文章页面 路由：/article/:id
-    this.details = function(req,res){
-        console.log(req.params.id);
-        var repository = new articleRepository();
-        repository.getById(req.params.id,function(err,article){
-            if(err){
-                this.log(true,err.message,log.type.exception ,req, errReturn);
-            }
-            if(!article){
-                this.log(true,'文章id:' + param.id + '不存在',log.type.exception ,req, errReturn);
-            }
-            else{
-                article.create = moment(article.createTime).format('YYYY-MM-DD HH:mm:ss');
-                res.render('details', {
-                    title:  article.title + title,
-                    layout:'layout',
-                    success : req.flash("success").toString(),
-                    error: req.flash("error").toString(),
-                    data :article
-                });
-            }
-        }.bind(this));
-    }
 
 
 }

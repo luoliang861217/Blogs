@@ -6,6 +6,7 @@ var moment = require('moment');
 var db = require('../common/db');
 var mongoose = db.mongoose;
 var Schema = db.Schema;
+var relationship = db.relationship;
 var ObjectId = Schema.ObjectId;
 
 var articleSchema = new Schema({
@@ -16,7 +17,7 @@ var articleSchema = new Schema({
 //文章标签
     tags : [{ type : String }],
 //文章所属分类
-    category : { type: Schema.Types.ObjectId, ref: 'Category' },
+    category : { type: Schema.Types.ObjectId, ref: 'Category',childPath:'articles'  },
 //文章所属用户
     user : { type: Schema.Types.ObjectId, ref: 'User' },
 //文章所有评论
@@ -29,6 +30,7 @@ var articleSchema = new Schema({
     PublicTime:{type:Number,default:moment().unix() }
 });
 
+articleSchema.plugin(relationship, { relationshipPathName : 'category' });
 module.exports = mongoose.model('Article',articleSchema);
 
 

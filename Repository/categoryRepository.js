@@ -49,9 +49,15 @@ module.exports = function(){
             if(err){
                 callback(err);
             }
-            result.name = param.name;
-            result.slug = param.slug;
-            result.description = param.description;
+            if(param.name){
+                result.name = param.name;
+            }
+            if(param.description){
+                result.description = param.description;
+            }
+            if(param.articles != undefined){
+                result.articles = param.articles;
+            }
             result.updateTime = moment().unix();
             if(param.parent && param.parent != ''){
                 result.parent = param.parent;
@@ -67,8 +73,11 @@ module.exports = function(){
      */
     this.getById = function(id,callback){
 
-        Category.findOne({ _id : id },callback);
+        Category.findOne({ _id : id }).populate('parent').exec(callback);
     };
+
+
+
     /**
      * 分类列表
      * @param param     查询条件
@@ -92,6 +101,9 @@ module.exports = function(){
             qurey['description'] = param.description;
         }
 
+        /**
+         * articles属性由关系维护自动加载
+         */
         Category.find(qurey).skip(skip).limit(pageSize).populate('parent').exec(callback);
     };
 

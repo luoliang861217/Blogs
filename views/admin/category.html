@@ -46,7 +46,7 @@
                                         <td><%= item.slug %></td>
                                         <td><a href="/admin/category_delete?id=<%= item.id %>" target="_self">删除</a> | <a href="/admin/category_update?id=<%= item.id %>">修改</a></td>
                                         <td>
-                                            <a class="balloon-button left size-10" href="#"><%= item.count %></a>
+                                            <a class="balloon-button left size-10" href="#"><%= item.articles.length %></a>
                                         </td>
                                     </tr>
 

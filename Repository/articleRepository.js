@@ -84,15 +84,18 @@ module.exports = function(){
         if(param.slug){
             qurey['content'] = param.content;
         }
-        if(param.tags){
-            qurey['tags'] = param.tags;
-        }
+
         if(param.user){
             qurey['user'] = param.user;
         }
-        if(param.PublicTime){
+
+        if(param.tags){
+            qurey['tags'] = param.tags;
+        }
+        if(param.category){
             qurey['category'] = param.category;
         }
+
         if(param.PublicTime){
             qurey['PublicTime'] = param.PublicTime;
         }
@@ -100,6 +103,6 @@ module.exports = function(){
          * comments属性由关系维护自动加载
          */
         Article.find(qurey).skip(skip).limit(pageSize).populate('category').populate('user').exec(callback);
-    };
 
+    };
 }
