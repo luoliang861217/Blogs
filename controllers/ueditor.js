@@ -143,8 +143,8 @@ exports.config = function(req,res){
                 total++;
             }
         });
-        //排序
-        list.sort(createComparsionFunction("mtime"));
+        //排序,反序
+        list.sort(createComparsionFunction("mtime",true));
         var json = {state:'SUCCESS',list : list,start:'0',total:total.toString()};
         res.send(JSON.stringify(json));
     }
@@ -152,11 +152,12 @@ exports.config = function(req,res){
 
 
 /**
- * 排序 指定字段按照大小进行排序
- * @param propertyName
+ * 排序
+ * @param propertyName  排序字段
+ * @param desc          true:反序；false:升序
  * @returns {Function}
  */
-function createComparsionFunction(propertyName)
+function createComparsionFunction(propertyName,desc)
 {
     return function(object1, object2)
     {
@@ -164,10 +165,10 @@ function createComparsionFunction(propertyName)
         var value2 = object2[propertyName];
         if (value1 < value2)
         {
-            return 1; //-1
+            return desc ? 1 : -1; //-1
         } else if (value1 > value2)
         {
-            return -1; //1
+            return desc ? -1 : 1;; //1
         } else
         {
             return 0;
