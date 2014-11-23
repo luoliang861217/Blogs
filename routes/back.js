@@ -61,9 +61,6 @@ module.exports = function(app){
     app.get('/ueditor/config',auth.userRequire,ueditor.config);
     app.post('/ueditor/config',auth.userRequire,ueditor.config);
 
-
-
-
 //文章
     app.get('/admin/article',auth.userRequire,article.index);
 

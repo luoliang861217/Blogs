@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>
+    <link rel="stylesheet" type="text/css" href="styles/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="styles/simditor.css" />
+
+    <script type="text/javascript" src="scripts/jquery.min.js"></script>
+    <script type="text/javascript" src="scripts/module.js"></script>
+    <script type="text/javascript" src="scripts/uploader.js"></script>
+    <script type="text/javascript" src="scripts/simditor.js"></script>
+    <script>
+        $(function () {
+            var editor = new Simditor({
+                textarea: $('#editor'),
+                placeholder: '',
+                defaultImage: 'images/image.png',
+                params: {},
+                upload: {url: '',params: null,fileKey: 'upload_file',connectionCount: 3,leaveConfirm: '正在上传文件，如果离开上传会自动取消'},
+                tabIndent: true,
+                toolbar: [ 'title', 'bold'  ,'italic' , 'underline', 'strikethrough',  'color', 'ol', 'ul', 'blockquote'  ,  'code'  ,  'table',  'link',  'image'  ,  'hr', 'indent' ,  'outdent'],
+                toolbarFloat: true,
+                toolbarHidden: false,
+                pasteImage: false
+            });
+        });
+    </script>
+</head>
+<body>
+    <div>
+        <textarea id="editor" placeholder="这里输入内容" autofocus></textarea>
+    </div>
+
+</body>
+</html>

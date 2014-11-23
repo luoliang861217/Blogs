@@ -1,0 +1,117 @@
+
+
+<link rel="stylesheet" type="text/css" href="./Simditor/styles/font-awesome.css" />
+<link rel="stylesheet" type="text/css" href="./Simditor/styles/simditor.css" />
+
+<script type="text/javascript" src="./Simditor/scripts/jquery.min.js"></script>
+<script type="text/javascript" src="./Simditor/scripts/module.js"></script>
+<script type="text/javascript" src="./Simditor/scripts/uploader.js"></script>
+<script type="text/javascript" src="./Simditor/scripts/simditor.js"></script>
+
+<style type="text/css">
+    ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
+    .ui-timepicker-div dl { text-align: left; }
+    .ui-timepicker-div dl dt { height: 25px; margin-bottom: -25px; }
+    .ui-timepicker-div dl dd { margin: 0 10px 10px 65px; }
+    .ui-timepicker-div td { font-size: 90%; }
+    .ui-tpicker-grid-label { background: none; border: none; margin: 0; padding: 0; }
+    .ui_tpicker_hour_label,.ui_tpicker_minute_label,.ui_tpicker_second_label,
+    .ui_tpicker_millisec_label,.ui_tpicker_time_label{padding-left:20px}
+</style>
+
+        <div class="body container">
+            <div class="typecho-page-title">
+                <h2>编辑文章</h2>
+            </div>
+            <% include message.html %>
+            <div class="row typecho-page-main typecho-post-area" role="form">
+                <form action="/admin/article_doupdate" method="post" name="write_post">
+                    <div class="col-mb-12 col-tb-9" role="main">
+
+                        <p class="title">
+                            <label for="title" class="sr-only">标题</label>
+                            <input id="id" name="id" class="hidden" type="text" value="<%= data._id %>">
+                            <input id="oldcategory" name="oldcategory" class="hidden" type="text" value="<%= data.category.id %>">
+                            <input type="text" id="title" name="title" autocomplete="off" placeholder="标题" value="<%= data.title %>" class="w-100 text title" />
+                        </p>
+                        <p>
+                            <label for="text" class="sr-only">文章内容</label>
+                            <input id="temp" name="temp" class="hidden" type="text" value="<%= data.content %>">
+                            <textarea id="editor" placeholder="这里输入内容" autofocus></textarea>
+                            <script id="content" name="content" type="text/plain" style="height: 350px"></script>
+                        </p>
+
+                        <p class="submit clearfix">
+                            <span class="right">
+                                <input type="hidden" name="cid" value="" />
+                                <!--<button type="submit" name="do" value="save" id="btn-save" class="btn">保存草稿</button>-->
+                                <button type="submit" name="do" value="publish" class="btn primary" id="btn-submit">发布文章</button>
+                                <input type="hidden" name="markdown" value="1" />
+                            </span>
+                        </p>
+
+                    </div>
+
+                    <div id="edit-secondary" class="col-mb-12 col-tb-3" role="complementary">
+
+                        <div id="tab-advance" class="tab-content">
+                            <section class="typecho-post-option" role="application">
+                                <label for="date" class="typecho-label">发布日期</label>
+                                <p>
+                                    <input class="typecho-date w-100" type="text" name="PublicTime" id="PublicTime"  />
+                                </p>
+                            </section>
+
+                            <section class="typecho-post-option category-option">
+                                <label class="typecho-label">分类</label>
+                            <% if(list.length >0 ) {%>
+                                <ul>
+                                    <% for(i in list ) {%>
+
+                                    <li>
+                                        <% if(list[i].parent) { %>
+                                        &nbsp;&nbsp;&nbsp;&nbsp;
+                                        <% } %>
+
+                                        <% if(data.category.id.toString() === list[i].id.toString()) { %>
+                                        <input checked='checked' type="radio" name="category" value="<%= list[i].id %>" id="category-<%= list[i].id %>" >
+                                        <% } else { %>
+                                        <input type="radio" name="category" value="<%= list[i].id %>" id="category-<%= list[i].id %>" >
+                                        <% } %>
+
+                                        <label for="category-<%= list[i].id %>"><%= list[i].name %></label>
+                                    </li>
+                                    <% } %>
+                                </ul>
+                            <% } %>
+                            </section>
+
+                            <section class="typecho-post-option">
+                                <label for="token-input-tags" class="typecho-label">标签</label>
+                                <p>
+                                    <input id="tags" name="tags" type="text" value="<%= data.tags.join(' ') %>" autocomplete="off" placeholder="空格分隔" class="w-100 text" /></p>
+                            </section>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+
+
+<script>
+    $(function () {
+        var editor = new Simditor({
+            textarea: $('#editor'),
+            placeholder: '',
+            defaultImage: 'images/image.png',
+            params: {},
+            upload: {url: '',params: null,fileKey: 'upload_file',connectionCount: 3,leaveConfirm: '正在上传文件，如果离开上传会自动取消'},
+            tabIndent: true,
+            toolbar: [ 'title', 'bold'  ,'italic' , 'underline', 'strikethrough',  'color', 'ol', 'ul', 'blockquote'  ,  'code'  ,  'table',  'link',  'image'  ,  'hr', 'indent' ,  'outdent'],
+            toolbarFloat: true,
+            toolbarHidden: false,
+            pasteImage: false
+        });
+    });
+</script>
