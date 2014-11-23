@@ -59,13 +59,7 @@ module.exports = function(app){
 //UEditor
 
     app.get('/ueditor/config',auth.userRequire,ueditor.config);
-    app.get('/ueditor/uploadimage',auth.userRequire,ueditor.uploadimage);
-    app.get('/ueditor/uploadscrawl',auth.userRequire,ueditor.uploadscrawl);
-    app.get('/ueditor/uploadvideo',auth.userRequire,ueditor.uploadvideo);
-    app.get('/ueditor/uploadfile',auth.userRequire,ueditor.uploadfile);
-    app.get('/ueditor/listimage',auth.userRequire,ueditor.listimage);
-    app.get('/ueditor/listfile',auth.userRequire,ueditor.listfile);
-    app.get('/ueditor/catchimage',auth.userRequire,ueditor.catchimage);
+    app.post('/ueditor/config',auth.userRequire,ueditor.config);
 
 
 
