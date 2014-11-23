@@ -10,8 +10,11 @@ var querystring = require('querystring');
 var moment = require('moment');
 var settings = require('../settings');
 
-
-//获取配置
+/**
+ * UEditor 控制器
+ * @param req
+ * @param res
+ */
 exports.config = function(req,res){
     var paramStr = url.parse(req.url).query;
     var param = querystring.parse(paramStr);
