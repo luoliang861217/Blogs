@@ -48,6 +48,34 @@ exports.config = function(req,res){
             res.send(JSON.stringify(json));
         });
     }
+    else if(param.action === 'catchimage') {
+        var path = req.files.upfile.path;
+        var index = req.files.upfile.name.lastIndexOf('.');
+        var lastname = req.files.upfile.name.substr(index, req.files.upfile.name.length - index);//后缀名
+        var headpath = settings.uploadpath + 'public\\' ;
+        var fpath =  'upload\\image\\' ;
+        var filepath = headpath + fpath + moment().format('YYYYMMDDHHmmss') + lastname;
+        var size = req.files.upfile.size;
+        fs.exists(headpath + fpath, function (exists) {
+            if(!exists){
+                fs.mkdirSync(headpath + fpath,{ flags: 'w',autoClose: true});
+            }
+            var from = fs.createReadStream(path,{ flags: 'r',autoClose: true });
+            var to = fs.createWriteStream(filepath,{ flags: 'w',autoClose: true });
+            //UEditor返回数据格式：{"state":"SUCCESS","url":"\/usr\/uploads\/2014\/11\/21\/1416582096586061.jpg","title":"1416582096586061.jpg","original":"QQ\u56fe\u724720141120210121.jpg","type":".jpg","size":29559}
+            var json = {
+                'state':'SUCCESS',
+                'url' : fpath,
+                'title':path.substr(path.lastIndexOf('\\') + path.length - path.lastIndexOf('\\')),
+                'original' : path,
+                'type':lastname,
+                'size' : size
+            };
+            from.pipe(to);
+            fs.unlinkSync(req.files.upfile.path);
+            res.send(JSON.stringify(json));
+        });
+    }
     else if(param.action === 'uploadfile'){
         var path = req.files.upfile.path;
         var index = req.files.upfile.name.lastIndexOf('.');
@@ -157,7 +185,7 @@ exports.config = function(req,res){
  * @param desc          true:反序；false:升序
  * @returns {Function}
  */
-function createComparsionFunction(propertyName,desc)
+function createComparsionFunction(propertyName,isDesc)
 {
     return function(object1, object2)
     {
@@ -165,10 +193,10 @@ function createComparsionFunction(propertyName,desc)
         var value2 = object2[propertyName];
         if (value1 < value2)
         {
-            return desc ? 1 : -1; //-1
+            return isDesc ? 1 : -1; //-1
         } else if (value1 > value2)
         {
-            return desc ? -1 : 1;; //1
+            return isDesc ? -1 : 1;; //1
         } else
         {
             return 0;
@@ -176,24 +204,3 @@ function createComparsionFunction(propertyName,desc)
     }
 }
 
-
-//列出图片
-exports.listimage = function(req,res){
-    var config = require('../public/ueditor/config.js');
-    console.log(config);
-    res.send(JSON.stringify(config));
-};
-
-//列出文件
-exports.listfile = function(req,res){
-    var config = require('../public/ueditor/config.js');
-    console.log(config);
-    res.send(JSON.stringify(config));
-};
-
-//抓取远程文件
-exports.catchimage = function(req,res){
-    var config = require('../public/ueditor/config.js');
-    console.log(config);
-    res.send(JSON.stringify(config));
-};
