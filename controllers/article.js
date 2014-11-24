@@ -326,6 +326,69 @@ function article(){
 
     };
 
+    /**
+     * 新增评论
+     * @param req
+     * @param res
+     */
+    this.post = function(req,res){
+        var err = '';
+        var repository = new articleRepository();
+        var errReturn = function(){
+            var json = {success : false,mes : err};
+            res.send(JSON.stringify(json));
+        };
+        var param = {
+            body : req.body.body,
+            user : req.session.user._id
+        };
+        if( this.isnullOrundefined(param.body)){
+            err = '回复内容不能为空！';
+            this.log(true,err,log.type.add ,req, errReturn);
+        }
+        if( this.isnullOrundefined(req.body.article)){
+            err = '参数错误！';
+            this.log(true,err,log.type.add ,req, errReturn);
+        }
+        else{
+            repository.getById(req.body.article,function(err,article){
+                if(err){
+                    err = err.message;
+                    this.log(true,err,log.type.exception ,req, errReturn);
+                }
+                var comment = {body:param.body, user : param.user};
+                article.comments.push(comment);
+                repository.update(article,function(err,newarticle){
+                    if(err){
+                        this.log(true,err.message,log.type.exception ,req, errReturn);
+                    }
+//                    var json = {success : true,mes : '回复成功！'};
+//                    res.send(JSON.stringify(json));
+                    res.redirect('/article/' + req.body.article);
+                });
+            });
+        }
+
+    };
+
+    /**
+     * 删除评论
+     * @param req
+     * @param res
+     */
+    this.deletecomment = function(req,res){
+
+    };
+
+    /**
+     * 评论列表
+     * @param req
+     * @param res
+     */
+    this.commentlist = function(req,res){
+
+    };
+
 
 }
 
@@ -338,3 +401,6 @@ exports.delete = art.delete.bind(art);
 exports.showupdate = art.showupdate.bind(art);
 exports.update = art.update.bind(art);
 exports.list = art.list.bind(art);
+exports.post = art.post.bind(art);
+exports.deletecomment = art.deletecomment.bind(art);
+exports.commentlist = art.commentlist.bind(art);

@@ -63,7 +63,7 @@ function site(){
             }
             else{
                 article.create = moment(article.createTime).format('YYYY-MM-DD HH:mm:ss');
-                lay.user = req.session.user;
+                lay.username = req.session.user === undefined ? '' : req.session.user.username;
                 res.render('details', {
                     title:  article.title + title,
                     layout:'layout',

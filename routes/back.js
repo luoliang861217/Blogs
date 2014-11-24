@@ -16,8 +16,6 @@ var simditor = require('../controllers/Simditor');
 var article = require('../controllers/article');
 //分类模块
 var category = require('../controllers/category');
-//评论模块
-var comment = require('../controllers/comment');
 //后台模块
 var backstage = require('../controllers/backstage');
 //执行验证模块
@@ -87,10 +85,10 @@ module.exports = function(app){
     app.post('/admin/article/list',auth.userRequire,article.list);
 
 //评论
-    app.post('/comment/post',auth.userRequire,comment.add);
+    app.post('/comment/post',auth.userRequire,article.post);
 
-    app.get('/comment/delete',auth.userRequire,comment.delete);
+    app.get('/comment/delete',auth.userRequire,article.deletecomment);
 
-    app.get('/comment/list',comment.list);
+    app.get('/comment/list',article.commentlist);
 
 }

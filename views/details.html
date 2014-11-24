@@ -31,72 +31,35 @@
 <div id="comments">
 <div class="comments widget">
 <h3>
-    <span>29 <em>replies</em> </span>
+    <span><%= data.comments.length %> <em>replies</em> </span>
 </h3>
 <ol class="comment-list">
-    <li itemscope itemtype="http://schema.org/UserComments" id="comment-554" class="comment-body comment-parent comment-odd">
-        <div class="comment-author" itemprop="creator" itemscope itemtype="http://schema.org/Person">
-                                        <span itemprop="image">
-                                            <img class="avatar" src="http://www.gravatar.com/avatar/53f4768c62aa59ff9c6511b8255193fd?s=32&amp;r=G&amp;d="
-                                                 alt="闪闪的星" width="32" height="32" /></span> <cite class="fn" itemprop="name"><a href="http://shansing.com"
-                                                                                                                                 rel="external nofollow">闪闪的星</a></cite>
+<% for(i in data.comments) { %>
+    <input type="hidden" value="<%= i %>">
+    <li itemscope itemtype="#" id="comment-<%= data.comments[i]._id %>" class="comment-body comment-parent comment-odd">
+        <div class="comment-author" itemprop="creator" itemscope itemtype="#">
+            <span itemprop="image">
+                <img class="avatar" src="#" alt="" width="32" height="32" />
+            </span>
+            <cite class="fn" itemprop="name">
+                <a href="#" rel="external nofollow">用户名称</a>
+            </cite>
         </div>
         <div class="comment-meta">
-            <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1#comment-554">
-                <time itemprop="commentTime" datetime="2014-08-13T14:07:59+00:00">2014/08/13, 14:07:59</time>
+            <a href="#">
+                <time itemprop="createTime" datetime="<%= data.comments[i].createTime %>"><%= data.comments[i].createTime %></time>
             </a>
         </div>
         <div class="comment-content" itemprop="commentText">
-            <p>
-                后面那些代码主要是让 XML 更美观吧，感觉没有必要呢。</p>
+            <p><%= data.comments[i].body %></p>
         </div>
         <div class="comment-reply">
-            <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1?replyTo=554#respond-post-435"
-               rel="nofollow" onclick="return TypechoComment.reply('comment-554', 554);">回复</a>
+            <a href="#"
+               rel="nofollow" onclick="return TypechoComment.reply('comment-<%= data.comments[i]._id %>', <%= data.comments[i]._id %>);">回复</a>
         </div>
     </li>
-    <li itemscope itemtype="http://schema.org/UserComments" id="comment-554" class="comment-body comment-parent comment-odd">
-        <div class="comment-author" itemprop="creator" itemscope itemtype="http://schema.org/Person">
-                                        <span itemprop="image">
-                                            <img class="avatar" src="http://www.gravatar.com/avatar/53f4768c62aa59ff9c6511b8255193fd?s=32&amp;r=G&amp;d="
-                                                 alt="闪闪的星" width="32" height="32" /></span> <cite class="fn" itemprop="name"><a href="http://shansing.com"
-                                                                                                                                 rel="external nofollow">闪闪的星</a></cite>
-        </div>
-        <div class="comment-meta">
-            <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1#comment-554">
-                <time itemprop="commentTime" datetime="2014-08-13T14:07:59+00:00">2014/08/13, 14:07:59</time>
-            </a>
-        </div>
-        <div class="comment-content" itemprop="commentText">
-            <p>
-                后面那些代码主要是让 XML 更美观吧，感觉没有必要呢。</p>
-        </div>
-        <div class="comment-reply">
-            <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1?replyTo=554#respond-post-435"
-               rel="nofollow" onclick="return TypechoComment.reply('comment-554', 554);">回复</a>
-        </div>
-    </li>
-    <li itemscope itemtype="http://schema.org/UserComments" id="comment-554" class="comment-body comment-parent comment-odd">
-        <div class="comment-author" itemprop="creator" itemscope itemtype="http://schema.org/Person">
-                                        <span itemprop="image">
-                                            <img class="avatar" src="http://www.gravatar.com/avatar/53f4768c62aa59ff9c6511b8255193fd?s=32&amp;r=G&amp;d="
-                                                 alt="闪闪的星" width="32" height="32" /></span> <cite class="fn" itemprop="name"><a href="http://shansing.com"
-                                                                                                                                 rel="external nofollow">闪闪的星</a></cite>
-        </div>
-        <div class="comment-meta">
-            <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1#comment-554">
-                <time itemprop="commentTime" datetime="2014-08-13T14:07:59+00:00">2014/08/13, 14:07:59</time>
-            </a>
-        </div>
-        <div class="comment-content" itemprop="commentText">
-            <p>
-                后面那些代码主要是让 XML 更美观吧，感觉没有必要呢。</p>
-        </div>
-        <div class="comment-reply">
-            <a href="http://blog.sloger.info/typecho/add-sitemap-in-typecho.html/comment-page-1?replyTo=554#respond-post-435"
-               rel="nofollow" onclick="return TypechoComment.reply('comment-554', 554);">回复</a>
-        </div>
-    </li>
+<% } %>
+
 </ol>
 
 <ol class="page-navigator">
@@ -120,27 +83,16 @@
     <h3 id="response">
         <span>new <em>reply</em></span></h3>
     <form method="post" action="/comment/post" id="comment-form">
-        <input id="article" name="article" class="hidden" type="text" value="<%= data._id %>">
+        <input id="article" name="article"  type="hidden" value="<%= data._id %>">
         <div class="field">
             <label for="mail">
-                User (required) :</label>
-            <input type="text" name="author" id="author" value="">
-        </div>
-        <div class="field">
-            <label for="mail">
-                Email (required) :</label>
-            <input type="email" name="mail" id="mail" value="">
-        </div>
-        <div class="field">
-            <label for="mail">
-                Url :</label>
-            <input type="url" name="url" id="url" placeholder="http://" value="">
+                User :</label>
+            <input type="text" name="user" id="user" value="<%= lay.username %>" disabled="disabled">
         </div>
         <div class="field">
             <label for="textarea">
                 内容</label>
-            <textarea name="comment" id="textarea"></textarea><textarea name="text" cols="100%"
-                                                                        rows="4" style="display: none">spam</textarea>
+            <textarea name="body" id="body"></textarea>
         </div>
         <div>
             <button type="submit" class="submit">
