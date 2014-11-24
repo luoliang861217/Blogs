@@ -1,6 +1,7 @@
 
+
 <% for(i in list) { %>
-<article class="post">
+<article class="simditor">
     <header class="header">
         <h1 class="title">
             <a href="/article/<%= list[i].id %>" target="_blank"><%= list[i].title %></a>
@@ -11,7 +12,7 @@
             </li>
         </ul>
     </header>
-    <div class="body ">
+    <div class="simditor-body">
         <%- list[i].content %>
         <p class="more"><a href="/article/<%= list[i].id %>" target="_blank" title="<%= list[i].title %>">Continue reading →</a></p>    </div>
 </article>

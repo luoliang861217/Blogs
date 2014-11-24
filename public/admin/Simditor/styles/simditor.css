@@ -1,7 +1,45 @@
 .simditor {
-  position: relative;
+  /*position: relative;*/
   border: 1px solid #c9d8db;
+  color: #797979;
+  font-family: PT Serif,Georgia,serif;
+  font-size: 87.5%;
+  line-height: 1.5;
+  word-wrap: break-word;
 }
+
+
+/* 增加 */
+.simditor   .header {
+    text-align: center;
+}
+
+.simditor .header .title {
+  font-size: 1.5em;
+  font-weight: 400;
+  margin: 0;
+}
+
+.simditor .header .meta {
+    background: url("../../images/border.png") no-repeat scroll center bottom rgba(0, 0, 0, 0);
+    font-family: "Raleway",sans-serif;
+    font-size: 0.786em;
+    line-height: 3.818em;
+    list-style: outside none none;
+    margin: 0;
+    padding: 0;
+    text-transform: uppercase;
+}
+
+.simditor .header .meta li {
+    display: inline-block;
+}
+
+/* 增加结束 */
+
+
+
+
 .simditor .simditor-wrapper {
   position: relative;
   background: #ffffff;
@@ -60,6 +98,8 @@
   position: relative;
   z-index: 1;
   background: transparent;
+
+  margin: 1.5em 0 2.5em;
 }
 .simditor .simditor-body a.selected {
   background: #b3d4fd;

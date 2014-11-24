@@ -1,6 +1,7 @@
 
 
 
+
 <style type="text/css">
     ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
     .ui-timepicker-div dl { text-align: left; }
@@ -12,101 +13,107 @@
     .ui_tpicker_millisec_label,.ui_tpicker_time_label{padding-left:20px}
 </style>
 
-        <div class="body container">
-            <div class="typecho-page-title">
-                <h2>编辑文章</h2>
-            </div>
-            <% include message.html %>
-            <div class="row typecho-page-main typecho-post-area" role="form">
-                <form action="/admin/article_doupdate" method="post" name="write_post">
-                    <div class="col-mb-12 col-tb-9" role="main">
+<div class="body container">
+    <div class="typecho-page-title">
+        <h2>编辑文章</h2>
+    </div>
+    <% include message.html %>
+    <div class="row typecho-page-main typecho-post-area" role="form">
+        <form action="/admin/article_doupdate" method="post" name="write_post">
+            <div class="col-mb-12 col-tb-9" role="main">
 
-                        <p class="title">
-                            <label for="title" class="sr-only">标题</label>
-                            <input id="id" name="id" class="hidden" type="text" value="<%= data._id %>">
-                            <input id="oldcategory" name="oldcategory" class="hidden" type="text" value="<%= data.category.id %>">
-                            <input type="text" id="title" name="title" autocomplete="off" placeholder="标题" value="<%= data.title %>" class="w-100 text title" />
-                        </p>
-                        <p>
-                            <label for="text" class="sr-only">文章内容</label>
-                            <input id="temp" name="temp" class="hidden" type="text" value="<%= data.content %>">
-                            <script id="content" name="content" type="text/plain" style="height: 350px"></script>
-                        </p>
+                <p class="title">
+                    <label for="title" class="sr-only">标题</label>
+                    <input id="id" name="id" class="hidden" type="text" value="<%= data._id %>">
+                    <input id="oldcategory" name="oldcategory" class="hidden" type="text" value="<%= data.category.id %>">
+                    <input type="text" id="title" name="title" autocomplete="off" placeholder="标题" value="<%= data.title %>" class="w-100 text title" />
+                </p>
+                <p>
+                    <label for="text" class="sr-only">文章内容</label>
+                    <input id="temp" name="temp" class="hidden" type="text" value="<%= data.content %>">
+                    <textarea id="content" name="content" placeholder="这里输入内容" autofocus><%= data.content %></textarea>
+                </p>
 
-                        <p class="submit clearfix">
+                <p class="submit clearfix">
                             <span class="right">
                                 <input type="hidden" name="cid" value="" />
                                 <!--<button type="submit" name="do" value="save" id="btn-save" class="btn">保存草稿</button>-->
                                 <button type="submit" name="do" value="publish" class="btn primary" id="btn-submit">发布文章</button>
                                 <input type="hidden" name="markdown" value="1" />
                             </span>
-                        </p>
+                </p>
 
-                    </div>
-
-                    <div id="edit-secondary" class="col-mb-12 col-tb-3" role="complementary">
-
-                        <div id="tab-advance" class="tab-content">
-                            <section class="typecho-post-option" role="application">
-                                <label for="date" class="typecho-label">发布日期</label>
-                                <p>
-                                    <input class="typecho-date w-100" type="text" name="PublicTime" id="PublicTime"  />
-                                </p>
-                            </section>
-
-                            <section class="typecho-post-option category-option">
-                                <label class="typecho-label">分类</label>
-                            <% if(list.length >0 ) {%>
-                                <ul>
-                                    <% for(i in list ) {%>
-
-                                    <li>
-                                        <% if(list[i].parent) { %>
-                                        &nbsp;&nbsp;&nbsp;&nbsp;
-                                        <% } %>
-
-                                        <% if(data.category.id.toString() === list[i].id.toString()) { %>
-                                        <input checked='checked' type="radio" name="category" value="<%= list[i].id %>" id="category-<%= list[i].id %>" >
-                                        <% } else { %>
-                                        <input type="radio" name="category" value="<%= list[i].id %>" id="category-<%= list[i].id %>" >
-                                        <% } %>
-
-                                        <label for="category-<%= list[i].id %>"><%= list[i].name %></label>
-                                    </li>
-                                    <% } %>
-                                </ul>
-                            <% } %>
-                            </section>
-
-                            <section class="typecho-post-option">
-                                <label for="token-input-tags" class="typecho-label">标签</label>
-                                <p>
-                                    <input id="tags" name="tags" type="text" value="<%= data.tags.join(' ') %>" autocomplete="off" placeholder="空格分隔" class="w-100 text" /></p>
-                            </section>
-                        </div>
-                    </div>
-                </form>
             </div>
-        </div>
+
+            <div id="edit-secondary" class="col-mb-12 col-tb-3" role="complementary">
+
+                <div id="tab-advance" class="tab-content">
+                    <section class="typecho-post-option" role="application">
+                        <label for="date" class="typecho-label">发布日期</label>
+                        <p>
+                            <input class="typecho-date w-100" type="text" name="PublicTime" id="PublicTime"  />
+                        </p>
+                    </section>
+
+                    <section class="typecho-post-option category-option">
+                        <label class="typecho-label">分类</label>
+                        <% if(list.length >0 ) {%>
+                        <ul>
+                            <% for(i in list ) {%>
+
+                            <li>
+                                <% if(list[i].parent) { %>
+                                &nbsp;&nbsp;&nbsp;&nbsp;
+                                <% } %>
+
+                                <% if(data.category.id.toString() === list[i].id.toString()) { %>
+                                <input checked='checked' type="radio" name="category" value="<%= list[i].id %>" id="category-<%= list[i].id %>" >
+                                <% } else { %>
+                                <input type="radio" name="category" value="<%= list[i].id %>" id="category-<%= list[i].id %>" >
+                                <% } %>
+
+                                <label for="category-<%= list[i].id %>"><%= list[i].name %></label>
+                            </li>
+                            <% } %>
+                        </ul>
+                        <% } %>
+                    </section>
+
+                    <section class="typecho-post-option">
+                        <label for="token-input-tags" class="typecho-label">标签</label>
+                        <p>
+                            <input id="tags" name="tags" type="text" value="<%= data.tags.join(' ') %>" autocomplete="off" placeholder="空格分隔" class="w-100 text" /></p>
+                    </section>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
 
 
 
-        <script type="text/javascript">
-            var ue = UE.getEditor('content');
-            $('#PublicTime').datetimepicker({
-                showSecond: true,
-                timeFormat: 'hh:mm:ss',
-                dateFormat: 'yy-mm-dd',
-                numberOfMonths: 2,
-                minDate: 0,
-                maxDate: 30
-            });
-            $(document).ready(function(){
-                $('#PublicTime').datetimepicker('setDate', (new Date()) );
-                setTimeout("insertHtml()",1000);
-            });
-            function insertHtml() {
-                var html = $("#temp").val();
-                UE.getEditor('content').execCommand('insertHtml', html);
-            }
-        </script>
+<script>
+    $(function () {
+        var editor = new Simditor({
+            textarea: $('#content'),
+            placeholder: '',
+            defaultImage: 'images/image.png',
+            params: {},
+            upload: {url: '/Simditor/uploadimage',params: null,fileKey: 'upfile',connectionCount: 3,leaveConfirm: '正在上传文件，如果离开上传会自动取消'},
+            tabIndent: true,
+            toolbar: [ 'title', 'bold'  ,'italic' , 'underline', 'strikethrough',  'color', 'ol', 'ul', 'blockquote'  ,  'code'  ,  'table',  'link',  'image'  ,  'hr', 'indent' ,  'outdent'],
+            toolbarFloat: true,
+            toolbarHidden: false,
+            pasteImage: false
+        });
+    });
+    $('#PublicTime').datetimepicker({
+        showSecond: true,
+        timeFormat: 'hh:mm:ss',
+        dateFormat: 'yy-mm-dd',
+        numberOfMonths: 2,
+        minDate: 0,
+        maxDate: 30
+    });
+    $('#PublicTime').datetimepicker('setDate', (new Date()) );
+</script>

@@ -52,6 +52,9 @@ module.exports = function(){
             if(param.name){
                 result.name = param.name;
             }
+            if(param.slug){
+                result.slug = param.slug;
+            }
             if(param.description){
                 result.description = param.description;
             }

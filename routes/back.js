@@ -10,10 +10,14 @@ var login = require('../controllers/login');
 var register = require('../controllers/register');
 //UEditor模块
 var ueditor = require('../controllers/ueditor');
+//simditor模块
+var simditor = require('../controllers/Simditor');
 //文章模块
 var article = require('../controllers/article');
 //分类模块
 var category = require('../controllers/category');
+//评论模块
+var comment = require('../controllers/comment');
 //后台模块
 var backstage = require('../controllers/backstage');
 //执行验证模块
@@ -61,6 +65,12 @@ module.exports = function(app){
     app.get('/ueditor/config',auth.userRequire,ueditor.config);
     app.post('/ueditor/config',auth.userRequire,ueditor.config);
 
+
+//Simditor
+
+    app.get('/Simditor/uploadimage',auth.userRequire,simditor.uploadimage);
+    app.post('/Simditor/uploadfile',auth.userRequire,simditor.uploadfile);
+
 //文章
     app.get('/admin/article',auth.userRequire,article.index);
 
@@ -76,7 +86,11 @@ module.exports = function(app){
 
     app.post('/admin/article/list',auth.userRequire,article.list);
 
+//评论
+    app.post('/comment/post',auth.userRequire,comment.post);
 
+    app.get('/comment/delete',auth.userRequire,comment.delete);
 
+    app.get('/comment/list',comment.list);
 
 }
