@@ -47,3 +47,4 @@ public/upload/file
 public/upload/image
 public/upload/video
 node_modules/
+settings.js

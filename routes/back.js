@@ -68,7 +68,7 @@ module.exports = function(app){
 
 //Simditor
 
-    app.get('/Simditor/uploadimage',auth.userRequire,simditor.uploadimage);
+    app.post('/Simditor/uploadimage',auth.userRequire,simditor.uploadimage);
     app.post('/Simditor/uploadfile',auth.userRequire,simditor.uploadfile);
 
 //文章
@@ -87,7 +87,7 @@ module.exports = function(app){
     app.post('/admin/article/list',auth.userRequire,article.list);
 
 //评论
-    app.post('/comment/post',auth.userRequire,comment.post);
+    app.post('/comment/post',auth.userRequire,comment.add);
 
     app.get('/comment/delete',auth.userRequire,comment.delete);
 

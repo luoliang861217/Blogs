@@ -5,7 +5,6 @@
 
 var util = require('util');
 var base = require('./base');
-var validator = require('validator');
 var settings = require('../settings');
 var commentRepository = require('../Repository/commentRepository');
 var Comment = require('../model/comment');
@@ -21,17 +20,15 @@ var querystring = require('querystring');
 //自定义变量
 var title = ' - '+ settings.blogtitle;
 
-function Comment(){
+function comment(){
     base.call(this);
     util.inherits(Comment,base);
-
-
     /**
      * 新增评论
      * @param req
      * @param res
      */
-    this.post = function(req,res){
+    this.add = function(req,res){
         var err = '';
         var repository = new commentRepository();
         var errReturn = function(){
@@ -61,7 +58,6 @@ function Comment(){
         }
 
     };
-
 
     /**
      * 删除评论
@@ -95,9 +91,11 @@ function Comment(){
         }
     };
 
-
-
-//后台文章列表
+    /**
+     * 评论列表
+     * @param req
+     * @param res
+     */
     this.list = function(req,res){
         var err = '';
         var errReturn = function(){
@@ -132,11 +130,10 @@ function Comment(){
         }
 
     };
-
 }
 
 
-var comment = new Comment();
-exports.post = comment.post.bind(comment);
-exports.delete = comment.delete.bind(comment);
-exports.list = comment.list.bind(comment);
+var com = new comment();
+exports.add = com.add.bind(com);
+exports.delete = com.delete.bind(com);
+exports.list = com.list.bind(com);

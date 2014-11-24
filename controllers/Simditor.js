@@ -18,27 +18,29 @@ var settings = require('../settings');
 exports.uploadimage = function(req,res){
     var paramStr = url.parse(req.url).query;
     var param = querystring.parse(paramStr);
-    var path = req.files.upfile.path;
+    var uptemppath = req.files.upfile.path; //上传至客服端临时文件路径
     var index = req.files.upfile.name.lastIndexOf('.');
     var lastname = req.files.upfile.name.substr(index, req.files.upfile.name.length - index);//后缀名
-    var headpath = settings.uploadpath + 'public\\' ;
-    var fpath =  'upload\\image\\' ;
-    var filepath = headpath + fpath + moment().format('YYYYMMDDHHmmss') + lastname;
-    var size = req.files.upfile.size;
-    fs.exists(headpath + fpath, function (exists) {
+    var headpath = settings.uploadpath + 'public\\' ;   //服务端存储跟路径
+    var fpath =  'upload\\image\\' ;    //服务端存储相对路径目录
+    var filename =  moment().format('YYYYMMDDHHmmss') + lastname;   //文件名称
+    var serverfilepathDir = headpath + fpath ;                     //服务端存储目录
+    var serverfilepath = serverfilepathDir + filename ;                     //服务端存储目录
+    var urlroot = '/upload/image/';             //url目录
+    var urlfilepath = urlroot + filename;       //url文件路径
+    fs.exists(serverfilepathDir, function (exists) {
         if(!exists){
-            fs.mkdirSync(headpath + fpath,{ flags: 'w',autoClose: true});
+            fs.mkdirSync(serverfilepathDir,{ flags: 'w',autoClose: true});
         }
-        var from = fs.createReadStream(path,{ flags: 'r',autoClose: true });
-        var to = fs.createWriteStream(filepath,{ flags: 'w',autoClose: true });
+        var from = fs.createReadStream(uptemppath,{ flags: 'r',autoClose: true });
+        var to = fs.createWriteStream(serverfilepath ,{ flags: 'w',autoClose: true });
         //返回数据格式：{ "success": true/false,"msg": "上传失败信息", # 可选 "file_path": "[real file path]"}
         var json = {
             'success':'true',
-            'msg' : '上传失败信息', /** 可选 */
-            'file_path' : fpath
+            'file_path' : urlfilepath
         };
         from.pipe(to);
-        fs.unlinkSync(req.files.upfile.path);
+        fs.unlinkSync(uptemppath);
         res.send(JSON.stringify(json));
     });
 };
@@ -52,27 +54,29 @@ exports.uploadimage = function(req,res){
 exports.uploadfile = function(req,res){
     var paramStr = url.parse(req.url).query;
     var param = querystring.parse(paramStr);
-    var path = req.files.upfile.path;
+    var uptemppath = req.files.upfile.path; //上传至客服端临时文件路径
     var index = req.files.upfile.name.lastIndexOf('.');
     var lastname = req.files.upfile.name.substr(index, req.files.upfile.name.length - index);//后缀名
-    var headpath = settings.uploadpath + 'public\\' ;
-    var fpath =  'upload\\file\\' ;
-    var filepath = headpath + fpath + moment().format('YYYYMMDDHHmmss') + lastname;
-    var size = req.files.upfile.size;
-    fs.exists(headpath + fpath, function (exists) {
+    var headpath = settings.uploadpath + 'public\\' ;   //服务端存储跟路径
+    var fpath =  'upload\\file\\' ;    //服务端存储相对路径目录
+    var filename =  moment().format('YYYYMMDDHHmmss') + lastname;   //文件名称
+    var serverfilepathDir = headpath + fpath ;                     //服务端存储目录
+    var serverfilepath = serverfilepathDir + filename ;                     //服务端存储目录
+    var urlroot = '/upload/file/';             //url目录
+    var urlfilepath = urlroot + filename;       //url文件路径
+    fs.exists(serverfilepathDir, function (exists) {
         if(!exists){
-            fs.mkdirSync(headpath + fpath,{ flags: 'w',autoClose: true});
+            fs.mkdirSync(serverfilepathDir,{ flags: 'w',autoClose: true});
         }
-        var from = fs.createReadStream(path,{ flags: 'r',autoClose: true });
-        var to = fs.createWriteStream(filepath,{ flags: 'w',autoClose: true });
+        var from = fs.createReadStream(uptemppath,{ flags: 'r',autoClose: true });
+        var to = fs.createWriteStream(serverfilepath ,{ flags: 'w',autoClose: true });
         //返回数据格式：{ "success": true/false,"msg": "上传失败信息", # 可选 "file_path": "[real file path]"}
         var json = {
             'success':'true',
-            'msg' : '上传失败信息', /** 可选 */
-            'file_path' : fpath
+            'file_path' : urlfilepath
         };
         from.pipe(to);
-        fs.unlinkSync(req.files.upfile.path);
+        fs.unlinkSync(uptemppath);
         res.send(JSON.stringify(json));
     });
 };

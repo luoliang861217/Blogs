@@ -23,7 +23,6 @@ function category(){
     base.call(this);
     util.inherits(category,base);
 
-
     /**
      * 后台分类首页
      * @param req
@@ -233,8 +232,6 @@ function category(){
         }.bind(this));
 
     };
-
-
 }
 
 
