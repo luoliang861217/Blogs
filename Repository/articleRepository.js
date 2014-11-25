@@ -67,13 +67,20 @@ module.exports = function(){
     };
     /**
      * 查找数据 使用文章回复字段数组进行分页 开始位置，长度
-     * @param id        指定ID
+     * @param param     查询参数
      * @param callback  回调函数
      */
     this.getArticleCommentById = function(param,callback){
-        var start = param.Skip === undefined ? 0 : param.Skip;
+        var start = (param.pageIndex - 1 ) * param.pageSize;
         var end = param.pageSize === undefined ? 10 : param.pageSize;
-        Article.findOne({ _id : param.id },{ comments:{$slice : [start,end]}}).populate('category').populate('user').populate('comments.user').exec(callback);
+        Article.findOne({ _id : param.id }).populate('category').populate('user').populate('comments.user').exec(function(err,results){
+            if(err){
+                callback(err);
+            }
+            param.Total = results.comments.length;
+            Article.findOne({ _id : param.id },{ comments:{$slice : [start,end]}}).populate('category').populate('user').populate('comments.user').exec(callback);
+        });
+
     };
 
     /**
@@ -111,6 +118,5 @@ module.exports = function(){
             qurey['PublicTime'] = param.PublicTime;
         }
         Article.find(qurey).skip(skip).limit(pageSize).populate('category').populate('user').populate('comments.user').exec(callback);
-
     };
 }

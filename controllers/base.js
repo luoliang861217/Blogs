@@ -27,7 +27,7 @@ module.exports = function(){
     };
 
     /**
-     *
+     * 删除空白符数组
      * @param array
      * @returns {*}
      */
@@ -45,17 +45,48 @@ module.exports = function(){
      * @param str
      * @returns {boolean}
      */
-    this.isnullOrundefined = function (str) {
-        if( str === undefined || str.length < 1){
+    this.isnullOrundefined = function (obj) {
+        if( obj === undefined || obj == null || obj.length < 1){
             return true;
         }
-        str = this.toString().replace(/(^\s*)|(\s*$)/g, "");
-        if(!str || str === undefined || str === ''){
+        obj = this.toString().replace(/(^\s*)|(\s*$)/g, "");
+        if(!obj || obj === ''){
             return true;
         }
         else{
             return false;
         }
+    }
+
+    /**
+     * 分页
+     * @param pageIndex 页码
+     * @param pageSize  也大小
+     * @param total     总数
+     * @param urlformat     url格式化
+     */
+    this.page = function(pageIndex,pageSize,total,urlformat){
+        var totalPage = Math.ceil(total / pageSize);
+        var count = 3;
+        var start = pageIndex < count ? 1 : pageIndex - count;
+        var end = start + 5 > totalPage ? totalPage : start + 5;
+        var html = '<ol class=\"page-navigator\">';
+        if(pageIndex > 1 ){
+            html += '<li class=\"pre\"><a href=\"'+ pageIndex + '\">«</a> </li>';
+        }
+        for(var i = start;i<= end; i++){
+            if(pageIndex === i ){
+                html += '<li class=\"current\"><a href=\"'+ i + '\">'+ i + '</a> </li>';
+            }
+            else{
+                html += '<li><a href=\"'+ i + '\">'+ i + '</a> </li>';
+            }
+        }
+        if(pageIndex <　totalPage ){
+            html += '<li class=\"next\"><a href=\"'+ pageIndex + '\">»</a></li>';
+        }
+        html += '</ol>';
+        return html;
     }
 }
 
