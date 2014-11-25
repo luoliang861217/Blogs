@@ -21,7 +21,6 @@ var articleSchema = new Schema({
 //文章所属用户
     user : { type: Schema.Types.ObjectId, ref: 'User' },
 //文章所有评论
-//    comments : [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
     comments : [{ body: String, createTime:{type:Number,default:moment().unix()},user: { type: Schema.Types.ObjectId, ref: 'User' }}],
 //创建时间
     createTime:{type:Number,default:moment().unix() },

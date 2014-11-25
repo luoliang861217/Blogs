@@ -19,7 +19,7 @@ module.exports = function(){
             username : param.username,
             password : param.password,
             email : param.email,
-            avatar : 'img/avatar.jpg'
+            avatar : '/images/avatar.jpg'
         });
         user.save(callback);
     };

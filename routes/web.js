@@ -24,6 +24,9 @@ module.exports = function(app){
 
     app.get('/article/:id',site.details);
 
+//详情页分页测试
+    app.get('/articletest/:id',site.detailstest);
+
 
 
 

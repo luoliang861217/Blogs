@@ -12,6 +12,10 @@ var Article = require('../model/article');
 var log = require('../common/log');
 var moment = require('moment');
 
+var http = require('http');
+var url = require('url');
+var querystring = require('querystring');
+
 //自定义变量
 var blogtitle = settings.blogtitle;
 var blogdescription = settings.blogdescription;
@@ -33,7 +37,7 @@ function site(){
                 this.log(true,err,log.type.exception ,req, errReturn);
             }
             articles.forEach(function(e){
-                e.create = moment(e.createTime).format('YYYY-MM-DD HH:mm:ss');
+                e.create = moment.unix(e.createTime).format('YYYY-MM-DD HH:mm:ss');
             })
             lay.user = req.session.user;
             res.render('index', {
@@ -47,9 +51,13 @@ function site(){
         }.bind(this));
     };
 
-//前台文章页面 路由：/article/:id
+    /**
+     * 前台文章页面 路由：/article/:id
+     * @param req
+     * @param res
+     * @param next
+     */
     this.details = function(req,res,next){
-        console.log(req.params.id);
         var repository = new articleRepository();
         var errReturn = function(){
             return res.redirect('index');
@@ -62,8 +70,12 @@ function site(){
                 this.log(true,'文章id:' + params.id + '不存在',log.type.exception ,req, errReturn);
             }
             else{
-                article.create = moment(article.createTime).format('YYYY-MM-DD HH:mm:ss');
-                lay.username = req.session.user === undefined ? '' : req.session.user.username;
+                article.create = moment.unix(article.createTime).format('YYYY-MM-DD HH:mm:ss');
+                article.comments.total = article.comments.length;
+                article.comments.forEach(function(item){
+                    item.create = moment.unix(item.createTime).format('YYYY-MM-DD HH:mm:ss');
+                });
+                lay.username = req.session.user === undefined ? '访问者' : req.session.user.username;
                 res.render('details', {
                     title:  article.title + title,
                     layout:'layout',
@@ -76,6 +88,12 @@ function site(){
         }.bind(this));
     };
 
+    /**
+     * 留言
+     * @param req
+     * @param res
+     * @param next
+     */
     this.guestbook = function(req,res,next){
         res.render("guestbook",{
                 title:'留言' + title,
@@ -86,6 +104,12 @@ function site(){
         );
     };
 
+    /**
+     * 关于
+     * @param req
+     * @param res
+     * @param next
+     */
     this.about = function(req,res,next){
         res.render("about",{
                 title:'关于' + title,
@@ -96,11 +120,62 @@ function site(){
         );
     };
 
+    /**
+     * 前台文章页面测试 路由：/article/:id
+     * @param req
+     * @param res
+     * @param next
+     */
+    this.detailstest = function(req,res,next){
+        var paramStr = url.parse(req.url).query;
+        var param = querystring.parse(paramStr);
+
+        var repository = new articleRepository();
+        var errReturn = function(){
+            return res.redirect('index');
+        };
+        try{
+            param.id = req.params.id;
+            param.pageIndex = param.pageIndex === undefined ? 1 : parseInt(param.pageIndex) > 0 ? parseInt(param.pageIndex) : 1;
+            param.pageSize = param.pageSize === undefined ? 10 : parseInt(param.pageSize) >0 ? parseInt(param.pageSize) : 10;
+            param.pageSort = param.pageSort === undefined ? 1 : parseInt(param.pageSort);
+            param.Skip = (param.pageIndex - 1 ) * param.pageSize;
+            param.Total = 0;
+        }catch(e) {
+            this.log(true,'参数不合法：' + e.message,log.type.exception ,req, errReturn);
+        }
+        repository.getArticleCommentById(param,function(err,article){
+            if(err){
+                this.log(true,err.message,log.type.exception ,req, errReturn);
+            }
+            if(!article){
+                this.log(true,'文章id:' + params.id + '不存在',log.type.exception ,req, errReturn);
+            }
+            else{
+                article.create = moment.unix(article.createTime).format('YYYY-MM-DD HH:mm:ss');
+                article.comments.total = article.comments.length;
+                article.comments.forEach(function(item){
+                    item.create = moment.unix(item.createTime).format('YYYY-MM-DD HH:mm:ss');
+                });
+                lay.username = req.session.user === undefined ? '访问者' : req.session.user.username;
+                res.render('details', {
+                    title:  article.title + title,
+                    layout:'layout',
+                    success : req.flash("success").toString(),
+                    error: req.flash("error").toString(),
+                    lay : lay,
+                    data :article
+                });
+            }
+        }.bind(this));
+    };
+
 }
 var Site = new site();
 exports.index = Site.index.bind(Site);
 exports.details = Site.details.bind(Site);
 exports.guestbook = Site.guestbook.bind(Site);
 exports.about = Site.about.bind(Site);
+exports.detailstest = Site.detailstest.bind(Site);
 
 

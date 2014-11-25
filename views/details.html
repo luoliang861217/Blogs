@@ -34,20 +34,20 @@
     <span><%= data.comments.length %> <em>replies</em> </span>
 </h3>
 <ol class="comment-list">
-<% for(i in data.comments) { %>
-    <input type="hidden" value="<%= i %>">
+<% for (var i=0; i<data.comments.length; i++) { %>
+    <!--<% if(i > 9) break;%>-->
     <li itemscope itemtype="#" id="comment-<%= data.comments[i]._id %>" class="comment-body comment-parent comment-odd">
         <div class="comment-author" itemprop="creator" itemscope itemtype="#">
             <span itemprop="image">
-                <img class="avatar" src="#" alt="" width="32" height="32" />
+                <img class="avatar" src="<%= data.comments[i].user.avatar %>" alt="" width="32" height="32" />
             </span>
             <cite class="fn" itemprop="name">
-                <a href="#" rel="external nofollow">用户名称</a>
+                <a href="#" rel="external nofollow"><%= data.comments[i].user.username %></a>
             </cite>
         </div>
         <div class="comment-meta">
             <a href="#">
-                <time itemprop="createTime" datetime="<%= data.comments[i].createTime %>"><%= data.comments[i].createTime %></time>
+                <time itemprop="createTime" datetime="<%= data.comments[i].createTime %>"><%= data.comments[i].create %></time>
             </a>
         </div>
         <div class="comment-content" itemprop="commentText">

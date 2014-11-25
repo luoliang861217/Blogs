@@ -38,8 +38,11 @@ function article(){
                 this.log(true,err,log.type.exception ,req, errReturn);
             }
             articles.forEach(function(e){
-                e.publicTime = moment(e.PublicTime).format('YYYY-MM-DD HH:mm:ss');
-
+                e.create = moment.unix(e.createTime).format('YYYY-MM-DD HH:mm:ss');
+                e.comments.total = e.comments.length;
+                e.comments.forEach(function(item){
+                    item.create = moment.unix(item.createTime).format('YYYY-MM-DD HH:mm:ss');
+                });
             })
             res.render('admin/article', {
                 title: '文章管理' + title,

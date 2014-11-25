@@ -37,12 +37,12 @@
                                 <input type="checkbox" value="1" name="cid[]" />
                             </td>
                             <td>
-                                <a href="#" class="balloon-button size-10"><%= list[i].comments.length %></a>
+                                <a href="#" class="balloon-button size-10"><%= list[i].comments.length %> 条</a>
                                 <a href="/admin/article_update?id=<%= list[i].id %>"><%= list[i].title %></a>
                             </td>
                             <td><a href="#"><%= list[i].user.username %></a></td>
                             <td><a href="#"><%= list[i].category.name %></a>                                                                </td>
-                            <td><%= list[i].publicTime %></td>
+                            <td><%= list[i].create %></td>
                             <td>
                                 <a href="/admin/article_delete?id=<%= list[i].id %>">删除</a> |
                                 <a href="/admin/article_update?id=<%= list[i].id %>">修改</a>

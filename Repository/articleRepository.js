@@ -63,8 +63,19 @@ module.exports = function(){
      * @param callback  回调函数
      */
     this.getById = function(id,callback){
-        Article.findOne({ _id : id }).populate('category').populate('user').exec(callback);
+        Article.findOne({ _id : id }).populate('category').populate('user').populate('comments.user').exec(callback);
     };
+    /**
+     * 查找数据 使用文章回复字段数组进行分页 开始位置，长度
+     * @param id        指定ID
+     * @param callback  回调函数
+     */
+    this.getArticleCommentById = function(param,callback){
+        var start = param.Skip === undefined ? 0 : param.Skip;
+        var end = param.pageSize === undefined ? 10 : param.pageSize;
+        Article.findOne({ _id : param.id },{ comments:{$slice : [start,end]}}).populate('category').populate('user').populate('comments.user').exec(callback);
+    };
+
     /**
      * 文章列表
      * @param param     查询条件
@@ -99,10 +110,7 @@ module.exports = function(){
         if(param.PublicTime){
             qurey['PublicTime'] = param.PublicTime;
         }
-        /**
-         * comments属性由关系维护自动加载
-         */
-        Article.find(qurey).skip(skip).limit(pageSize).populate('category').populate('user').exec(callback);
+        Article.find(qurey).skip(skip).limit(pageSize).populate('category').populate('user').populate('comments.user').exec(callback);
 
     };
 }
