@@ -6,9 +6,9 @@ var util = require('util');
 var base = require('./base');
 var validator = require('validator');
 var settings = require('../settings');
-var articleRepository = require('../Repository/articleRepository');
+var articleRepository = require('../Repository/articletestRepository');
 var categoryRepository = require('../Repository/categoryRepository');
-var Article = require('../model/article');
+var Article = require('../model/articletest');
 var log = require('../common/log');
 var moment = require('moment');
 

@@ -78,8 +78,6 @@ module.exports = function(){
         Category.findOne({ _id : id }).populate('parent').exec(callback);
     };
 
-
-
     /**
      * 分类列表
      * @param param     查询条件

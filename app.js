@@ -11,7 +11,6 @@ var http = require('http');
 var path = require('path');
 var flash = require('connect-flash');
 var mongoose = require('mongoose');
-var relationship = require("mongoose-relationship");
 var crypto = require('crypto');
 var validator = require('validator');
 var EventProxy = require('eventproxy');
@@ -19,7 +18,7 @@ var Q = require("q");
 var moment = require('moment');
 var staticExtension = require('./common/staticExtension');
 var webRoutes = require('./routes/web');//前台路由
-var backRoutes = require('./routes/back');//后台路由
+var backRoutes = require('./routes/backtest');//后台路由
 var log = require('./middlewares/log');//日志中间件
 //执行验证模块
 var auth = require('./middlewares/auth');

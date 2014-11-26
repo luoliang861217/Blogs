@@ -18,7 +18,7 @@ var categorySchema = new Schema({
     //分类描述
     description : { type : String },
     //分类父级
-    parent : { type: Schema.Types.ObjectId, ref: 'Category' }, /* , */
+    parent : { type: Schema.Types.ObjectId, ref: 'Category' },
     //分类文章
     articles : [{ type: Schema.Types.ObjectId, ref: 'Article' }],
     //创建时间
