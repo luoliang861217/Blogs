@@ -63,27 +63,28 @@ module.exports = function(){
      * @param pageIndex 页码
      * @param pageSize  也大小
      * @param total     总数
-     * @param urlformat     url格式化
+     * @param url       url
      */
-    this.page = function(pageIndex,pageSize,total,urlformat){
+    this.page = function(pageIndex,pageSize,total,url){
+        var str = url + '?pageIndex={0}' + '&pageSize={1}';
         var totalPage = Math.ceil(total / pageSize);
         var count = 3;
         var start = pageIndex < count ? 1 : pageIndex - count;
         var end = start + 5 > totalPage ? totalPage : start + 5;
         var html = '<ol class=\"page-navigator\">';
         if(pageIndex > 1 ){
-            html += '<li class=\"pre\"><a href=\"'+ pageIndex + '\">«</a> </li>';
+            html += '<li class=\"pre\"><a href=\"'+ url + '?pageIndex='+ pageIndex + '&pageSize='+ pageSize + '\">«</a> </li>';
         }
         for(var i = start;i<= end; i++){
             if(pageIndex === i ){
-                html += '<li class=\"current\"><a href=\"'+ i + '\">'+ i + '</a> </li>';
+                html += '<li class=\"current\"><a href=\"javascript:void(0)\">'+ i + '</a> </li>';
             }
             else{
-                html += '<li><a href=\"'+ i + '\">'+ i + '</a> </li>';
+                html += '<li><a href=\"'+ url + '?pageIndex='+ i + '&pageSize='+ pageSize +  '\">'+ i + '</a> </li>';
             }
         }
-        if(pageIndex <　totalPage ){
-            html += '<li class=\"next\"><a href=\"'+ pageIndex + '\">»</a></li>';
+        if(pageIndex <totalPage){
+            html += '<li class=\"next\"><a href=\"'+ url + '?pageIndex='+ pageIndex + '&pageSize='+ pageSize +  '\">»</a></li>';
         }
         html += '</ol>';
         return html;

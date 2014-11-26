@@ -58,11 +58,23 @@ function site(){
      * @param next
      */
     this.details = function(req,res,next){
+        var paramStr = url.parse(req.url).query;
+        var param = querystring.parse(paramStr);
+
         var repository = new articleRepository();
         var errReturn = function(){
             return res.redirect('index');
         };
-        repository.getById(req.params.id,function(err,article){
+        try{
+            param.id = req.params.id;
+            param.pageIndex = param.pageIndex === undefined ? 1 : parseInt(param.pageIndex) > 0 ? parseInt(param.pageIndex) : 1;
+            param.pageSize = param.pageSize === undefined ? 10 : parseInt(param.pageSize) >0 ? parseInt(param.pageSize) : 10;
+            param.pageSort = param.pageSort === undefined ? 1 : parseInt(param.pageSort);
+            param.Total = 0;
+        }catch(e) {
+            this.log(true,'参数不合法：' + e.message,log.type.exception ,req, errReturn);
+        }
+        repository.getArticleCommentById(param,function(err,article){
             if(err){
                 this.log(true,err.message,log.type.exception ,req, errReturn);
             }
@@ -75,14 +87,15 @@ function site(){
                 article.comments.forEach(function(item){
                     item.create = moment.unix(item.createTime).format('YYYY-MM-DD HH:mm:ss');
                 });
-                lay.username = req.session.user === undefined ? '访问者' : req.session.user.username;
+                lay.username = this.isnullOrundefined(req.session.user) ? '访问者' : req.session.user.username;
                 res.render('details', {
                     title:  article.title + title,
                     layout:'layout',
                     success : req.flash("success").toString(),
                     error: req.flash("error").toString(),
                     lay : lay,
-                    data :article
+                    data :article,
+                    page : this.page(param.pageIndex,param.pageSize,param.Total,'')
                 });
             }
         }.bind(this));
