@@ -75,7 +75,6 @@ module.exports = function(){
      * @param callback  回调函数
      */
     this.getById = function(id,callback){
-
         Category.findOne({ _id : id }).populate('parent').exec(callback);
     };
 
@@ -88,9 +87,9 @@ module.exports = function(){
      * @param pageSize  页大小
      * @param callback  回调函数
      */
-    this.list = function(param,pageIndex,pageSize,callback){
+    this.list = function(param,callback){
         var qurey = {};
-        var skip = (pageIndex - 1 ) * pageSize;
+        var skip = (param.pageIndex - 1 ) * param.pageSize;
         if(param.id){
             qurey['_id'] = param.id;
         }
@@ -107,7 +106,13 @@ module.exports = function(){
         /**
          * articles属性由关系维护自动加载
          */
-        Category.find(qurey).skip(skip).limit(pageSize).populate('parent').exec(callback);
+        Category.count(qurey,function(err,count){
+            if(err){
+                callback(err);
+            }
+            param.Total = count;
+            Category.find(qurey).skip(skip).limit(param.pageSize).populate('parent').exec(callback);
+        });
     };
 
 }

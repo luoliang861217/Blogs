@@ -10,13 +10,11 @@ var Schema = db.Schema
 
 var userSchema = new Schema({
 //用户名称
-    username : {type:String, unique:true},
-//登录名称(显示名称)
-    loginname:{type : String , unique:true},
+    username : {type:String, index : true},
 //登录密码
     password:{type:String},
 //用户邮箱
-    email:{type:String , unique:true},
+    email:{type:String , index : true},
 //用户图像
     avatar:{type:String},
 //用户微博

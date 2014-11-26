@@ -82,6 +82,27 @@ module.exports = function(){
         });
 
     };
+    /**
+     * 最近发布的文章
+     * @param param
+     * @param callback
+     */
+    this.getLastPublishArticle = function(param,callback){
+        var query = {};
+        Article.find(query).sort({"comments":-1}).limit(param.pageSize).populate('category').populate('user').populate('comments.user').exec(callback);
+
+
+    };
+
+    /**
+     * 最近得到的回复
+     * @param param
+     * @param callback
+     */
+    this.getLastCommentsArticle = function(param,callback){
+        var query = {};
+        Article.find(query).limit(param.pageSize).populate('category').populate('user').populate('comments.user').exec(callback);
+    };
 
     /**
      * 文章列表
@@ -90,33 +111,40 @@ module.exports = function(){
      * @param pageSize  页大小
      * @param callback  回调函数
      */
-    this.list = function(param,pageIndex,pageSize,callback){
-        var qurey = {};
-        var skip = (pageIndex - 1 ) * pageSize;
+    this.list = function(param,callback){
+        var query = {};
+        var skip = (param.pageIndex - 1 ) * param.pageSize;
         if(param.id){
-            qurey['_id'] = param.id;
+            query['_id'] = param.id;
         }
         if(param.title){
-            qurey['title'] = param.title;
+            query['title'] = param.title;
         }
         if(param.slug){
-            qurey['content'] = param.content;
+            query['content'] = param.content;
         }
 
         if(param.user){
-            qurey['user'] = param.user;
+            query['user'] = param.user;
         }
 
         if(param.tags){
-            qurey['tags'] = param.tags;
+            query['tags'] = param.tags;
         }
         if(param.category){
-            qurey['category'] = param.category;
+            query['category'] = param.category;
         }
 
         if(param.PublicTime){
-            qurey['PublicTime'] = param.PublicTime;
+            query['PublicTime'] = param.PublicTime;
         }
-        Article.find(qurey).skip(skip).limit(pageSize).populate('category').populate('user').populate('comments.user').exec(callback);
+        Article.count(query,function(err,count){
+            if(err){
+                callback(err);
+            }
+            param.Total = count;
+            Article.find(query).skip(skip).limit(param.pageSize).populate('category').populate('user').populate('comments.user').exec(callback);
+        });
+
     };
 }

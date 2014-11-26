@@ -28,21 +28,29 @@ exports.uploadimage = function(req,res){
     var serverfilepath = serverfilepathDir + filename ;                     //服务端存储目录
     var urlroot = '/upload/image/';             //url目录
     var urlfilepath = urlroot + filename;       //url文件路径
-    fs.exists(serverfilepathDir, function (exists) {
-        if(!exists){
-            fs.mkdirSync(serverfilepathDir,{ flags: 'w',autoClose: true});
-        }
-        var from = fs.createReadStream(uptemppath,{ flags: 'r',autoClose: true });
-        var to = fs.createWriteStream(serverfilepath ,{ flags: 'w',autoClose: true });
-        //返回数据格式：{ "success": true/false,"msg": "上传失败信息", # 可选 "file_path": "[real file path]"}
-        var json = {
-            'success':'true',
-            'file_path' : urlfilepath
-        };
-        from.pipe(to);
+    var json = {};
+    try{
+        fs.exists(serverfilepathDir, function (exists) {
+            if(!exists){
+                fs.mkdirSync(serverfilepathDir,{ flags: 'w',autoClose: true});
+            }
+            var from = fs.createReadStream(uptemppath,{ flags: 'r',autoClose: true });
+            var to = fs.createWriteStream(serverfilepath ,{ flags: 'w',autoClose: true });
+            //返回数据格式：{ "success": true/false,"msg": "上传失败信息", # 可选 "file_path": "[real file path]"}
+            var json = {};
+            json.success = 'true';
+            json.file_path = urlfilepath;
+            from.pipe(to);
+            fs.unlinkSync(uptemppath);
+            res.send(JSON.stringify(json));
+        });
+    }catch (e){
+        var json = {};
+        json.success = 'false';
+        json.msg = e.message;
         fs.unlinkSync(uptemppath);
         res.send(JSON.stringify(json));
-    });
+    }
 };
 
 
@@ -64,19 +72,27 @@ exports.uploadfile = function(req,res){
     var serverfilepath = serverfilepathDir + filename ;                     //服务端存储目录
     var urlroot = '/upload/file/';             //url目录
     var urlfilepath = urlroot + filename;       //url文件路径
-    fs.exists(serverfilepathDir, function (exists) {
-        if(!exists){
-            fs.mkdirSync(serverfilepathDir,{ flags: 'w',autoClose: true});
-        }
-        var from = fs.createReadStream(uptemppath,{ flags: 'r',autoClose: true });
-        var to = fs.createWriteStream(serverfilepath ,{ flags: 'w',autoClose: true });
-        //返回数据格式：{ "success": true/false,"msg": "上传失败信息", # 可选 "file_path": "[real file path]"}
-        var json = {
-            'success':'true',
-            'file_path' : urlfilepath
-        };
-        from.pipe(to);
+    try{
+        fs.exists(serverfilepathDir, function (exists) {
+            if(!exists){
+                fs.mkdirSync(serverfilepathDir,{ flags: 'w',autoClose: true});
+            }
+            var from = fs.createReadStream(uptemppath,{ flags: 'r',autoClose: true });
+            var to = fs.createWriteStream(serverfilepath ,{ flags: 'w',autoClose: true });
+            //返回数据格式：{ "success": true/false,"msg": "上传失败信息", # 可选 "file_path": "[real file path]"}
+            var json = {};
+            json.success = 'true';
+            json.file_path = urlfilepath;
+            from.pipe(to);
+            fs.unlinkSync(uptemppath);
+            res.send(JSON.stringify(json));
+        });
+    }
+    catch (e){
+        var json = {};
+        json.success = 'false';
+        json.msg = e.message;
         fs.unlinkSync(uptemppath);
         res.send(JSON.stringify(json));
-    });
+    }
 };

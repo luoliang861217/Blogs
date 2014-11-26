@@ -65,15 +65,15 @@ module.exports = function(){
      * @param total     总数
      * @param url       url
      */
-    this.page = function(pageIndex,pageSize,total,url){
+    this.page = function(pageIndex,pageSize,total,url,pageclass){
         var str = url + '?pageIndex={0}' + '&pageSize={1}';
         var totalPage = Math.ceil(total / pageSize);
         var count = 3;
-        var start = pageIndex < count ? 1 : pageIndex - count;
+        var start = pageIndex < count ? 1 : (pageIndex - count < 1 ? 1 : pageIndex - count);
         var end = start + 5 > totalPage ? totalPage : start + 5;
-        var html = '<ol class=\"page-navigator\">';
+        var html = '<ol class=\"' + pageclass + '\">'; //page-navigator
         if(pageIndex > 1 ){
-            html += '<li class=\"pre\"><a href=\"'+ url + '?pageIndex='+ pageIndex + '&pageSize='+ pageSize + '\">«</a> </li>';
+            html += '<li class=\"pre\"><a href=\"'+ url + '?pageIndex='+ (pageIndex - 1) + '&pageSize='+ pageSize + '\">«</a> </li>';
         }
         for(var i = start;i<= end; i++){
             if(pageIndex === i ){
@@ -84,7 +84,7 @@ module.exports = function(){
             }
         }
         if(pageIndex <totalPage){
-            html += '<li class=\"next\"><a href=\"'+ url + '?pageIndex='+ pageIndex + '&pageSize='+ pageSize +  '\">»</a></li>';
+            html += '<li class=\"next\"><a href=\"'+ url + '?pageIndex='+ (pageIndex + 1) + '&pageSize='+ pageSize +  '\">»</a></li>';
         }
         html += '</ol>';
         return html;

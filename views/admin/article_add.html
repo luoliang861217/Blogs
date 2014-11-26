@@ -1,7 +1,5 @@
 
 
-
-<script type="text/javascript" charset="utf-8" src="../ueditor/lang/zh-cn/zh-cn.js"></script>
 <style type="text/css">
     ui-timepicker-div .ui-widget-header { margin-bottom: 8px; }
     .ui-timepicker-div dl { text-align: left; }
@@ -28,7 +26,7 @@
                         </p>
                         <p>
                             <label for="text" class="sr-only">文章内容</label>
-                            <script id="content" name="content" type="text/plain" style="height: 350px">这里写你的初始化内容</script>
+                            <textarea id="content" name="content" placeholder="这里输入内容" autofocus></textarea>
                         </p>
 
                         <p class="submit clearfix">
@@ -84,7 +82,20 @@
 
 
         <script type="text/javascript">
-            var ue = UE.getEditor('content');
+            $(function () {
+                var editor = new Simditor({
+                    textarea: $('#content'),
+                    placeholder: '',
+                    defaultImage: 'images/image.png',
+                    params: {},
+                    upload: {url: '/Simditor/uploadimage',params: null,fileKey: 'upfile',connectionCount: 3,leaveConfirm: '正在上传文件，如果离开上传会自动取消'},
+                    tabIndent: true,
+                    toolbar: [ 'title', 'bold'  ,'italic' , 'underline', 'strikethrough',  'color', 'ol', 'ul', 'blockquote'  ,  'code'  ,  'table',  'link',  'image'  ,  'hr', 'indent' ,  'outdent'],
+                    toolbarFloat: true,
+                    toolbarHidden: false,
+                    pasteImage: false
+                });
+            });
             $('#PublicTime').datetimepicker({
                 showSecond: true,
                 timeFormat: 'hh:mm:ss',
@@ -93,4 +104,5 @@
                 minDate: 0,
                 maxDate: 30
             });
+            $('#PublicTime').datetimepicker('setDate', (new Date()) );
         </script>

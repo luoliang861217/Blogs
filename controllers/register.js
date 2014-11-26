@@ -76,12 +76,14 @@ function register(){
             }
             repository.add(param,function(err,user){
                 if (err) {
-                    this.log(true,err,log.type.exception,req,errReturn);
+                    this.log(true,err.message,log.type.exception,req,errReturn);
                 }
-                this.log(false,user.username + '注册',log.type.add ,req, function(){
-                    req.flash('success', '注册成功!');
-                    res.redirect('/');
-                 });
+                if(user){
+                    this.log(false,user.username + '注册',log.type.add ,req, function(){
+                        req.flash('success', '注册成功!');
+                        res.redirect('/');
+                    });
+                }
             }.bind(this));
         }.bind(this));
     };

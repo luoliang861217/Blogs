@@ -11,9 +11,6 @@ var Category = require('../model/category');
 var log = require('../common/log');
 
 var EventProxy = require('eventproxy');
-var http = require('http');
-var url = require('url');
-var querystring = require('querystring');
 
 var title = ' - '+ settings.blogtitle;
 
@@ -33,8 +30,15 @@ function category(){
         var errReturn = function(){
             return res.redirect('/admin/category');
         };
-        var param = {};
-        repository.list(param,1,10,function(err,categoies){
+        try{
+            req.query.pageIndex = req.query.pageIndex === undefined ? 1 : parseInt(req.query.pageIndex) > 0 ? parseInt(req.query.pageIndex) : 1;
+            req.query.pageSize = req.query.pageSize === undefined ? 10 : parseInt(req.query.pageSize) >0 ? parseInt(req.query.pageSize) : 10;
+            req.query.pageSort = req.query.pageSort === undefined ? 1 : parseInt(req.query.pageSort);
+            req.query.Total = 0;
+        }catch(e) {
+            this.log(true,'参数不合法：' + e.message,log.type.exception ,req, errReturn);
+        }
+        repository.list(req.query,function(err,categoies){
             if(err){
                 this.log(true,err,log.type.exception ,req, errReturn);
             }
@@ -43,7 +47,8 @@ function category(){
                 layout:'admin/layout',
                 success : req.flash("success").toString(),
                 error: req.flash("error").toString(),
-                data : categoies
+                data : categoies,
+                page : this.page(req.query.pageIndex,req.query.pageSize,req.query.Total,'','typecho-pager')
             });
         }.bind(this));
 
@@ -56,8 +61,7 @@ function category(){
      */
     this.showadd = function(req,res){
         var repository = new categoryRepository();
-        var param = {};
-        repository.list(param,1,10,function(err,categoies){
+        repository.list(req.query,function(err,categoies){
             var errReturn = function(){
                 return res.redirect('/admin/category');
             };
@@ -120,15 +124,13 @@ function category(){
         var errReturn = function(){
             return res.redirect('/admin/category');
         };
-        var paramStr = url.parse(req.url).query;
-        var param = querystring.parse(paramStr);
         var repository = new categoryRepository();
-        if(param.id){
-            repository.findByIdAndRemove(param.id,function(err,cate){
+        if(req.query.id){
+            repository.findByIdAndRemove(req.query.id,function(err,cate){
                 if(err){
                     this.log(true,err.message,log.type.exception ,req, errReturn);
                 }
-                this.log(false,'删除id:' + param.id,log.type.delete ,req, function(){
+                this.log(false,'删除id:' + req.query.id,log.type.delete ,req, function(){
                     req.flash('success','删除成功!');
                     res.redirect('/admin/category');
                 });
@@ -148,27 +150,29 @@ function category(){
         var errReturn = function(){
             return res.redirect('/admin/category');
         };
-        var paramStr = url.parse(req.url).query;
-        var param = querystring.parse(paramStr);
+        var data = {};
         var repository = new categoryRepository();
-        var paramer = {};
-        repository.list(paramer,1,10000,function(err,categoies){
+        var id = req.query.id;
+        req.query.id = null;
+        req.query.pageIndex = 1;
+        req.query.pageSize = 10000;
+        repository.list(req.query,function(err,categoies){
             if(err){
                 this.log(true,err,log.type.exception ,req, errReturn);
             }
-            param = {id : param.id};
-            repository.getById(param.id,function(err,category){
-                if(err){
-                    this.log(true,err,log.type.exception ,req, errReturn);
+            for(var i=0;i<categoies.length;i++){
+                if(categoies[i].id === id){
+                    data = categoies[i];
+                    break;
                 }
-                res.render('admin/category_update', {
-                    title: '更新分类' + title,
-                    layout:'admin/layout',
-                    success : req.flash("success").toString(),
-                    error: req.flash("error").toString(),
-                    list : categoies,
-                    data : category
-                });
+            }
+            res.render('admin/category_update', {
+                title: '更新分类' + title,
+                layout:'admin/layout',
+                success : req.flash("success").toString(),
+                error: req.flash("error").toString(),
+                list : categoies,
+                data : data
             });
         }.bind(this));
     };
@@ -217,17 +221,25 @@ function category(){
             return res.redirect('/admin/category');
         };
         var repository = new categoryRepository();
-        var param = {};
-        repository.list(param,1,10,function(err,categoies){
+        try{
+            req.query.pageIndex = req.query.pageIndex === undefined ? 1 : parseInt(req.query.pageIndex) > 0 ? parseInt(req.query.pageIndex) : 1;
+            req.query.pageSize = req.query.pageSize === undefined ? 10 : parseInt(req.query.pageSize) >0 ? parseInt(req.query.pageSize) : 10;
+            req.query.pageSort = req.query.pageSort === undefined ? 1 : parseInt(req.query.pageSort);
+            req.query.Total = 0;
+        }catch(e) {
+            this.log(true,'参数不合法：' + e.message,log.type.exception ,req, errReturn);
+        }
+        repository.list(req.query,function(err,categoies){
             if(err){
                 this.log(true,err,log.type.exception ,req, errReturn);
             }
-            res.render('admin/category01', {
+            res.render('admin/category', {
                 title: '分类管理' + title,
                 layout:'admin/layout',
                 success : req.flash("success").toString(),
                 error: req.flash("error").toString(),
-                data : categoies
+                data : categoies,
+                page : this.page(req.query.pageIndex,req.query.pageSize,req.query.Total,'','typecho-pager')
             });
         }.bind(this));
 

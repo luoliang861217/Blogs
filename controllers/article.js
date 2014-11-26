@@ -26,14 +26,25 @@ function article(){
     base.call(this);
     util.inherits(article,base);
 
-    //后台文章首页
+    /**
+     * 后台文章首页
+     * @param req
+     * @param res
+     */
     this.index = function(req,res){
         var repository = new articleRepository();
-        var CategoryRepository = new categoryRepository();
         var errReturn = function(){
             return res.redirect('/admin/article');
         };
-        repository.list({},1,10,function(err,articles){
+        try{
+            req.query.pageIndex = req.query.pageIndex === undefined ? 1 : parseInt(req.query.pageIndex) > 0 ? parseInt(req.query.pageIndex) : 1;
+            req.query.pageSize = req.query.pageSize === undefined ? 10 : parseInt(req.query.pageSize) >0 ? parseInt(req.query.pageSize) : 10;
+            req.query.pageSort = req.query.pageSort === undefined ? 1 : parseInt(req.query.pageSort);
+            req.query.Total = 0;
+        }catch(e) {
+            this.log(true,'参数不合法：' + e.message,log.type.exception ,req, errReturn);
+        }
+        repository.list(req.query,function(err,articles){
             if(err){
                 this.log(true,err,log.type.exception ,req, errReturn);
             }
@@ -49,18 +60,24 @@ function article(){
                 layout:'admin/layout',
                 success : req.flash("success").toString(),
                 error: req.flash("error").toString(),
-                list : articles
+                list : articles,
+                page : this.page(req.query.pageIndex,req.query.pageSize,req.query.Total,'','typecho-pager')
             });
         }.bind(this));
     };
 
-//后台显示文章添加页面
+    /**
+     * 后台显示文章添加页面
+     * @param req
+     * @param res
+     */
     this.showadd = function(req,res){
         var CategoryRepository = new categoryRepository();
         var errReturn = function(){
             return res.redirect('/admin/article');
         };
-        CategoryRepository.list({},1,10000,function(err,categoies){
+        var param = {pageIndex : 1,pageSize : 10000};
+        CategoryRepository.list(param,function(err,categoies){
             if(err){
                 this.log(true,err,log.type.exception ,req, errReturn);
             }
@@ -74,7 +91,11 @@ function article(){
         }.bind(this));
     };
 
-//后台文章保存
+    /**
+     * 后台文章保存
+     * @param req
+     * @param res
+     */
     this.add = function(req,res){
         var isCommit = true;
         var repository = new articleRepository();
@@ -141,17 +162,19 @@ function article(){
     };
 
 
-//后台文章删除
+    /**
+     * 后台文章删除
+     * @param req
+     * @param res
+     */
     this.delete = function(req,res){
         var errReturn = function(){
             return res.redirect('/admin/article');
         };
-        var paramStr = url.parse(req.url).query;
-        var param = querystring.parse(paramStr);
         var repository = new articleRepository();
         var cgrepository = new categoryRepository();
 
-        repository.getById(param.id,function(err,article){
+        repository.getById(req.query.id,function(err,article){
             if(err){
                 this.log(true,err.message,log.type.exception ,req, errReturn);
             }
@@ -159,11 +182,12 @@ function article(){
                 if(err){
                     this.log(true,err.message,log.type.exception ,req, errReturn);
                 }
-                repository.findByIdAndRemove(param.id,function(err,cate){
+                repository.findByIdAndRemove(req.query.id,function(err,cate){
                     if(err){
                         this.log(true,err.message,log.type.exception ,req, errReturn);
                     }
-                    repository.list({category:category.id},1,1000,function(err,articles){
+                    var param = {category:category.id,pageIndex:1,pageSize:1000};
+                    repository.list(param,function(err,articles){
                         if(err){
                             this.log(true,err.message,log.type.exception ,req, errReturn);
                         }
@@ -183,20 +207,26 @@ function article(){
         }.bind(this));
     };
 
-//后台显示文章更改页面
+    /**
+     * 后台显示文章更改页面
+     * @param req
+     * @param res
+     */
     this.showupdate = function(req,res){
         var repository = new articleRepository();
         var CategoryRepository = new categoryRepository();
-        var paramStr = url.parse(req.url).query;
-        var param = querystring.parse(paramStr);
         var errReturn = function(){
             return res.redirect('admin/article');
         };
-        CategoryRepository.list({},1,1000,function(err,categoies){
+        var id = req.query.id;
+        req.query.id = null;
+        req.query.pageIndex = 1;
+        req.query.pageSize = 10000;
+        CategoryRepository.list(req.query,function(err,categoies){
             if(err){
                 this.log(true,err,log.type.exception ,req, errReturn);
             }
-            repository.getById(param.id,function(err,article){
+            repository.getById(id,function(err,article){
                 if(err){
                     this.log(true,err,log.type.exception ,req, errReturn);
                 }
@@ -212,7 +242,11 @@ function article(){
         }.bind(this));
     };
 
-//后台文章更新
+    /**
+     * 后台文章更新
+     * @param req
+     * @param res
+     */
     this.update = function(req,res){
         var isCommit = true;
         var newcategory = {};
@@ -278,7 +312,8 @@ function article(){
                             }
                             newcategory = cg;
                             //获取新分类下的所有文章
-                            repository.list({category:newcategory.id},1,1000,function(err,newarticles){
+                            var param = {category:newcategory.id,pageIndex : 1,pageSize : 10000};
+                            repository.list(param,function(err,newarticles){
                                 if(err){
                                     this.log(true,err.message,log.type.exception ,req, errReturn);
                                 }
@@ -324,7 +359,11 @@ function article(){
     };
 
 
-//后台文章列表
+    /**
+     * 后台文章列表
+     * @param req
+     * @param res
+     */
     this.list = function(req,res){
 
     };
@@ -391,7 +430,6 @@ function article(){
     this.commentlist = function(req,res){
 
     };
-
 
 }
 

@@ -32,7 +32,15 @@ function site(){
         var errReturn = function(){
             return res.redirect('index');
         };
-        repository.list({},1,10,function(err,articles){
+        try{
+            req.query.pageIndex = req.query.pageIndex === undefined ? 1 : parseInt(req.query.pageIndex) > 0 ? parseInt(req.query.pageIndex) : 1;
+            req.query.pageSize = req.query.pageSize === undefined ? 10 : parseInt(req.query.pageSize) >0 ? parseInt(req.query.pageSize) : 10;
+            req.query.pageSort = req.query.pageSort === undefined ? 1 : parseInt(req.query.pageSort);
+            req.query.Total = 0;
+        }catch(e) {
+            this.log(true,'参数不合法：' + e.message,log.type.exception ,req, errReturn);
+        }
+        repository.list(req.query,function(err,articles){
             if(err){
                 this.log(true,err,log.type.exception ,req, errReturn);
             }
@@ -46,7 +54,8 @@ function site(){
                 success : req.flash("success").toString(),
                 error: req.flash("error").toString(),
                 lay : lay,
-                list : articles
+                list : articles,
+                page : this.page(req.query.pageIndex,req.query.pageSize,req.query.Total,'','page-navigator')
             });
         }.bind(this));
     };
@@ -58,23 +67,20 @@ function site(){
      * @param next
      */
     this.details = function(req,res,next){
-        var paramStr = url.parse(req.url).query;
-        var param = querystring.parse(paramStr);
-
         var repository = new articleRepository();
         var errReturn = function(){
             return res.redirect('index');
         };
         try{
-            param.id = req.params.id;
-            param.pageIndex = param.pageIndex === undefined ? 1 : parseInt(param.pageIndex) > 0 ? parseInt(param.pageIndex) : 1;
-            param.pageSize = param.pageSize === undefined ? 10 : parseInt(param.pageSize) >0 ? parseInt(param.pageSize) : 10;
-            param.pageSort = param.pageSort === undefined ? 1 : parseInt(param.pageSort);
-            param.Total = 0;
+            req.query.id = req.params.id;
+            req.query.pageIndex = req.query.pageIndex === undefined ? 1 : parseInt(req.query.pageIndex) > 0 ? parseInt(req.query.pageIndex) : 1;
+            req.query.pageSize = req.query.pageSize === undefined ? 10 : parseInt(req.query.pageSize) >0 ? parseInt(req.query.pageSize) : 10;
+            req.query.pageSort = req.query.pageSort === undefined ? 1 : parseInt(req.query.pageSort);
+            req.query.Total = 0;
         }catch(e) {
             this.log(true,'参数不合法：' + e.message,log.type.exception ,req, errReturn);
         }
-        repository.getArticleCommentById(param,function(err,article){
+        repository.getArticleCommentById(req.query,function(err,article){
             if(err){
                 this.log(true,err.message,log.type.exception ,req, errReturn);
             }
@@ -95,7 +101,7 @@ function site(){
                     error: req.flash("error").toString(),
                     lay : lay,
                     data :article,
-                    page : this.page(param.pageIndex,param.pageSize,param.Total,'')
+                    page : this.page(req.query.pageIndex,req.query.pageSize,req.query.Total,'','page-navigator')
                 });
             }
         }.bind(this));
@@ -133,55 +139,6 @@ function site(){
         );
     };
 
-    /**
-     * 前台文章页面测试 路由：/article/:id
-     * @param req
-     * @param res
-     * @param next
-     */
-    this.detailstest = function(req,res,next){
-        var paramStr = url.parse(req.url).query;
-        var param = querystring.parse(paramStr);
-
-        var repository = new articleRepository();
-        var errReturn = function(){
-            return res.redirect('index');
-        };
-        try{
-            param.id = req.params.id;
-            param.pageIndex = param.pageIndex === undefined ? 1 : parseInt(param.pageIndex) > 0 ? parseInt(param.pageIndex) : 1;
-            param.pageSize = param.pageSize === undefined ? 10 : parseInt(param.pageSize) >0 ? parseInt(param.pageSize) : 10;
-            param.pageSort = param.pageSort === undefined ? 1 : parseInt(param.pageSort);
-            param.Total = 0;
-        }catch(e) {
-            this.log(true,'参数不合法：' + e.message,log.type.exception ,req, errReturn);
-        }
-        repository.getArticleCommentById(param,function(err,article){
-            if(err){
-                this.log(true,err.message,log.type.exception ,req, errReturn);
-            }
-            if(!article){
-                this.log(true,'文章id:' + params.id + '不存在',log.type.exception ,req, errReturn);
-            }
-            else{
-                article.create = moment.unix(article.createTime).format('YYYY-MM-DD HH:mm:ss');
-                article.comments.total = article.comments.length;
-                article.comments.forEach(function(item){
-                    item.create = moment.unix(item.createTime).format('YYYY-MM-DD HH:mm:ss');
-                });
-                lay.username = this.isnullOrundefined(req.session.user) ? '访问者' : req.session.user.username;
-                res.render('details', {
-                    title:  article.title + title,
-                    layout:'layout',
-                    success : req.flash("success").toString(),
-                    error: req.flash("error").toString(),
-                    lay : lay,
-                    data :article,
-                    page : this.page(param.pageIndex,param.pageSize,param.Total)
-                });
-            }
-        }.bind(this));
-    };
 
 }
 var Site = new site();
@@ -189,6 +146,5 @@ exports.index = Site.index.bind(Site);
 exports.details = Site.details.bind(Site);
 exports.guestbook = Site.guestbook.bind(Site);
 exports.about = Site.about.bind(Site);
-exports.detailstest = Site.detailstest.bind(Site);
 
 
