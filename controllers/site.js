@@ -114,13 +114,15 @@ function site(){
      * @param next
      */
     this.guestbook = function(req,res,next){
+        lay.username = this.isnullOrundefined(req.session.user) ? '访问者' : req.session.user.username;
         res.render("guestbook",{
                 title:'留言' + title,
                 blogtitle: blogtitle,
                 blogdescription:blogdescription,
                 user: req.session.user,
-                layout: 'layout'}
-        );
+                layout: 'layout',
+                lay : lay
+        });
     };
 
     /**
@@ -130,13 +132,15 @@ function site(){
      * @param next
      */
     this.about = function(req,res,next){
+        lay.username = this.isnullOrundefined(req.session.user) ? '访问者' : req.session.user.username;
         res.render("about",{
                 title:'关于' + title,
                 blogtitle: blogtitle,
                 blogdescription:blogdescription,
                 user: req.session.user,
-                layout: 'layout'}
-        );
+                layout: 'layout',
+                lay : lay
+        });
     };
 
 

@@ -5,19 +5,12 @@
 
 var util = require('util');
 var base = require('./base');
-var Q = require("q");
-var validator = require('validator');
 var settings = require('../settings');
 var articleRepository = require('../Repository/articleRepository');
 var categoryRepository = require('../Repository/categoryRepository');
 var Article = require('../model/article');
 var log = require('../common/log');
 var moment = require('moment');
-
-
-var http = require('http');
-var url = require('url');
-var querystring = require('querystring');
 
 //自定义变量
 var title = ' - '+ settings.blogtitle;
@@ -160,7 +153,6 @@ function article(){
 
         }
     };
-
 
     /**
      * 后台文章删除
@@ -358,7 +350,6 @@ function article(){
         }
     };
 
-
     /**
      * 后台文章列表
      * @param req
@@ -430,7 +421,6 @@ function article(){
     this.commentlist = function(req,res){
 
     };
-
 }
 
 

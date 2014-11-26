@@ -44,5 +44,6 @@ var moment = require('moment');
 var index = 1;
 var size = 3;
 var total = 10;
-console.log(page(index,size,total,''));
+//console.log(page(index,size,total,''));
 
+console.log(__dirname);
