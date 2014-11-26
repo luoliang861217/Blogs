@@ -5,7 +5,7 @@
 
 
 var moment = require('moment');
-var Article = require('../model/article');
+var Article = require('../model/articletest');
 
 module.exports = function(){
     /**
@@ -66,7 +66,7 @@ module.exports = function(){
         Article.findOne({ _id : id }).populate('category').populate('user').populate('comments.user').exec(callback);
     };
     /**
-     * 查找数据 使用文章回复字段数组进行分页 开始位置，长度
+     * 查找数据 使用文章回复字段数组进行分页 开始位置，长度 t.find( { x : { $elemMatch : { a : 1, b : { $gt : 1 } } } } )
      * @param param     查询参数
      * @param callback  回调函数
      */
@@ -89,9 +89,7 @@ module.exports = function(){
      */
     this.getLastPublishArticle = function(param,callback){
         var query = {};
-        Article.find(query).sort({"comments":-1}).limit(param.pageSize).populate('category').populate('user').populate('comments.user').exec(callback);
-
-
+        Article.find(query).sort({"PublicTime":-1}).limit(param.pageSize).populate('category').populate('user').populate('comments.user').exec(callback);
     };
 
     /**
@@ -101,7 +99,10 @@ module.exports = function(){
      */
     this.getLastCommentsArticle = function(param,callback){
         var query = {};
-        Article.find(query).limit(param.pageSize).populate('category').populate('user').populate('comments.user').exec(callback);
+        if(param.id){
+            query['_id'] = param.id;
+        }
+        Article.find(query).sort({"comments.createTime":-1}).limit(param.pageSize).populate('category').populate('user').populate('comments.user').exec(callback);
     };
 
     /**

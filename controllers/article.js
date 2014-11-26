@@ -389,14 +389,12 @@ function article(){
                     err = err.message;
                     this.log(true,err,log.type.exception ,req, errReturn);
                 }
-                var comment = {body:param.body, user : param.user};
+                var comment = {body:param.body, user : param.user,createTime:moment().unix()};
                 article.comments.push(comment);
                 repository.update(article,function(err,newarticle){
                     if(err){
                         this.log(true,err.message,log.type.exception ,req, errReturn);
                     }
-//                    var json = {success : true,mes : '回复成功！'};
-//                    res.send(JSON.stringify(json));
                     res.redirect('/article/' + req.body.article);
                 });
             });
