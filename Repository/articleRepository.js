@@ -5,7 +5,7 @@
 
 
 var moment = require('moment');
-var Article = require('../model/articletest');
+var Article = require('../model/article');
 
 module.exports = function(){
     /**

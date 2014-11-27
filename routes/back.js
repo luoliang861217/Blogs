@@ -13,7 +13,7 @@ var ueditor = require('../controllers/ueditor');
 //simditor模块
 var simditor = require('../controllers/Simditor');
 //文章模块
-var article = require('../controllers/articletest');
+var article = require('../controllers/article');
 //分类模块
 var category = require('../controllers/category');
 //后台模块
