@@ -8,6 +8,7 @@ var base = require('./base');
 var settings = require('../settings');
 var userRepository = require('../Repository/userRepository');
 var log = require('../common/log');
+var Q = require('q');
 
 //自定义变量
 var title = ' - '+ settings.blogtitle;
@@ -53,36 +54,40 @@ function logintest(){
         if( !param.password && param.password === ''){
             this.log(true,'密码不能为空！',log.type.normal,req,errReturn);
         }
-        repository.getByuserName(param.username,function(err,user){
-            if(err){
-                this.log(true,err ,log.type.exception ,req, errReturn);
-            }
-            if( !user ){
-                this.log(true,'用户不存在！' ,log.type.normal,req, errReturn);
-            }
-            else{
-                var password = param.password.encryption();
-                if(user.password ===  password){
-                    this.log(false,user.username + '登录',log.type.normal ,req, function(){
-                        req.flash('success', '登陆成功!');
-
-                        //  第一种：使用mongodb存储session
-                        req.session.user = user;
-
-                        //  第二种：使用内存存储session
+        var getByuserName =function(username){
+            var defered = Q.defer();
+            repository.getByuserName(username,function(err,user){
+                if(!err){
+                    defered.resolve(user);
+                }
+                else{
+                    defered.reject(err);
+                }
+            });
+            return defered.promise;
+        };
+        var error = function(err){
+            this.log(true,err ,log.type.exception ,req, errReturn);
+        };
+        var success = function(user){
+            var password = param.password.encryption();
+            if(user.password ===  password){
+                this.log(false,user.username + '登录',log.type.normal ,req, function(){
+                    req.flash('success', '登陆成功!');
+                    //  第一种：使用mongodb存储session
+                    req.session.user = user;
+                    //  第二种：使用内存存储session
 //                var auth_token = user._id + '$$$$'; // 以后可能会存储更多信息，用 $$$$ 来分隔
 //                res.cookie(settings.auth_cookie_name, auth_token,
 //                    {path: '/', maxAge: 1000 * 60 * 60 * 24, signed: true, httpOnly: true}); //cookie 有效期1天
-
-                        return res.redirect('/admin/index');
-                    });
-                }
-                else{
-                    this.log(true,'密码不准确！',log.type.normal ,req, errReturn);
-                }
+                    return res.redirect('/admin/index');
+                });
             }
-        }.bind(this));
-
+            else{
+                this.log(true,'密码不准确！',log.type.normal ,req, errReturn);
+            }
+        };
+        getByuserName(param.username).done(success.bind(this),error.bind(this));
     };
 
     /**

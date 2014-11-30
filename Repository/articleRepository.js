@@ -63,7 +63,7 @@ module.exports = function(){
      * @param callback  回调函数
      */
     this.getById = function(id,callback){
-        Article.findOne({ _id : id }).populate('category').populate('user').populate('comments.user').exec(callback);
+        Article.findOne({ _id : id }).populate('category').populate('user').populate('comments').populate('comments.user').exec(callback);
     };
     /**
      * 查找数据 使用文章回复字段数组进行分页 开始位置，长度 t.find( { x : { $elemMatch : { a : 1, b : { $gt : 1 } } } } )
@@ -73,12 +73,13 @@ module.exports = function(){
     this.getArticleCommentById = function(param,callback){
         var start = (param.pageIndex - 1 ) * param.pageSize;
         var end = param.pageSize === undefined ? 10 : param.pageSize;
-        Article.findOne({ _id : param.id }).populate('category').populate('user').populate('comments.user').exec(function(err,results){
+        Article.findOne({ _id : param.id }).populate('category').populate('user').populate('comments').populate('comments').populate('comments.user').exec(function(err,results){
             if(err){
                 callback(err);
             }
             param.Total = results.comments.length;
-            Article.findOne({ _id : param.id },{ comments:{$slice : [start,end]}}).populate('category').populate('user').populate('comments.user').exec(callback);
+            Article.findOne({ _id : param.id },{ comments:{$slice : [start,end]}}).populate('category').populate('user').populate('comments').populate('comments.user').exec(callback);
+
         });
 
     };
@@ -89,7 +90,7 @@ module.exports = function(){
      */
     this.getLastPublishArticle = function(param,callback){
         var query = {};
-        Article.find(query).sort({"PublicTime":-1}).limit(param.pageSize).populate('category').populate('user').populate('comments.user').exec(callback);
+        Article.find(query).sort({"PublicTime":-1}).limit(param.pageSize).populate('category').populate('user').populate('comments').populate('comments.user').exec(callback);
     };
 
     /**
@@ -102,7 +103,7 @@ module.exports = function(){
         if(param.id){
             query['_id'] = param.id;
         }
-        Article.find(query).sort({"comments.createTime":-1}).limit(param.pageSize).populate('category').populate('user').populate('comments.user').exec(callback);
+        Article.find(query).sort({"comments.createTime":-1}).limit(param.pageSize).populate('category').populate('user').populate('comments').populate('comments.user').exec(callback);
     };
 
     /**
@@ -144,7 +145,7 @@ module.exports = function(){
                 callback(err);
             }
             param.Total = count;
-            Article.find(query).skip(skip).limit(param.pageSize).populate('category').populate('user').populate('comments.user').exec(callback);
+            Article.find(query).skip(skip).limit(param.pageSize).populate('category').populate('user').populate('comments').populate('comments.user').exec(callback);
         });
 
     };

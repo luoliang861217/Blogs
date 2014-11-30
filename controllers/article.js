@@ -8,9 +8,11 @@ var base = require('./base');
 var settings = require('../settings');
 var articleRepository = require('../Repository/articleRepository');
 var categoryRepository = require('../Repository/categoryRepository');
+var commentRepository = require('../Repository/commentRepository');
 var Article = require('../model/article');
 var log = require('../common/log');
 var moment = require('moment');
+var Q = require('q');
 
 //自定义变量
 var title = ' - '+ settings.blogtitle;
@@ -37,17 +39,26 @@ function article(){
         }catch(e) {
             this.log(true,'参数不合法：' + e.message,log.type.exception ,req, errReturn);
         }
-        repository.list(req.query,function(err,articles){
-            if(err){
-                this.log(true,err,log.type.exception ,req, errReturn);
-            }
-            articles.forEach(function(e){
-                e.create = moment.unix(e.createTime).format('YYYY-MM-DD HH:mm:ss');
-                e.comments.total = e.comments.length;
-                e.comments.forEach(function(item){
-                    item.create = moment.unix(item.createTime).format('YYYY-MM-DD HH:mm:ss');
-                });
-            })
+        var getList = function(query){
+            var defered = Q.defer();
+            repository.list(query,function(err,articles){
+                if(!err){
+                    articles.forEach(function(e){
+                        e.create = moment.unix(e.createTime).format('YYYY-MM-DD HH:mm:ss');
+                        e.comments.total = e.comments.length;
+                        e.comments.forEach(function(item){
+                            item.create = moment.unix(item.createTime).format('YYYY-MM-DD HH:mm:ss');
+                        });
+                    });
+                    defered.resolve(articles);
+                }
+                else{
+                    defered.reject(err);
+                }
+            });
+            return defered.promise;
+        };
+        var success = function(articles){
             res.render('admin/article', {
                 title: '文章管理' + title,
                 layout:'admin/layout',
@@ -56,7 +67,11 @@ function article(){
                 list : articles,
                 page : this.page(req.query.pageIndex,req.query.pageSize,req.query.Total,'','typecho-pager')
             });
-        }.bind(this));
+        };
+        var error = function(err){
+            this.log(true,err,log.type.exception ,req, errReturn);
+        };
+        getList(req.query).done(success.bind(this),error.bind(this));
     };
 
     /**
@@ -70,10 +85,19 @@ function article(){
             return res.redirect('/admin/article');
         };
         var param = {pageIndex : 1,pageSize : 10000};
-        CategoryRepository.list(param,function(err,categoies){
-            if(err){
-                this.log(true,err,log.type.exception ,req, errReturn);
-            }
+        var getList = function(query){
+            var defered = Q.defer();
+            CategoryRepository.list(query,function(err,categoies){
+                if(!err){
+                    defered.resolve(categoies);
+                }
+                else{
+                    defered.reject(err);
+                }
+            });
+            return defered.promise;
+        };
+        var success = function(categoies){
             res.render('admin/article_add', {
                 title: '添加文章' + title,
                 layout:'admin/layout',
@@ -81,7 +105,11 @@ function article(){
                 error: req.flash("error").toString(),
                 data :categoies
             });
-        }.bind(this));
+        };
+        var error = function(err){
+            this.log(true,err,log.type.exception ,req, errReturn);
+        };
+        getList(param).done(success.bind(this),error.bind(this));
     };
 
     /**
@@ -130,27 +158,56 @@ function article(){
         }
         if(isCommit){
             param.PublicTime = moment(param.PublicTime).unix();
-            cgrepository.getById(param.category,function(err,category){
-                if(err){
-                    this.log(true,err.message,log.type.exception ,req, errReturn);
-                }
-                repository.add(param,function(err,article){
-                    if(err){
-                        this.log(true,err.message,log.type.exception ,req, errReturn);
+            var getById = function(param){
+                var defered = Q.defer();
+                cgrepository.getById(param.category,function(err,category){
+                    if(!err){
+                        defered.resolve(category);
                     }
-                    category.articles.push(article);
-                    cgrepository.update(category,function(err,category){
-                        if(err){
-                            this.log(true,err.message,log.type.exception ,req, errReturn);
-                        }
-                        this.log(false,article.toString(),log.type.add ,req, function(){
-                            req.flash('success', '添加成功!');
-                            res.redirect('/admin/article');
-                        });
-                    }.bind(this));
-                }.bind(this));
-            }.bind(this));
+                    else{
+                        defered.reject(err);
+                    }
+                });
+                return defered.promise;
+            };
+            var add = function(category){
+                var defered = Q.defer();
+                repository.add(param,function(err,article){
+                    if(!err){
+                        category.articles.push(article);
+                        var model = {category:category,article:article};
+                        defered.resolve(model);
+                    }
+                    else{
+                        defered.reject(err);
+                    }
+                });
+                return defered.promise;
+            };
+            var update = function(model){
+                var defered = Q.defer();
+                cgrepository.update(model.category,function(err,category){
+                    if(!err){
+                        model.category = category;
+                        defered.resolve(model);
+                    }
+                    else{
+                        defered.reject(err);
+                    }
+                });
+                return defered.promise;
 
+            };
+            var success = function(model){
+                this.log(false,model.article.toString(),log.type.add ,req, function(){
+                    req.flash('success', '添加成功!');
+                    res.redirect('/admin/article');
+                });
+            };
+            var error = function(err){
+                this.log(true,err,log.type.exception ,req, errReturn);
+            };
+            getById(param).then(add).then(update).done(success.bind(this),error.bind(this));
         }
     };
 
@@ -367,6 +424,7 @@ function article(){
     this.post = function(req,res){
         var err = '';
         var repository = new articleRepository();
+        var comRepository = new commentRepository();
         var errReturn = function(){
             var json = {success : false,mes : err};
             res.send(JSON.stringify(json));
@@ -384,20 +442,27 @@ function article(){
             this.log(true,err,log.type.add ,req, errReturn);
         }
         else{
-            repository.getById(req.body.article,function(err,article){
+            var param = {body:param.body, user : param.user,createTime:moment().unix(),article:req.body.article };
+            comRepository.add(param,function(err,comment){
                 if(err){
                     err = err.message;
                     this.log(true,err,log.type.exception ,req, errReturn);
                 }
-                var comment = {body:param.body, user : param.user,createTime:moment().unix()};
-                article.comments.push(comment);
-                repository.update(article,function(err,newarticle){
+                repository.getById(req.body.article,function(err,article){
                     if(err){
-                        this.log(true,err.message,log.type.exception ,req, errReturn);
+                        err = err.message;
+                        this.log(true,err,log.type.exception ,req, errReturn);
                     }
-                    res.redirect('/article/' + req.body.article);
-                });
-            });
+                    article.comments.push(comment._id);
+                    repository.update(article,function(err,newarticle){
+                        if(err){
+                            this.log(true,err.message,log.type.exception ,req, errReturn);
+                        }
+                        res.redirect('/article/' + req.body.article);
+                    }.bind(this));
+                }.bind(this));
+            }.bind(this));
+
         }
 
     };

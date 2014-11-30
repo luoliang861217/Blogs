@@ -45,7 +45,7 @@ module.exports = function(){
      * @param callback  回调函数
      */
     this.update = function(param,callback){
-        this.getById(param.id,function(err,result){
+        Category.findOne(param.id,function(err,result){
             if(err){
                 callback(err);
             }
@@ -100,10 +100,6 @@ module.exports = function(){
         if(param.description){
             qurey['description'] = param.description;
         }
-
-        /**
-         * articles属性由关系维护自动加载
-         */
         Category.count(qurey,function(err,count){
             if(err){
                 callback(err);

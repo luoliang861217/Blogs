@@ -39,15 +39,15 @@
     <li itemscope itemtype="#" id="comment-<%= data.comments[i]._id %>" class="comment-body comment-parent comment-odd">
         <div class="comment-author" itemprop="creator" itemscope itemtype="#">
             <span itemprop="image">
-                <img class="avatar" src="<%= data.comments[i].user.avatar %>" alt="" width="32" height="32" />
+                <img class="avatar" src="<%= data.comments[i].userObj.avatar %>" alt="" width="32" height="32" />
             </span>
             <cite class="fn" itemprop="name">
-                <a href="#" rel="external nofollow"><%= data.comments[i].user.username %></a>
+                <a href="#" rel="external nofollow"><%= data.comments[i].userObj.username %></a>
             </cite>
         </div>
         <div class="comment-meta">
             <a href="#">
-                <time itemprop="createTime" datetime="<%= data.comments[i].createTime %>"><%= data.comments[i].create %></time>
+                <time itemprop="createTime" datetime="<%= data.comments[i].create %>"><%= data.comments[i].create %></time>
             </a>
         </div>
         <div class="comment-content" itemprop="commentText">

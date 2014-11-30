@@ -1,5 +1,5 @@
 module.exports = {
-    db:'Blogs',
+    db:'BlogsTest',
     host:'localhost',
     blogtitle:'独孤求败',
     blogdescription:'希望自己是站在高处寻找对手的一名码农。',
@@ -8,7 +8,7 @@ module.exports = {
     debug:true,
     //是否记录操作日志
     isLog:true,
-    session_db : 'Blogs',
+    session_db : 'BlogsTest',
     session_secret: 'asura_secret', // 务必修改
     auth_cookie_name: 'asurablog',
     // 邮箱配置

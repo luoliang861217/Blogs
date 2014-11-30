@@ -9,6 +9,7 @@ var base = require('./base');
 var settings = require('../settings');
 var userRepository = require('../Repository/userRepository');
 var log = require('../common/log');
+var Q = require('q');
 
 //自定义变量
 var title = ' - '+ settings.blogtitle;
@@ -67,25 +68,43 @@ function register(){
             this.log(true,'邮箱不正确！',log.type.add,req,errReturn);
         }
         param.password = param.password.encryption();
-        repository.getByuserName(param.username,function(err,user){
-            if(err){
-                this.log(true,err,log.type.exception,req,errReturn);
-            }
-            if(user){
-                this.log(true,'用户已经存在!',log.type.add,req,errReturn);
-            }
-            repository.add(param,function(err,user){
-                if (err) {
-                    this.log(true,err.message,log.type.exception,req,errReturn);
-                }
+        var getByuserName = function(param){
+            var defered = Q.defer();
+            repository.getByuserName(param.username,function(err,user){
                 if(user){
-                    this.log(false,user.username + '注册',log.type.add ,req, function(){
-                        req.flash('success', '注册成功!');
-                        res.redirect('/');
-                    });
+                    defered.reject('用户已经存在!');
                 }
-            }.bind(this));
-        }.bind(this));
+                else if(!err){
+                    defered.resolve(param);
+                }
+                else{
+                    defered.reject(err);
+                }
+            });
+            return defered.promise;
+        };
+        var add = function(param){
+            var defered = Q.defer();
+            repository.add(param,function(err,user){
+                if(!err){
+                    defered.resolve(user);
+                }
+                else{
+                    defered.reject(err);
+                }
+            });
+            return defered.promise;
+        };
+        var error = function(err){
+            this.log(true,err,log.type.exception,req,errReturn);
+        };
+        var success = function(user){
+            this.log(false,user.username + '注册',log.type.add ,req, function(){
+                req.flash('success', '注册成功!');
+                res.redirect('/');
+            });
+        };
+        getByuserName(param).then(add).done(success.bind(this),error.bind(this));
     };
 }
 

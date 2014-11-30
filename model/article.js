@@ -20,7 +20,7 @@ var articleSchema = new Schema({
 //文章所属用户
     user : { type: Schema.Types.ObjectId, ref: 'User' },
 //文章所有评论
-    comments : [{ body: String, createTime:{type:Number,default:moment().unix()},user: { type: Schema.Types.ObjectId, ref: 'User' }}],
+    comments : [{ type: Schema.Types.ObjectId, ref: 'Comment' }],
 //创建时间
     createTime:{type:Number,default:moment().unix() },
 //修改时间
@@ -30,11 +30,3 @@ var articleSchema = new Schema({
 });
 
 module.exports = mongoose.model('Article',articleSchema);
-
-
-
-
-
-
-
-

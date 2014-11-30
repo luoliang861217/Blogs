@@ -38,10 +38,10 @@ function category(){
         }catch(e) {
             this.log(true,'参数不合法：' + e.message,log.type.exception ,req, errReturn);
         }
-        repository.list(req.query,function(err,categoies){
-            if(err){
-                this.log(true,err,log.type.exception ,req, errReturn);
-            }
+        var errReturn = function(){
+            return res.redirect('/admin/category');
+        };
+        var success = function(categoies){
             res.render('admin/category', {
                 title: '分类管理' + title,
                 layout:'admin/layout',
@@ -50,8 +50,11 @@ function category(){
                 data : categoies,
                 page : this.page(req.query.pageIndex,req.query.pageSize,req.query.Total,'','typecho-pager')
             });
-        }.bind(this));
-
+        };
+        var error = function(err){
+            this.log(true,err,log.type.exception ,req, errReturn);
+        };
+        this.promise(repository.list,req.query).done(success.bind(this),error.bind(this));
     };
 
     /**
@@ -61,13 +64,10 @@ function category(){
      */
     this.showadd = function(req,res){
         var repository = new categoryRepository();
-        repository.list(req.query,function(err,categoies){
-            var errReturn = function(){
-                return res.redirect('/admin/category');
-            };
-            if(err){
-                this.log(true,err,log.type.exception ,req, errReturn);
-            }
+        var errReturn = function(){
+            return res.redirect('/admin/category');
+        };
+        var success = function(categoies){
             res.render('admin/category_add', {
                 title: '添加分类' + title,
                 layout:'admin/layout',
@@ -76,6 +76,11 @@ function category(){
                 list : categoies,
                 data : new Category({name : '', slug:'',description:'' })
             });
+        };
+        this.promise(repository.list,req.query).done(success.bind(this),function(err){
+            if(err){
+                this.log(true,err,log.type.exception ,req, errReturn);
+            }
         }.bind(this));
     };
 
@@ -104,14 +109,14 @@ function category(){
         if(req.body.parent && req.body.parent != ''){
             param.parent = req.body.parent;
         }
-        repository.add(param,function(err,category){
-            if(err){
-                this.log(true,err.message,log.type.exception ,req, errReturn);
-            }
+        var success = function(category){
             this.log(false,category.toString(),log.type.add ,req, function(){
                 req.flash('success', '添加成功!');
                 res.redirect('/admin/category');
             });
+        };
+        this.promise(repository.add,param).done(success.bind(this),function(err){
+            this.log(true,err,log.type.exception ,req, errReturn);
         }.bind(this));
     };
 
@@ -126,14 +131,14 @@ function category(){
         };
         var repository = new categoryRepository();
         if(req.query.id){
-            repository.findByIdAndRemove(req.query.id,function(err,cate){
-                if(err){
-                    this.log(true,err.message,log.type.exception ,req, errReturn);
-                }
+            var success = function(cate){
                 this.log(false,'删除id:' + req.query.id,log.type.delete ,req, function(){
                     req.flash('success','删除成功!');
                     res.redirect('/admin/category');
                 });
+            };
+            this.promise(repository.findByIdAndRemove,req.query.id).done(success.bind(this),function(err){
+                this.log(true,err.message,log.type.exception ,req, errReturn);
             }.bind(this));
         }
         else{
@@ -156,10 +161,8 @@ function category(){
         req.query.id = null;
         req.query.pageIndex = 1;
         req.query.pageSize = 10000;
-        repository.list(req.query,function(err,categoies){
-            if(err){
-                this.log(true,err,log.type.exception ,req, errReturn);
-            }
+        var success = function(categoies){
+
             for(var i=0;i<categoies.length;i++){
                 if(categoies[i].id === id){
                     data = categoies[i];
@@ -174,6 +177,9 @@ function category(){
                 list : categoies,
                 data : data
             });
+        };
+        this.promise(repository.list,req.query).done(success.bind(this),function(err){
+            this.log(true,err,log.type.exception ,req, errReturn);
         }.bind(this));
     };
 
@@ -200,14 +206,13 @@ function category(){
         if(req.body.parent && req.body.parent != ''){
             param.parent = req.body.parent;
         }
-        repository.update(param,function(err,category){
-            if(err){
-                this.log(true,err.message,log.type.exception ,req, errReturn);
-            }
+        this.promise(repository.update,param).done(function(category){
             this.log(false,category.toString(),log.type.update ,req, function(){
                 req.flash('success', '保存成功!');
                 res.redirect('/admin/category');
             });
+        }.bind(this),function(err){
+            this.log(true,err.message,log.type.exception ,req, errReturn);
         }.bind(this));
     };
 
@@ -229,10 +234,7 @@ function category(){
         }catch(e) {
             this.log(true,'参数不合法：' + e.message,log.type.exception ,req, errReturn);
         }
-        repository.list(req.query,function(err,categoies){
-            if(err){
-                this.log(true,err,log.type.exception ,req, errReturn);
-            }
+        this.promise(repository.list,req.query).done(function(categoies){
             res.render('admin/category', {
                 title: '分类管理' + title,
                 layout:'admin/layout',
@@ -241,8 +243,9 @@ function category(){
                 data : categoies,
                 page : this.page(req.query.pageIndex,req.query.pageSize,req.query.Total,'','typecho-pager')
             });
+        }.bind(this),function(err){
+            this.log(true,err,log.type.exception ,req, errReturn);
         }.bind(this));
-
     };
 }
 

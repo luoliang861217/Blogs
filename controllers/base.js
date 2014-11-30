@@ -3,6 +3,7 @@
  */
 
 var log = require('../common/log');
+var Q = require('q');
 
 module.exports = function(){
     this.name = '我是一个人';
@@ -89,5 +90,25 @@ module.exports = function(){
         html += '</ol>';
         return html;
     }
+
+
+    /**
+     * 使用Q.defer()构造promise实例
+     * @param func  函数名称
+     * @param param 函数参数
+     * @returns {*}
+     */
+    this.promise = function(func,param){
+        var defered = Q.defer();
+        func(param,function(err,result){
+            if(!err){
+                defered.resolve(result);
+            }
+            else{
+                defered.reject(err);
+            }
+        });
+        return defered.promise;
+    };
 }
 
